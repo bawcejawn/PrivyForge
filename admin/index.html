@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>PrivyForge Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+</head>
+<body class="admin">
+  <!-- @include header -->
+  <main class="wrap">
+    <section class="hero" style="padding-bottom:0">
+      <h1>Admin</h1>
+      <p class="lede">Changes you save here are committed to GitHub and the site redeploys in about a minute. Your token stays in this browser.</p>
+    </section>
+
+    <!-- Connect -->
+    <section class="tool" id="connect">
+      <h2 style="margin-top:0">Connect to GitHub</h2>
+      <form class="form-stack" id="connect-form" style="max-width:560px" onsubmit="return false">
+        <label class="field">Repository<input name="repo" autocomplete="off" spellcheck="false" /></label>
+        <label class="field">Branch<input name="branch" value="main" autocomplete="off" /></label>
+        <label class="field">Fine-grained personal access token
+          <input name="token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" />
+        </label>
+        <label class="field" style="flex-direction:row;align-items:center;gap:8px"><input type="checkbox" name="remember" /> Remember on this device (otherwise forgotten when the tab closes)</label>
+        <div class="row-actions" style="margin-top:0"><button class="btn" id="connect-btn">Connect</button><span class="status" id="connect-status" role="status"></span></div>
+      </form>
+      <details style="margin-top:14px"><summary><b>How to create the token (2 minutes)</b></summary>
+        <ol>
+          <li>GitHub → Settings → Developer settings → <b>Fine-grained tokens</b> → Generate new token.</li>
+          <li>Repository access: <b>Only select repositories</b> → your PrivyForge repo.</li>
+          <li>Permissions → Repository: <b>Contents: Read and write</b>. Optional: <b>Actions: Read</b> (shows deploy status).</li>
+          <li>Set an expiry (90 days is sensible). Paste it above. Never commit or share it.</li>
+        </ol>
+      </details>
+    </section>
+
+    <!-- App -->
+    <section id="app" hidden>
+      <div class="row-actions" style="justify-content:space-between">
+        <div class="tabs" role="tablist" id="tabs">
+          <button class="btn sm" role="tab" data-tab="settings" aria-selected="true">Settings</button>
+          <button class="btn sm ghost" role="tab" data-tab="tools">Tools</button>
+          <button class="btn sm ghost" role="tab" data-tab="guides">Guides</button>
+          <button class="btn sm ghost" role="tab" data-tab="traffic">Traffic &amp; revenue</button>
+          <button class="btn sm ghost" role="tab" data-tab="pro">Pro customers</button>
+        </div>
+        <div><span class="status" id="who"></span> <button class="btn sm ghost" id="logout">Disconnect</button></div>
+      </div>
+      <div class="summary" id="toast" hidden></div>
+      <div id="deploys" class="status" style="margin:8px 0"></div>
+
+      <!-- Settings -->
+      <div class="tool" data-panel="settings">
+        <form id="settings-form" class="form-stack" onsubmit="return false">
+          <h2 style="margin-top:0">Ads</h2>
+          <div class="inline">
+            <label class="field">AdSense publisher ID<input name="adsenseClient" placeholder="ca-pub-1234567890123456" autocomplete="off" /></label>
+            <span></span>
+          </div>
+          <div class="inline">
+            <label class="field">Ad unit: below tool<input name="slot_tool-below" placeholder="1234567890" /></label>
+            <label class="field">Ad unit: mid-content<input name="slot_content-mid" placeholder="1234567890" /></label>
+          </div>
+          <p class="status">Also paste your publisher line into <code>public/ads.txt</code> once approved.</p>
+          <h2>Affiliate links</h2>
+          <div class="table-scroll" style="max-height:none"><table class="debt-table" id="aff-table"><thead><tr><th>Slot</th><th>Label (for you)</th><th>Affiliate URL (https://…)</th></tr></thead><tbody></tbody></table></div>
+          <p class="status">Empty links are hidden on the site automatically.</p>
+          <h2>Support &amp; Pro</h2>
+          <div class="table-scroll" style="max-height:none"><table class="debt-table" id="support-table"><thead><tr><th>Button label</th><th>URL (https://…)</th></tr></thead><tbody></tbody></table></div>
+          <label class="field">Crypto addresses (one per line: <code>Network | address</code>)<textarea name="crypto" placeholder="Bitcoin | bc1q…&#10;Base USDC | 0x…"></textarea></label>
+          <label class="field">Pro checkout URL (Lemon Squeezy / Stripe Payment Link)<input name="checkoutUrl" placeholder="https://…" /></label>
+          <h2>Site</h2>
+          <label class="field">Contact email<input name="contactEmail" type="email" /></label>
+          <label class="field">Announcement bar (leave empty to hide)<input name="announcement" maxlength="160" /></label>
+          <div class="row-actions"><button class="btn" id="save-settings">Save settings</button><span class="status" id="settings-status"></span></div>
+        </form>
+      </div>
+
+      <!-- Tools -->
+      <div class="tool" data-panel="tools" hidden>
+        <h2 style="margin-top:0">Tools</h2>
+        <p class="status">Hide a tool to remove it from the home page, footer and favorites (its page still builds). Featured tools show first on the home page. Use ↑ ↓ to reorder.</p>
+        <div class="table-scroll" style="max-height:none"><table class="debt-table" id="tools-table"><thead><tr><th>Order</th><th>On</th><th>★</th><th>Title</th><th>Short description</th><th>Category</th></tr></thead><tbody></tbody></table></div>
+        <div class="row-actions"><button class="btn" id="save-tools">Save tools</button><span class="status" id="tools-status"></span></div>
+      </div>
+
+      <!-- Guides -->
+      <div class="tool" data-panel="guides" hidden>
+        <div class="grid-2">
+          <div>
+            <h2 style="margin-top:0">Guides</h2>
+            <button class="btn sm" id="new-guide">+ New guide</button>
+            <ul class="files" id="guide-list"></ul>
+          </div>
+          <div id="editor" hidden>
+            <form class="form-stack" id="guide-form" onsubmit="return false">
+              <label class="field">Title <small id="t-count"></small><input name="title" maxlength="120" /></label>
+              <label class="field">Meta description <small id="d-count"></small><textarea name="description" maxlength="200" style="min-height:60px"></textarea></label>
+              <div class="inline">
+                <label class="field">URL slug<input name="slug" pattern="[a-z0-9-]+" /></label>
+                <label class="field">Date<input name="date" type="date" /></label>
+              </div>
+              <div class="inline">
+                <label class="field">Links to tool<select name="tool"><option value="">— none —</option></select></label>
+                <label class="field" style="flex-direction:row;align-items:center;gap:8px;margin-top:22px"><input type="checkbox" name="draft" /> Draft (not published)</label>
+              </div>
+              <label class="field">Article (Markdown) <small id="w-count"></small><textarea name="body" style="min-height:320px;font-family:var(--mono);font-size:.9rem"></textarea></label>
+              <div class="row-actions">
+                <button class="btn" id="save-guide">Publish / save</button>
+                <button class="btn ghost" id="delete-guide" type="button">Delete</button>
+                <span class="status" id="guide-status"></span>
+              </div>
+            </form>
+            <h3>Preview</h3>
+            <article class="content" id="preview" style="border:1px solid var(--line);border-radius:12px;padding:0 18px;margin-top:8px"></article>
+          </div>
+        </div>
+      </div>
+
+      <!-- Traffic & revenue -->
+      <div class="tool" data-panel="traffic" hidden>
+        <h2 style="margin-top:0">Revenue log <small class="status">(stored only in this browser — your repo is public)</small></h2>
+        <form class="controls" id="rev-form" onsubmit="return false">
+          <label class="field">Month<input name="month" type="month" required /></label>
+          <label class="field">Pageviews<input name="pageviews" inputmode="numeric" /></label>
+          <label class="field">Ad revenue ($)<input name="ads" inputmode="decimal" /></label>
+          <label class="field">Affiliate ($)<input name="aff" inputmode="decimal" /></label>
+          <label class="field">Pro / tips ($)<input name="pro" inputmode="decimal" /></label>
+          <button class="btn" id="rev-add">Add / update month</button>
+        </form>
+        <div class="kpis" id="rev-kpis" style="margin-top:12px"></div>
+        <div class="chart-wrap"><canvas id="rev-chart" role="img" aria-label="Monthly revenue"></canvas>
+          <div class="legend"><span><i style="background:var(--ember)"></i>Total revenue</span><span><i style="background:var(--ok)"></i>RPM ×10 (scaled)</span></div></div>
+        <div class="table-scroll"><table id="rev-table"></table></div>
+        <div class="row-actions"><button class="btn ghost sm" id="rev-export">Export CSV</button>
+          <label class="btn ghost sm" for="rev-import" style="cursor:pointer">Import CSV</label><input type="file" id="rev-import" accept=".csv" hidden></div>
+
+        <h2>Search Console report</h2>
+        <p class="status">In Google Search Console → Performance → <b>Export → Download CSV</b>, unzip, then drop <code>Queries.csv</code> and/or <code>Pages.csv</code> here. Analyzed locally.</p>
+        <div class="drop" id="gsc-drop" tabindex="0" role="button" style="padding:22px"><strong>Drop Queries.csv / Pages.csv</strong><input type="file" /></div>
+        <div id="gsc-out"></div>
+
+        <h2>Dashboards</h2>
+        <div class="tool-grid">
+          <a class="tool-card" href="https://search.google.com/search-console" target="_blank" rel="noopener"><b>Search Console</b><span>Rankings, clicks, indexing</span></a>
+          <a class="tool-card" href="https://www.google.com/adsense/" target="_blank" rel="noopener"><b>AdSense</b><span>Earnings and RPM</span></a>
+          <a class="tool-card" href="https://dash.cloudflare.com/?to=/:account/web-analytics" target="_blank" rel="noopener"><b>Cloudflare Web Analytics</b><span>Privacy-friendly pageviews</span></a>
+          <a class="tool-card" id="actions-link" href="#" target="_blank" rel="noopener"><b>GitHub Actions</b><span>Build and deploy history</span></a>
+        </div>
+      </div>
+
+      <!-- Pro -->
+      <div class="tool" data-panel="pro" hidden>
+        <h2 style="margin-top:0">Pro customers</h2>
+        <p>PrivyForge has no server, so customer records, payments, refunds and license keys live with your payment provider. That keeps card data and personal details off your site entirely, which is also why the admin never stores them.</p>
+        <div class="kpis" id="pro-status"></div>
+        <h3>Setup checklist</h3>
+        <ol>
+          <li>Create a <a href="https://www.lemonsqueezy.com/" target="_blank" rel="noopener">Lemon Squeezy</a> store (it's the merchant of record, so it handles sales tax/VAT for you).</li>
+          <li>Add a product "PrivyForge Pro" (e.g. $3/month or $25/year) and turn on <b>License keys</b>.</li>
+          <li>Paste the checkout link into <b>Settings → Pro checkout URL</b> and the Support "Go ad-free (Pro)" button.</li>
+          <li>Manage customers, refunds and keys in the Lemon Squeezy dashboard (links below).</li>
+        </ol>
+        <div class="tool-grid">
+          <a class="tool-card" href="https://app.lemonsqueezy.com/customers" target="_blank" rel="noopener"><b>Customers</b><span>Who has Pro</span></a>
+          <a class="tool-card" href="https://app.lemonsqueezy.com/orders" target="_blank" rel="noopener"><b>Orders &amp; refunds</b><span>Payments and refunds</span></a>
+          <a class="tool-card" href="https://app.lemonsqueezy.com/licenses" target="_blank" rel="noopener"><b>License keys</b><span>Issue, disable, reset</span></a>
+          <a class="tool-card" href="https://app.lemonsqueezy.com/subscriptions" target="_blank" rel="noopener"><b>Subscriptions</b><span>Renewals and churn</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/admin.js"></script>
+</body>
+</html>

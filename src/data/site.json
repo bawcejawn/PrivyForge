@@ -1,0 +1,32 @@
+{
+  "_note": "Edited from /admin/ (Settings tab) or by hand. Committed to a PUBLIC repo: never put secrets or revenue numbers here.",
+  "ads": {
+    "adsenseClient": "",
+    "slots": { "tool-below": "", "content-mid": "" }
+  },
+  "affiliates": {
+    "PHOTO_EDITOR": { "label": "Photo editor", "url": "" },
+    "STOCK_PHOTOS": { "label": "Stock photos", "url": "" },
+    "HOSTING_CDN": { "label": "Hosting / image CDN", "url": "" },
+    "ESIGN": { "label": "E-signature", "url": "" },
+    "PDF_EDITOR": { "label": "Desktop PDF editor", "url": "" },
+    "CLOUD_BACKUP": { "label": "Encrypted cloud backup", "url": "" },
+    "MORTGAGE_RATES": { "label": "Mortgage rate marketplace", "url": "" },
+    "REFI": { "label": "Refinance offers", "url": "" },
+    "PERSONAL_LOAN": { "label": "Personal loan marketplace", "url": "" }
+  },
+  "support": {
+    "links": [
+      { "label": "Buy us a coffee", "url": "" },
+      { "label": "GitHub Sponsors", "url": "" },
+      { "label": "Go ad-free (Pro)", "url": "" }
+    ],
+    "crypto": []
+  },
+  "pro": {
+    "checkoutUrl": "",
+    "lemonSqueezyStoreUrl": ""
+  },
+  "contactEmail": "hello@privyforge.com",
+  "announcement": ""
+}

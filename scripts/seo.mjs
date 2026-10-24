@@ -4,7 +4,7 @@ import { join, relative } from 'node:path';
 import { SITE } from '../site.config.js';
 
 const dist = new URL('../dist/', import.meta.url).pathname;
-const EXCLUDE = new Set(['/terms/', '/contact/']);
+const EXCLUDE = new Set(['/terms/', '/contact/', '/admin/', '/my/', '/support/']);
 const PRIORITY = { '/': '1.0', '/compress-image/': '0.9', '/merge-pdf/': '0.9', '/compress-pdf/': '0.9', '/split-pdf/': '0.8' };
 
 const urls = [];
@@ -26,5 +26,5 @@ ${urls.sort().map((u) => `  <url><loc>${SITE.url}${u}</loc><lastmod>${today}</la
 </urlset>
 `;
 writeFileSync(join(dist, 'sitemap.xml'), xml);
-writeFileSync(join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
+writeFileSync(join(dist, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
 console.log(`sitemap.xml: ${urls.length} URLs`);

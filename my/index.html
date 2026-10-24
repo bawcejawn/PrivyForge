@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>My PrivyForge — Favorites, Saved Scenarios &amp; Money Checkup</title>
+  <meta name="description" content="Your favorite tools, recent tools, saved calculator scenarios and money checkup — stored only on this device." />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="{{SITE_URL}}/my/" />
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <section class="hero">
+      <h1>My PrivyForge</h1>
+      <p class="lede">Your favorites, recent tools, saved scenarios and money checkup. Everything here is stored <b>only in this browser</b> — no account, nothing on our servers. Use Backup to move it to another device.</p>
+    </section>
+
+    <section class="tool" aria-labelledby="fav-h">
+      <h2 id="fav-h" style="margin-top:0">★ Favorites</h2>
+      <div class="tool-grid" id="favs"></div>
+    </section>
+
+    <section class="tool" aria-labelledby="sc-h">
+      <h2 id="sc-h" style="margin-top:0">💾 Saved scenarios</h2>
+      <p class="status">Save any mortgage, loan, refinance, rent-vs-buy or debt plan with the "Save this scenario" button on that tool.</p>
+      <div class="table-scroll" style="max-height:none"><table id="scenarios" class="compare-table"></table></div>
+    </section>
+
+    <section class="tool" aria-labelledby="ck-h">
+      <h2 id="ck-h" style="margin-top:0">✅ Money checkup</h2>
+      <p class="status">Five steps, about 30 minutes, often worth hundreds of dollars a year. Your progress is saved here.</p>
+      <ol class="files" id="checkup" style="list-style:none"></ol>
+    </section>
+
+    <section class="tool" aria-labelledby="rc-h">
+      <h2 id="rc-h" style="margin-top:0">🕘 Recently used</h2>
+      <div class="tool-grid" id="recent"></div>
+    </section>
+
+    <section class="tool" aria-labelledby="bk-h">
+      <h2 id="bk-h" style="margin-top:0">Backup</h2>
+      <div class="row-actions" style="margin-top:0">
+        <button class="btn ghost" id="export">Download backup</button>
+        <label class="btn ghost" for="import" style="cursor:pointer">Restore from backup</label>
+        <input type="file" id="import" accept=".json,application/json" hidden />
+        <button class="btn ghost" id="clear">Clear everything</button>
+        <span class="status" id="bk-status" role="status"></span>
+      </div>
+    </section>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/my.js"></script>
+</body>
+</html>

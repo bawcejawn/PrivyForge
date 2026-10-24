@@ -10,6 +10,7 @@ PrivyForge bundles or builds on these open-source projects:
 | pdf.js (pdfjs-dist) | Apache-2.0 | PDF rendering |
 | qrcode | MIT | QR codes |
 | fflate | MIT | ZIP downloads |
+| marked | MIT | Markdown guides (build + admin preview) |
 | vite, vite-plugin-pwa, Workbox | MIT | Build + offline support |
 
 Methodology and test vectors:

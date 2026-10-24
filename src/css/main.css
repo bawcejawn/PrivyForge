@@ -167,3 +167,9 @@ thead th { position: sticky; top: 0; background: var(--surface-2); font-family: 
 .subs-table small { font-family: var(--font); }
 .subs-table .pill { font-size: .72rem; padding: 1px 7px; }
 .compare-table { margin-top: 12px; }
+
+/* Announcement bar (site.json → announcement) */
+.announce { background: var(--ember); color: var(--ember-ink); text-align: center; font-size: .9rem; font-weight: 600; padding: 7px 16px; }
+/* Favorite star on tool pages */
+.fav-btn { margin-left: 8px; vertical-align: middle; font-size: .85rem; }
+.fav-btn[aria-pressed="true"] { background: var(--ember-soft); color: var(--ember); }

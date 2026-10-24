@@ -3,13 +3,14 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
 import { SITE } from './site.config.js';
+import { loadSite, loadTools, toolGrid, footerTools, applyAffiliates, announcement, esc } from './scripts/render-data.mjs';
 
 const root = resolve(__dirname);
 
 // Every folder containing an index.html becomes a page (multi-page static build).
 function findPages(dir, out = {}) {
   for (const name of readdirSync(dir)) {
-    if (['node_modules', 'dist', 'public', 'src', 'scripts', '.git'].includes(name)) continue;
+    if (['node_modules', 'dist', 'public', 'src', 'scripts', 'tests', 'content', '.git', '.github'].includes(name)) continue;
     const p = join(dir, name);
     if (statSync(p).isDirectory()) findPages(p, out);
     else if (name === 'index.html') out[relative(root, dir) || 'home'] = p;
@@ -29,9 +30,17 @@ function partials() {
           out = out.replace(/<!--\s*@include\s+([\w-]+)\s*-->/g, (_, n) =>
             readFileSync(resolve(root, 'src/partials', `${n}.html`), 'utf8'));
         }
+        // Data-driven blocks (edited from /admin/): tool grid, footer tool columns, affiliates.
+        const site = loadSite(), tools = loadTools();
+        out = out
+          .replace('<!-- @tools-grid -->', toolGrid(tools))
+          .replace('<!-- @footer-tools -->', footerTools(tools))
+          .replace('<!-- @announcement -->', announcement(site));
+        out = applyAffiliates(out, site);
         return out
           .replaceAll('{{SITE_URL}}', SITE.url)
           .replaceAll('{{SITE_NAME}}', SITE.name)
+          .replaceAll('{{CONTACT_EMAIL}}', esc(site.contactEmail || ''))
           .replaceAll('{{YEAR}}', String(new Date().getFullYear()));
       },
     },
@@ -58,6 +67,8 @@ function basePathLinks() {
 
 export default defineConfig({
   base: BASE,
+  // Default repo for /admin/ (Actions sets GITHUB_REPOSITORY automatically).
+  define: { __REPO__: JSON.stringify(process.env.GITHUB_REPOSITORY || 'bawcejawn/PrivyForge') },
   appType: 'mpa',
   build: { rollupOptions: { input: findPages(root) }, target: 'es2022' },
   worker: { format: 'es' },

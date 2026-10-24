@@ -3,3 +3,6 @@ dist/
 tests/e2e/fx/
 tests/e2e/out/
 .DS_Store
+
+# Generated from content/guides/*.md by scripts/guides.mjs
+blog/
