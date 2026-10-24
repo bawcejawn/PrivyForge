@@ -1,0 +1,52 @@
+# Free hosting on GitHub Pages. Push to main -> tests run -> site deploys.
+# One-time setup: repo Settings -> Pages -> Source: "GitHub Actions".
+#
+# URL options:
+#   * Project site  https://<user>.github.io/<repo>/  -> BASE_PATH is set to /<repo>/ automatically.
+#   * Custom domain or a <user>.github.io repo         -> set repo variable BASE_PATH to "/"
+#     (Settings -> Secrets and variables -> Actions -> Variables) and SITE_URL to your domain.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      BASE_PATH: ${{ vars.BASE_PATH || format('/{0}/', github.event.repository.name) }}
+      SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      # GitHub Pages has no _headers support; harmless to ship, ignored.
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

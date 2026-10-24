@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Mortgage Calculator with Amortization Schedule, PMI &amp; Taxes | PrivyForge</title>
+  <meta name="description" content="Estimate your monthly mortgage payment including taxes, insurance, HOA and PMI. See a full amortization schedule, chart, and how much extra payments save." />
+  <link rel="canonical" href="{{SITE_URL}}/mortgage-calculator/" />
+  <meta property="og:title" content="Mortgage Calculator — Payment, Amortization & Extra Payments" />
+  <meta property="og:description" content="Monthly payment with PITI + PMI, full schedule, CSV export." />
+  <meta property="og:url" content="{{SITE_URL}}/mortgage-calculator/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Mortgage Calculator","url":"{{SITE_URL}}/mortgage-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Mortgage Calculator","item":"{{SITE_URL}}/mortgage-calculator/"}]}
+  ]}
+  </script>
+</head>
+<body data-calc="mortgage">
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Mortgage Calculator</nav>
+    <section class="hero">
+      <h1>Mortgage calculator</h1>
+      <p class="lede">See your full monthly payment — principal, interest, taxes, insurance, HOA and PMI — plus a complete amortization schedule and how much extra payments save you.</p>
+    </section>
+
+    <section class="tool grid-2" aria-label="Mortgage calculator">
+      <form class="form-stack" id="calc" onsubmit="return false">
+        <label class="field">Home price ($)<input name="price" inputmode="decimal" value="400000" /></label>
+        <div class="inline">
+          <label class="field">Down payment ($)<input name="down" inputmode="decimal" value="80000" /></label>
+          <label class="field">Down (%)<input name="downPct" inputmode="decimal" value="20" /></label>
+        </div>
+        <div class="inline">
+          <label class="field">Interest rate (%)<input name="rate" inputmode="decimal" value="6.5" /></label>
+          <label class="field">Term (years)
+            <select name="term"><option>30</option><option>20</option><option>15</option><option>10</option></select>
+          </label>
+        </div>
+        <div class="inline">
+          <label class="field">Property tax ($/yr)<input name="tax" inputmode="decimal" value="4800" /></label>
+          <label class="field">Insurance ($/yr)<input name="insurance" inputmode="decimal" value="1800" /></label>
+        </div>
+        <div class="inline">
+          <label class="field">HOA ($/mo)<input name="hoa" inputmode="decimal" value="0" /></label>
+          <label class="field">PMI (%/yr)<input name="pmi" inputmode="decimal" value="0.6" title="Charged when you put less than 20% down" /></label>
+        </div>
+        <div class="inline">
+          <label class="field">Extra principal ($/mo)<input name="extra" inputmode="decimal" value="0" /></label>
+          <label class="field">First payment<input name="start" type="month" /></label>
+        </div>
+      </form>
+      <!-- @include calc-results -->
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How this mortgage calculator works</h2>
+      <p>Your monthly principal and interest (P&amp;I) uses the standard fixed-rate formula: <code>M = P × r / (1 − (1 + r)<sup>−n</sup>)</code>, where <i>P</i> is the loan amount, <i>r</i> is the monthly interest rate and <i>n</i> is the number of payments. Property tax, homeowners insurance and HOA dues are added on top, because most lenders collect taxes and insurance through escrow.</p>
+      <h3>PMI</h3>
+      <p>If your down payment is under 20%, conventional lenders usually charge private mortgage insurance. We estimate it from the annual rate you enter and drop it automatically once your balance reaches 78% of the home's original price — the point where US federal law requires lenders to cancel it.</p>
+      <h3>Extra payments</h3>
+      <p>Every extra dollar goes straight to principal, so less interest accrues every month after. Add an amount above to see the total interest saved and how many months sooner you'd own your home.</p>
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>What's included in "monthly payment"?</summary><p>Principal and interest, plus your extra payment, property tax, insurance, HOA and PMI (if any). The KPI cards break each part out.</p></details>
+        <details><summary>Is a 15-year or 30-year mortgage better?</summary><p>A 15-year loan has a higher monthly payment but typically a lower rate and far less total interest. A 30-year keeps payments lower and flexible. Try both terms above, or keep the 30-year and add an extra payment to see a middle path.</p></details>
+        <details><summary>Is my data saved or sent anywhere?</summary><p>No. All calculations run in your browser. Your numbers only appear in the page URL so you can bookmark or share a scenario.</p></details>
+        <details><summary>Is this financial advice?</summary><p>No. These are estimates for planning. Your lender's Loan Estimate will show exact figures.</p></details>
+      </div>
+      <h2>Related calculators</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="/loan-calculator/"><b>Loan Calculator</b><span>Auto, personal and student loans.</span></a>
+      </div>
+      <!-- @include affiliate-finance -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/calculator.js"></script>
+</body>
+</html>

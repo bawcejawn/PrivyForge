@@ -1,0 +1,31 @@
+{
+  "name": "privyforge",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/seo.mjs",
+    "preview": "vite preview --port 4173",
+    "test": "node --test tests/*.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^6.4.5",
+    "vite-plugin-pwa": "^2.0.0"
+  },
+  "dependencies": {
+    "@jsquash/avif": "^2.1.1",
+    "@jsquash/jpeg": "^1.6.0",
+    "@jsquash/oxipng": "^2.3.0",
+    "@jsquash/png": "^3.1.1",
+    "@jsquash/webp": "^1.5.0",
+    "fflate": "^0.8.3",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^4.10.38",
+    "qrcode": "^1.5.4",
+    "upng-js": "^2.1.0"
+  },
+  "type": "module"
+}

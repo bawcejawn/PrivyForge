@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Refinance Calculator — Break-Even &amp; Lifetime Savings | PrivyForge</title>
+  <meta name="description" content="Should you refinance? See your new payment, monthly savings, break-even month, and whether you'll come out ahead before you move — including closing costs, points and a reset loan term." />
+  <link rel="canonical" href="{{SITE_URL}}/refinance-calculator/" />
+  <meta property="og:title" content="Refinance Calculator — Is It Worth It?" />
+  <meta property="og:description" content="Break-even month and real savings, including costs and term reset." />
+  <meta property="og:url" content="{{SITE_URL}}/refinance-calculator/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Refinance Calculator","url":"{{SITE_URL}}/refinance-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Refinance Calculator","item":"{{SITE_URL}}/refinance-calculator/"}]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Refinance Calculator</nav>
+    <section class="hero">
+      <h1>Refinance calculator: is it worth it?</h1>
+      <p class="lede">Compare your current mortgage with a new one. See the new payment, when closing costs pay for themselves, and how far ahead (or behind) you'll be by the time you expect to move.</p>
+    </section>
+
+    <section class="tool grid-2" aria-label="Refinance calculator">
+      <form class="form-stack" id="calc" onsubmit="return false">
+        <b>Current loan</b>
+        <label class="field">Remaining balance ($)<input name="balance" inputmode="decimal" value="320000" /></label>
+        <div class="inline">
+          <label class="field">Current rate (%)<input name="rate" inputmode="decimal" value="7.25" /></label>
+          <label class="field">Years left<input name="yearsLeft" inputmode="decimal" value="27" /></label>
+        </div>
+        <b style="margin-top:6px">New loan</b>
+        <div class="inline">
+          <label class="field">New rate (%)<input name="newRate" inputmode="decimal" value="6.0" /></label>
+          <label class="field">New term
+            <select name="newTerm"><option value="30">30 years</option><option value="25">25 years</option><option value="20">20 years</option><option value="15">15 years</option><option value="10">10 years</option></select>
+          </label>
+        </div>
+        <div class="inline">
+          <label class="field">Closing costs ($)<input name="costs" inputmode="decimal" value="6500" /></label>
+          <label class="field">Points (%)<input name="points" inputmode="decimal" value="0" /></label>
+        </div>
+        <label class="field" style="flex-direction:row;align-items:center;gap:8px"><input type="checkbox" name="roll" /> Roll costs into the new loan</label>
+        <label class="field">How many more years will you keep this home?<input name="stay" inputmode="decimal" value="7" /></label>
+      </form>
+      <div>
+        <div class="summary" id="verdict" style="margin-top:0"></div>
+        <div class="kpis" id="kpis" style="margin-top:12px" aria-live="polite"></div>
+        <div class="chart-wrap">
+          <canvas id="chart" role="img" aria-label="Total cost to date plus remaining balance: current loan vs refinance"></canvas>
+          <div class="legend"><span><i style="background:var(--warn)"></i>Keep current loan</span><span><i style="background:var(--ok)"></i>Refinance</span><span>Paid so far + still owed</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How we decide if a refinance is worth it</h2>
+      <p>Lower monthly payments alone can mislead: a new 30-year loan restarts the clock, and closing costs are real money. So this calculator compares the two paths the way your net worth sees them — <b>everything you've paid so far plus what you still owe</b>, month by month. The break-even point is the first month the refinance path is ahead. If you plan to move or sell before then, refinancing loses money.</p>
+      <h3>Rules of thumb</h3>
+      <ul>
+        <li>A rate drop of 0.75–1 percentage point or more often makes sense if you'll stay 5+ years.</li>
+        <li>Refinancing into a shorter term (30 → 15) usually raises the payment but saves the most interest.</li>
+        <li>Rolling costs into the loan keeps cash in your pocket but means paying interest on those costs.</li>
+      </ul>
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>What are points?</summary><p>Prepaid interest: each point costs 1% of the loan and lowers your rate. Enter them here to see if buying down the rate pays off within your timeline.</p></details>
+        <details><summary>Does this include PMI, taxes and insurance?</summary><p>No. Taxes and insurance usually don't change when you refinance. If refinancing removes PMI, add that monthly amount to your savings mentally — or reduce the new rate slightly to approximate it.</p></details>
+        <details><summary>Is my data private?</summary><p>Yes. Calculations run in your browser; numbers stay in the page link only so you can bookmark them.</p></details>
+        <details><summary>Is this financial advice?</summary><p>No. Use it to plan, then compare official Loan Estimates from lenders.</p></details>
+      </div>
+      <h2>Related calculators</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="/mortgage-calculator/"><b>Mortgage Calculator</b><span>Full payment, PMI and schedule.</span></a>
+        <a class="tool-card" href="/rent-vs-buy-calculator/"><b>Rent vs Buy</b><span>Which builds more wealth?</span></a>
+      </div>
+      <!-- @include affiliate-finance -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/refinance.js"></script>
+</body>
+</html>

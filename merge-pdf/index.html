@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Merge PDF Online Free — No Upload, No Limits | PrivyForge</title>
+  <meta name="description" content="Combine PDF files in your browser. Drag to reorder, then download one PDF. Files are never uploaded. Free, unlimited, no sign-up, no watermark." />
+  <link rel="canonical" href="{{SITE_URL}}/merge-pdf/" />
+  <meta property="og:title" content="Merge PDFs — Free, Private, No Upload" />
+  <meta property="og:description" content="Combine PDFs in any order without sending them to a server." />
+  <meta property="og:url" content="{{SITE_URL}}/merge-pdf/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Merge PDF","url":"{{SITE_URL}}/merge-pdf/","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Merge PDF","item":"{{SITE_URL}}/merge-pdf/"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is it safe to merge confidential PDFs here?","acceptedAnswer":{"@type":"Answer","text":"Yes. PDFs are combined inside your browser and never uploaded, so contracts, tax forms and medical records stay on your device."}},
+      {"@type":"Question","name":"How many PDFs can I merge?","acceptedAnswer":{"@type":"Answer","text":"As many as your device's memory can hold. There are no file count or daily limits."}}
+    ]}
+  ]}
+  </script>
+</head>
+<body data-tool="merge">
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Merge PDF</nav>
+    <section class="hero">
+      <h1>Merge PDF files — without uploading them</h1>
+      <p class="lede">Combine any number of PDFs into one document, in the order you choose. Everything happens in your browser, so private documents stay private.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Merge PDF tool">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose PDFs to merge">
+        <strong>Drop PDFs here or click to choose</strong>
+        <small>Add as many as you like · drag rows to reorder (or Alt + ↑/↓)</small>
+        <input type="file" />
+      </div>
+      <ul class="files" id="files"></ul>
+      <div class="row-actions">
+        <button class="btn" id="run" disabled>Merge &amp; download</button>
+        <span class="status" id="status" role="status"></span>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to merge PDFs</h2>
+      <ol>
+        <li><b>Add your PDFs</b> by dragging them in or clicking the box.</li>
+        <li><b>Put them in order.</b> Drag rows up or down. The top file becomes the first pages.</li>
+        <li><b>Click "Merge &amp; download"</b> to save one combined PDF.</li>
+      </ol>
+      <h2>Private by design</h2>
+      <p>Popular PDF sites process your documents on their servers. That's a real risk for contracts, bank statements, tax returns and medical records. PrivyForge uses <a href="https://pdf-lib.js.org/" rel="noopener">pdf-lib</a> to merge files locally in your browser. Nothing is sent anywhere, and there are no limits on file count, size or daily use.</p>
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Is it safe to merge confidential PDFs here?</summary><p>Yes. Files are combined inside your browser and never uploaded. You can turn off Wi-Fi after the page loads and it still works.</p></details>
+        <details><summary>How many PDFs can I merge?</summary><p>As many as your device's memory can handle. There are no caps or daily limits.</p></details>
+        <details><summary>Will links, bookmarks and form fields survive?</summary><p>Page content, text and images are kept exactly. Document-level bookmarks (outlines) and interactive form fields from the source files may not carry over into the merged file.</p></details>
+        <details><summary>Can I merge password-protected PDFs?</summary><p>Not yet. Remove the password in your PDF reader first, then merge.</p></details>
+      </div>
+      <h2>More PDF tools</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="/split-pdf/"><b>Split PDF</b><span>Extract pages or ranges.</span></a>
+        <a class="tool-card" href="/compress-pdf/"><b>Compress PDF</b><span>Make PDFs small enough to email.</span></a>
+        <a class="tool-card" href="/compress-image/"><b>Compress Image</b><span>JPG, PNG, WebP, AVIF.</span></a>
+      </div>
+      <!-- @include affiliate-pdf -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/pdf-tools.js"></script>
+</body>
+</html>

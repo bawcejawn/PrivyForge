@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Compress PDF Online Free — Without Uploading | PrivyForge</title>
+  <meta name="description" content="Reduce PDF file size in your browser for email and upload forms. Your PDF never leaves your device. Free, unlimited, no sign-up, no watermark." />
+  <link rel="canonical" href="{{SITE_URL}}/compress-pdf/" />
+  <meta property="og:title" content="Compress PDF — Free, Private, No Upload" />
+  <meta property="og:description" content="Shrink PDFs for email without sending them to anyone's server." />
+  <meta property="og:url" content="{{SITE_URL}}/compress-pdf/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Compress PDF","url":"{{SITE_URL}}/compress-pdf/","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Compress PDF","item":"{{SITE_URL}}/compress-pdf/"}]}
+  ]}
+  </script>
+</head>
+<body data-tool="compress">
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Compress PDF</nav>
+    <section class="hero">
+      <h1>Compress PDF files — without uploading them</h1>
+      <p class="lede">Make PDFs small enough for email, job portals and government forms. Compression runs on your device, so sensitive documents never touch a server.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Compress PDF tool">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose PDFs to compress">
+        <strong>Drop PDFs here or click to choose</strong>
+        <small>One or many · any size</small>
+        <input type="file" />
+      </div>
+      <ul class="files" id="files"></ul>
+      <div class="controls">
+        <fieldset class="field" style="border:0;padding:0;margin:0">
+          <legend style="margin-bottom:4px">Compression level</legend>
+          <label><input type="radio" name="level" value="balanced" checked> <b>Recommended</b> — 150 DPI, great for scans &amp; photos</label><br>
+          <label><input type="radio" name="level" value="strong"> <b>Smallest</b> — 100 DPI, for strict upload limits</label><br>
+          <label><input type="radio" name="level" value="lossless"> <b>Lossless</b> — keeps selectable text, smaller savings</label>
+        </fieldset>
+      </div>
+      <div class="row-actions">
+        <button class="btn" id="run" disabled>Compress &amp; download</button>
+        <span class="status" id="status" role="status"></span>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to compress a PDF</h2>
+      <ol>
+        <li><b>Add your PDF(s).</b></li>
+        <li><b>Pick a level.</b> "Recommended" suits most scanned documents. Use "Smallest" for portals with a 1–2 MB cap.</li>
+        <li><b>Download.</b> If a file can't get smaller, you get the original back — never a bigger file.</li>
+      </ol>
+      <h2>Which level should I use?</h2>
+      <p><b>Recommended</b> and <b>Smallest</b> re-render each page as an optimized image. This is the most effective way to shrink scanned documents and photo-heavy PDFs, often by 50–90%. The trade-off: text in the result is no longer selectable or searchable.</p>
+      <p><b>Lossless</b> rebuilds the PDF's internal structure without touching content, so text stays selectable. Savings are smaller (typically 0–20%) and depend on how the PDF was made.</p>
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Are my PDFs uploaded?</summary><p>No. Everything runs in your browser using pdf.js and pdf-lib. Your documents never leave your device.</p></details>
+        <details><summary>Why can't I select text after compressing?</summary><p>The Recommended and Smallest levels convert pages into images to get big savings. Choose Lossless if you need selectable text.</p></details>
+        <details><summary>How do I get a PDF under 1 MB?</summary><p>Use "Smallest". If it's still too big, split the PDF and send the parts separately using our <a href="/split-pdf/">Split PDF</a> tool.</p></details>
+      </div>
+      <h2>More PDF tools</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="/merge-pdf/"><b>Merge PDF</b><span>Combine PDFs in any order.</span></a>
+        <a class="tool-card" href="/split-pdf/"><b>Split PDF</b><span>Extract pages or ranges.</span></a>
+      </div>
+      <!-- @include affiliate-pdf -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/pdf-tools.js"></script>
+</body>
+</html>

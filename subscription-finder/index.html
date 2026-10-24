@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Subscription Finder — Find Recurring Charges in Your Bank Statement | PrivyForge</title>
+  <meta name="description" content="Drop in a bank or credit card CSV and instantly see every subscription and recurring charge, what it costs per year, and how much you'd save by cancelling. Your statement never leaves your device." />
+  <link rel="canonical" href="{{SITE_URL}}/subscription-finder/" />
+  <meta property="og:title" content="Find Every Subscription You're Paying For — Privately" />
+  <meta property="og:description" content="Scan a bank CSV for recurring charges without uploading it anywhere." />
+  <meta property="og:url" content="{{SITE_URL}}/subscription-finder/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Subscription Finder","url":"{{SITE_URL}}/subscription-finder/","applicationCategory":"FinanceApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Subscription Finder","item":"{{SITE_URL}}/subscription-finder/"}]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Subscription Finder</nav>
+    <section class="hero">
+      <h1>Find every subscription you're paying for</h1>
+      <p class="lede">Export a CSV from your bank or card, drop it here, and see every recurring charge — weekly, monthly, quarterly and yearly — with what it costs you per year. Tick the ones to cancel and see your savings.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Subscription finder">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose bank statement CSV files">
+        <strong>Drop your bank or card CSV here</strong>
+        <small>Read only on your device · 3–12 months of history works best · you can add several files</small>
+        <input type="file" />
+      </div>
+      <div class="row-actions">
+        <button class="btn ghost sm" id="sample" type="button">Try it with sample data</button>
+        <button class="btn ghost sm" id="export" type="button" disabled>Export list (CSV)</button>
+        <span class="status" id="status" role="status"></span>
+      </div>
+      <div class="controls" id="mapping" hidden></div>
+      <div class="kpis" id="kpis" style="margin-top:14px" aria-live="polite"></div>
+      <div class="table-scroll" style="max-height:none"><table id="subs" class="subs-table"></table></div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to get your CSV</h2>
+      <p>Almost every bank and card issuer lets you download transactions. Look for <b>Download</b>, <b>Export</b> or <b>Statements</b> in online banking, pick a date range of 3–12 months, and choose <b>CSV</b> (sometimes "Excel" or "spreadsheet"). PDF statements won't work yet.</p>
+      <h2>Why this is safe to use</h2>
+      <p>Most "subscription manager" apps ask you to link your bank login so they can read your transactions on their servers. This tool doesn't. Your file is opened by your own browser and analyzed in memory. Nothing is uploaded, stored or shared — you can disconnect from the internet after the page loads and it still works.</p>
+      <!-- @include ad-content -->
+      <h2>How detection works</h2>
+      <p>Charges are grouped by merchant (ignoring store numbers and reference codes), then checked for a regular rhythm — about 7, 14, 30, 91 or 365 days apart — and a consistent amount. Groceries and one-off purchases don't repeat that way, so they're left out. Price increases are flagged so you notice when a service quietly raises its rate.</p>
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>My bank uses separate debit and credit columns.</summary><p>That's supported. If columns aren't detected correctly, choose them in the dropdowns that appear after loading.</p></details>
+        <details><summary>Why is a subscription missing?</summary><p>It needs at least two charges in your file. Yearly subscriptions need 13+ months of history. Charges billed through app stores or PayPal may show under that company's name.</p></details>
+        <details><summary>Does it cancel subscriptions for me?</summary><p>No — and it never touches your accounts. Use the "next expected" date to cancel before the next charge.</p></details>
+      </div>
+      <h2>Related tools</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="/debt-payoff-calculator/"><b>Debt Payoff Calculator</b><span>Put what you save toward debt.</span></a>
+        <a class="tool-card" href="/compress-pdf/"><b>Compress PDF</b><span>Shrink statements for upload forms.</span></a>
+      </div>
+      <!-- @include affiliate-finance -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/subscription-finder.js"></script>
+</body>
+</html>

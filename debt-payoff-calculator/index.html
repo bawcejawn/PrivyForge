@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Debt Payoff Calculator — Snowball vs Avalanche Planner | PrivyForge</title>
+  <meta name="description" content="List your debts and monthly budget to see your debt-free date, total interest, and how much the avalanche or snowball method saves. Free, private, no sign-up." />
+  <link rel="canonical" href="{{SITE_URL}}/debt-payoff-calculator/" />
+  <meta property="og:title" content="Debt Payoff Calculator — Snowball vs Avalanche" />
+  <meta property="og:description" content="Your debt-free date and interest saved, in seconds." />
+  <meta property="og:url" content="{{SITE_URL}}/debt-payoff-calculator/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Debt Payoff Calculator","url":"{{SITE_URL}}/debt-payoff-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Debt Payoff Calculator","item":"{{SITE_URL}}/debt-payoff-calculator/"}]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Debt Payoff Calculator</nav>
+    <section class="hero">
+      <h1>Debt payoff calculator: snowball vs avalanche</h1>
+      <p class="lede">Enter your debts and what you can pay each month. See your debt-free date, the interest you'll pay, and how much each payoff strategy saves you compared with paying minimums.</p>
+      <ul class="pills"><li class="pill">🔒 Your numbers never leave your device</li><li class="pill">✓ No sign-up</li><li class="pill neutral">Cent-accurate monthly interest</li></ul>
+    </section>
+
+    <section class="tool" aria-label="Debt payoff calculator">
+      <form id="debt-form" onsubmit="return false">
+        <div class="table-scroll" style="max-height:none">
+          <table id="debts" class="debt-table">
+            <thead><tr><th>Debt</th><th>Balance ($)</th><th>APR (%)</th><th>Minimum ($/mo)</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="controls">
+          <button class="btn ghost sm" type="button" id="add">+ Add a debt</button>
+          <label class="field">Total I can pay each month ($)<input id="budget" inputmode="decimal" /></label>
+          <span class="status">Minimums add up to <b id="min-total"></b>. Anything above that speeds up payoff.</span>
+        </div>
+      </form>
+      <div id="results"></div>
+      <div class="chart-wrap">
+        <canvas id="chart" role="img" aria-label="Total debt over time by strategy"></canvas>
+        <div class="legend"><span><i style="background:var(--ok)"></i>Avalanche</span><span><i style="background:var(--ember)"></i>Snowball</span><span><i style="background:var(--warn)"></i>Minimums only</span></div>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>Snowball or avalanche: which is better?</h2>
+      <p><b>Avalanche</b> sends every spare dollar to the debt with the highest interest rate. Mathematically it always costs the least interest. <b>Snowball</b> pays off the smallest balance first. It usually costs a little more, but clearing a whole debt quickly is motivating, and research on consumer behavior suggests early wins help people stick with a plan. This calculator shows both so you can see what the motivation costs in dollars.</p>
+      <h2>How it works</h2>
+      <ol>
+        <li>Each month, interest is added to every balance (APR ÷ 12, rounded to the cent).</li>
+        <li>Every debt gets its minimum payment.</li>
+        <li>Whatever is left of your budget goes to the target debt. When a debt is paid off, its minimum "rolls over" to the next one.</li>
+      </ol>
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>What if my budget only covers minimums?</summary><p>You'll see the minimums-only result. If a minimum doesn't cover the monthly interest, that debt never gets paid off, and the calculator tells you so.</p></details>
+        <details><summary>Should I consolidate instead?</summary><p>A consolidation loan or 0% balance transfer helps when the new rate is clearly below your current blended rate and fees are low. Add it as a single debt at the new rate to compare.</p></details>
+        <details><summary>Is my information saved?</summary><p>No. Everything is calculated in your browser. Your numbers appear in the page link only so you can bookmark your plan.</p></details>
+        <details><summary>Is this financial advice?</summary><p>No. It's an estimate for planning; your lenders' statements are authoritative.</p></details>
+      </div>
+      <h2>Related tools</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="/subscription-finder/"><b>Subscription Finder</b><span>Find forgotten recurring charges to free up cash.</span></a>
+        <a class="tool-card" href="/loan-calculator/"><b>Loan Calculator</b><span>Payments and full schedule for any loan.</span></a>
+        <a class="tool-card" href="/refinance-calculator/"><b>Refinance Calculator</b><span>Break-even and lifetime savings.</span></a>
+      </div>
+      <!-- @include affiliate-finance -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/debt-payoff.js"></script>
+</body>
+</html>

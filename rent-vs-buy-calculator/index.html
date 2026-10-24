@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Rent vs Buy Calculator — Which Builds More Wealth? | PrivyForge</title>
+  <meta name="description" content="Compare renting and buying over time, including appreciation, maintenance, taxes, closing and selling costs, and investing the difference. See the year buying pulls ahead." />
+  <link rel="canonical" href="{{SITE_URL}}/rent-vs-buy-calculator/" />
+  <meta property="og:title" content="Rent vs Buy Calculator" />
+  <meta property="og:description" content="Net worth over time for renting vs buying — the honest comparison." />
+  <meta property="og:url" content="{{SITE_URL}}/rent-vs-buy-calculator/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Rent vs Buy Calculator","url":"{{SITE_URL}}/rent-vs-buy-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Rent vs Buy Calculator","item":"{{SITE_URL}}/rent-vs-buy-calculator/"}]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Rent vs Buy Calculator</nav>
+    <section class="hero">
+      <h1>Rent vs buy calculator</h1>
+      <p class="lede">Buying isn't automatically better. This compares your net worth over time for both paths — counting every cost of owning, and assuming the renter invests the money a down payment would have used.</p>
+    </section>
+
+    <section class="tool grid-2" aria-label="Rent vs buy calculator">
+      <form class="form-stack" id="calc" onsubmit="return false">
+        <b>Buying</b>
+        <label class="field">Home price ($)<input name="price" inputmode="decimal" value="450000" /></label>
+        <div class="inline">
+          <label class="field">Down payment (%)<input name="downPct" inputmode="decimal" value="20" /></label>
+          <label class="field">Mortgage rate (%)<input name="rate" inputmode="decimal" value="6.5" /></label>
+        </div>
+        <div class="inline">
+          <label class="field">Term<select name="term"><option value="30">30 years</option><option value="15">15 years</option></select></label>
+          <label class="field">Property tax (%/yr)<input name="taxPct" inputmode="decimal" value="1.1" /></label>
+        </div>
+        <div class="inline">
+          <label class="field">Insurance ($/yr)<input name="insurance" inputmode="decimal" value="1800" /></label>
+          <label class="field">Maintenance (%/yr)<input name="maintPct" inputmode="decimal" value="1" /></label>
+        </div>
+        <div class="inline">
+          <label class="field">HOA ($/mo)<input name="hoa" inputmode="decimal" value="0" /></label>
+          <label class="field">Home appreciation (%/yr)<input name="appreciation" inputmode="decimal" value="3.5" /></label>
+        </div>
+        <b style="margin-top:6px">Renting</b>
+        <div class="inline">
+          <label class="field">Rent ($/mo)<input name="rent" inputmode="decimal" value="2400" /></label>
+          <label class="field">Rent increase (%/yr)<input name="rentGrowth" inputmode="decimal" value="3" /></label>
+        </div>
+        <div class="inline">
+          <label class="field">Investment return (%/yr)<input name="investReturn" inputmode="decimal" value="6" /></label>
+          <label class="field">Years to compare<input name="years" inputmode="decimal" value="15" /></label>
+        </div>
+      </form>
+      <div>
+        <div class="summary" id="verdict" style="margin-top:0"></div>
+        <div class="kpis" id="kpis" style="margin-top:12px" aria-live="polite"></div>
+        <div class="chart-wrap">
+          <canvas id="chart" role="img" aria-label="Net worth over time: buying vs renting"></canvas>
+          <div class="legend"><span><i style="background:var(--ember)"></i>Buy: home equity after selling costs + investments</span><span><i style="background:var(--ok)"></i>Rent: invested savings</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>What this calculator counts</h2>
+      <ul>
+        <li><b>Owning:</b> mortgage payment, property tax, insurance, maintenance, HOA, about 3% closing costs to buy and 6% to sell, and home appreciation.</li>
+        <li><b>Renting:</b> rent rising each year and renter's insurance. The renter invests the down payment and closing costs on day one.</li>
+        <li><b>The difference:</b> each month, whichever option is cheaper invests the savings at your chosen return. That's what makes the comparison fair.</li>
+      </ul>
+      <p>Buying usually loses in the first few years (closing and selling costs are steep) and gains over time as the loan is paid down and the home appreciates. The faster rents rise, and the longer you stay, the better buying looks.</p>
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Does it include tax deductions?</summary><p>No. Since the 2018 tax changes most homeowners take the standard deduction, so the mortgage-interest deduction often doesn't apply. If you itemize, buying is slightly better than shown.</p></details>
+        <details><summary>What return should I use?</summary><p>Many people use 5–7% for a diversified stock portfolio over long periods, but returns aren't guaranteed. Try a lower number to stress-test your decision.</p></details>
+        <details><summary>Is this financial advice?</summary><p>No. It's a model; real outcomes depend on your market and choices.</p></details>
+      </div>
+      <h2>Related calculators</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="/mortgage-calculator/"><b>Mortgage Calculator</b><span>Payment, PMI and amortization.</span></a>
+        <a class="tool-card" href="/refinance-calculator/"><b>Refinance Calculator</b><span>Break-even and savings.</span></a>
+      </div>
+      <!-- @include affiliate-finance -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/rent-vs-buy.js"></script>
+</body>
+</html>

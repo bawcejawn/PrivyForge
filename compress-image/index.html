@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Compress Images Online Free — No Upload, No Limits | PrivyForge</title>
+  <meta name="description" content="Compress JPG, PNG, WebP and AVIF images in your browser. Files never leave your device. No sign-up, no file limits, no watermarks. Convert and resize too." />
+  <link rel="canonical" href="{{SITE_URL}}/compress-image/" />
+  <meta property="og:title" content="Compress Images Online — Free, Private, Unlimited" />
+  <meta property="og:description" content="Shrink JPG, PNG, WebP & AVIF without uploading them anywhere." />
+  <meta property="og:url" content="{{SITE_URL}}/compress-image/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Image Compressor","url":"{{SITE_URL}}/compress-image/","applicationCategory":"MultimediaApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Compress JPG, PNG, WebP, AVIF","Convert between formats","Resize","Batch ZIP download","Removes EXIF/GPS metadata","Works offline"]},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Compress Image","item":"{{SITE_URL}}/compress-image/"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Are my images uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Compression runs inside your browser using WebAssembly. Your images never leave your device, and the tool keeps working with your internet turned off."}},
+      {"@type":"Question","name":"Is there a limit on file size or number of images?","acceptedAnswer":{"@type":"Answer","text":"There are no daily limits, no file count caps and no watermarks. The only practical limit is your device's memory; very large images (over ~100 megapixels) may be slow on phones."}},
+      {"@type":"Question","name":"What is the best format for the web?","acceptedAnswer":{"@type":"Answer","text":"WebP is supported by every modern browser and is usually 25–35% smaller than JPEG at similar quality. AVIF is often smaller still but slower to encode. Use PNG only when you need sharp graphics or transparency."}}
+    ]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Compress Image</nav>
+    <section class="hero">
+      <h1>Compress images online — free, private, unlimited</h1>
+      <p class="lede">Shrink JPG, PNG, WebP and AVIF files by up to 80% right in your browser. Nothing is uploaded: your photos stay on your device.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Image compressor">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose images to compress">
+        <strong>Drop images here, click to choose, or paste</strong>
+        <small>JPG · PNG · WebP · AVIF · GIF · BMP — any number, any size</small>
+        <input type="file" />
+      </div>
+      <div class="controls">
+        <label class="field">Output format
+          <select id="format">
+            <option value="auto">Keep original</option>
+            <option value="webp">WebP (recommended)</option>
+            <option value="avif">AVIF (smallest)</option>
+            <option value="jpeg">JPEG</option>
+            <option value="png">PNG</option>
+          </select>
+        </label>
+        <label class="field" style="min-width:180px"><span>Quality: <b id="qv"></b></span>
+          <input id="quality" type="range" min="10" max="100" value="75" />
+        </label>
+        <label class="field">Max width (px)<input id="maxw" type="number" min="1" placeholder="Original" inputmode="numeric" /></label>
+        <label class="field">Max height (px)<input id="maxh" type="number" min="1" placeholder="Original" inputmode="numeric" /></label>
+      </div>
+      <ul class="files" id="files" aria-live="polite"></ul>
+      <div class="summary" id="summary" hidden></div>
+      <div class="row-actions">
+        <button class="btn" id="zip" disabled>Download all (.zip)</button>
+        <button class="btn ghost" id="clear" disabled>Clear</button>
+        <span class="status">Tip: click a thumbnail to compare before and after.</span>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to compress an image</h2>
+      <ol>
+        <li><b>Add your images.</b> Drag them onto the box, click to browse, or paste a screenshot with Ctrl/Cmd+V.</li>
+        <li><b>Pick a format and quality.</b> "Keep original" with quality 75 is a safe default. Choose WebP for the smallest files that work everywhere.</li>
+        <li><b>Download.</b> Save each file or grab them all as a ZIP. Change any setting and every image re-compresses instantly.</li>
+      </ol>
+
+      <h2>Why PrivyForge is different</h2>
+      <p>Most online compressors upload your files to their servers, cap how many you can process, and push you toward a paid plan. PrivyForge runs the same high-end codecs (MozJPEG, libwebp, libavif and OxiPNG) directly in your browser with WebAssembly. That means:</p>
+      <ul>
+        <li><b>Real privacy.</b> Images never leave your device, so it's safe for ID scans, client work and family photos. Disconnect from the internet and it still works.</li>
+        <li><b>No limits.</b> No 20-file batches, no 5&nbsp;MB caps, no daily quota.</li>
+        <li><b>Location data removed.</b> Compression strips EXIF metadata, including GPS coordinates your phone embeds in photos.</li>
+        <li><b>Speed.</b> No upload or download wait. Images compress in parallel across your CPU cores.</li>
+      </ul>
+
+      <table class="compare-table">
+        <thead><tr><th></th><th>PrivyForge</th><th>Typical upload-based tools</th></tr></thead>
+        <tbody>
+          <tr><td>Files uploaded to a server</td><td>Never</td><td>Yes</td></tr>
+          <tr><td>Daily / batch limits</td><td>None</td><td>Often capped on free plans</td></tr>
+          <tr><td>Max file size</td><td>Limited only by your device</td><td>Often 5–25 MB free</td></tr>
+          <tr><td>AVIF output</td><td>Yes</td><td>Rarely</td></tr>
+          <tr><td>Works offline</td><td>Yes</td><td>No</td></tr>
+        </tbody>
+      </table>
+
+      <!-- @include ad-content -->
+
+      <h2>Which format should I choose?</h2>
+      <h3>JPEG</h3>
+      <p>Best for photos when you need maximum compatibility (email, old software). Quality 70–80 is visually identical to the original for most photos.</p>
+      <h3>WebP</h3>
+      <p>The best all-round choice for websites. Supported by every modern browser, usually 25–35% smaller than JPEG, and supports transparency.</p>
+      <h3>AVIF</h3>
+      <p>The newest format, often 20–50% smaller than WebP. Encoding is slower, so give large batches a moment. Supported by current Chrome, Edge, Firefox and Safari.</p>
+      <h3>PNG</h3>
+      <p>For logos, screenshots and graphics with sharp edges or transparency. PrivyForge reduces PNGs to an optimized 256-color palette (like TinyPNG) at quality below 95, and compresses losslessly at 95 and above.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Are my images uploaded to a server?</summary><p>No. Compression runs inside your browser using WebAssembly. Your images never leave your device, and the tool keeps working with your internet turned off.</p></details>
+        <details><summary>Is there a limit on file size or number of images?</summary><p>No daily limits, no file count caps and no watermarks. The only practical limit is your device's memory; extremely large images (over ~100 megapixels) can be slow on phones.</p></details>
+        <details><summary>Will compressing reduce quality?</summary><p>Lossy formats discard detail you're unlikely to notice. Use the before/after slider (click a thumbnail) to check. If you see artifacts, raise the quality.</p></details>
+        <details><summary>Why did a file get "already optimized"?</summary><p>If re-encoding would make the file bigger, PrivyForge gives you the original back instead. You'll never download a larger file.</p></details>
+        <details><summary>Can I resize images too?</summary><p>Yes. Set a max width and/or height and images are scaled down proportionally. Smaller images are never enlarged.</p></details>
+        <details><summary>Does it work on iPhone and Android?</summary><p>Yes, in any modern mobile browser. On iPhone, Safari can also open HEIC photos and convert them to JPEG or WebP.</p></details>
+      </div>
+
+      <h2>More free tools</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="/compress-pdf/"><b>Compress PDF</b><span>Shrink PDFs for email without uploading them.</span></a>
+        <a class="tool-card" href="/merge-pdf/"><b>Merge PDF</b><span>Combine PDFs in any order.</span></a>
+        <a class="tool-card" href="/qr-code-generator/"><b>QR Code Generator</b><span>Static codes that never expire.</span></a>
+      </div>
+
+      <!-- @include affiliate-image -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/image-compressor.js"></script>
+</body>
+</html>

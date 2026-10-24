@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>File Hash Checker — SHA-256 Checksum Online, No Upload | PrivyForge</title>
+  <meta name="description" content="Get the SHA-256, SHA-1 or SHA-512 checksum of any file and verify downloads. Hashing runs in your browser — files are never uploaded. Free, any size up to 2 GB." />
+  <link rel="canonical" href="{{SITE_URL}}/file-hash-checker/" />
+  <meta property="og:title" content="SHA-256 File Checksum — Private, In Your Browser" />
+  <meta property="og:description" content="Verify a download or fingerprint a file without uploading it." />
+  <meta property="og:url" content="{{SITE_URL}}/file-hash-checker/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge File Hash Checker","url":"{{SITE_URL}}/file-hash-checker/","applicationCategory":"SecurityApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"File Hash Checker","item":"{{SITE_URL}}/file-hash-checker/"}]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › File Hash Checker</nav>
+    <section class="hero">
+      <h1>File hash checker: SHA-256 checksums, privately</h1>
+      <p class="lede">Check that a download hasn't been tampered with, or create a fingerprint that proves a file existed in exactly this form. Your file is hashed on your device and never uploaded.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="File hash checker">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose files to hash">
+        <strong>Drop any file here or click to choose</strong>
+        <small>Any type · up to 2 GB · several at once</small>
+        <input type="file" />
+      </div>
+      <div class="controls">
+        <label class="field">Algorithm
+          <select id="algo"><option>SHA-256</option><option>SHA-512</option><option>SHA-384</option><option>SHA-1</option></select>
+        </label>
+        <label class="field" style="flex:1;min-width:260px">Expected hash (optional — paste from the download page)
+          <input id="expected" placeholder="e.g. 9f86d081884c7d659a2feaa0c55ad015…" autocomplete="off" spellcheck="false" />
+        </label>
+      </div>
+      <ul class="files" id="files" aria-live="polite"></ul>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to verify a download</h2>
+      <ol>
+        <li>Find the checksum on the official download page (often labeled "SHA-256" or "checksum").</li>
+        <li>Paste it into <b>Expected hash</b>. The algorithm is picked automatically from its length.</li>
+        <li>Drop the downloaded file. A green <b>Match</b> means it's byte-for-byte identical to what the publisher released.</li>
+      </ol>
+      <h2>Proving a file existed — without sharing it</h2>
+      <p>Click <b>Proof</b> to download a small receipt with the file's SHA-256 fingerprint, size and time. Keep it with the file. Later, anyone with the original can recompute the hash and confirm nothing changed. For an independent timestamp that doesn't rely on your own records, submit just the hash (never the file) to a public timestamping service such as OpenTimestamps, which anchors it to the Bitcoin blockchain for free.</p>
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Is my file uploaded?</summary><p>No. Hashing uses your browser's built-in Web Crypto engine. The file is read into memory on your device and nothing is sent anywhere.</p></details>
+        <details><summary>Which algorithm should I use?</summary><p>SHA-256 is the modern standard. SHA-1 is only for checking older downloads that publish it; it's no longer considered secure against deliberate tampering.</p></details>
+        <details><summary>What about MD5?</summary><p>MD5 is broken for security purposes and browsers don't include it. If a site only publishes MD5, ask for a SHA-256 checksum instead.</p></details>
+      </div>
+      <h2>Related tools</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="/compress-pdf/"><b>Compress PDF</b><span>Shrink documents privately.</span></a>
+        <a class="tool-card" href="/qr-code-generator/"><b>QR Code Generator</b><span>Share a hash or link as a QR code.</span></a>
+      </div>
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/file-hash.js"></script>
+</body>
+</html>

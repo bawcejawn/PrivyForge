@@ -1,0 +1,13 @@
+<div>
+  <div class="kpis" id="kpis" aria-live="polite"></div>
+  <div class="chart-wrap">
+    <canvas id="chart" role="img" aria-label="Loan balance, principal paid and interest paid over time"></canvas>
+    <div class="legend"><span><i style="background:var(--ember)"></i>Remaining balance</span><span><i style="background:var(--ok)"></i>Principal paid</span><span><i style="background:var(--warn)"></i>Interest paid</span></div>
+  </div>
+  <div class="row-actions">
+    <div class="seg" role="group" aria-label="Schedule view"><button data-view="year" aria-pressed="true">Yearly</button><button data-view="month" aria-pressed="false">Monthly</button></div>
+    <button class="btn ghost sm" id="csv">Export CSV</button>
+    <button class="btn ghost sm" id="share">Copy link</button>
+  </div>
+  <div class="table-scroll"><table id="table"></table></div>
+</div>

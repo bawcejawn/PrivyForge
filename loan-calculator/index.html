@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Loan Calculator — Monthly Payment &amp; Amortization Schedule | PrivyForge</title>
+  <meta name="description" content="Calculate monthly payments and total interest for auto, personal and student loans. Full amortization schedule, chart, extra-payment savings and CSV export." />
+  <link rel="canonical" href="{{SITE_URL}}/loan-calculator/" />
+  <meta property="og:title" content="Loan Calculator — Payments, Interest & Payoff Date" />
+  <meta property="og:description" content="Amortization schedule with extra-payment savings." />
+  <meta property="og:url" content="{{SITE_URL}}/loan-calculator/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"PrivyForge Loan Calculator","url":"{{SITE_URL}}/loan-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  </script>
+</head>
+<body data-calc="loan">
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Loan Calculator</nav>
+    <section class="hero">
+      <h1>Loan calculator</h1>
+      <p class="lede">Work out the monthly payment, total interest and payoff date for any fixed-rate loan — auto, personal, student or business — and see what paying extra saves.</p>
+    </section>
+
+    <section class="tool grid-2" aria-label="Loan calculator">
+      <form class="form-stack" id="calc" onsubmit="return false">
+        <label class="field">Loan amount ($)<input name="amount" inputmode="decimal" value="25000" /></label>
+        <div class="inline">
+          <label class="field">Interest rate (APR %)<input name="rate" inputmode="decimal" value="7.9" /></label>
+          <label class="field">Term (years)<input name="term" inputmode="decimal" value="5" /></label>
+        </div>
+        <div class="inline">
+          <label class="field">Extra payment ($/mo)<input name="extra" inputmode="decimal" value="0" /></label>
+          <label class="field">First payment<input name="start" type="month" /></label>
+        </div>
+      </form>
+      <!-- @include calc-results -->
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How loan payments are calculated</h2>
+      <p>Most consumer loans are fully amortizing: each payment is the same, but early payments are mostly interest and later payments are mostly principal. The chart above shows that crossover. Enter the APR from your offer to compare lenders on equal terms.</p>
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Does paying extra really save money?</summary><p>Yes, as long as your loan has no prepayment penalty. Extra payments reduce principal immediately, which lowers every future interest charge.</p></details>
+        <details><summary>Can I use months instead of years?</summary><p>Enter a fraction: 6 months = 0.5, 18 months = 1.5.</p></details>
+        <details><summary>Is this financial advice?</summary><p>No. These are estimates; your lender's disclosures are authoritative.</p></details>
+      </div>
+      <!-- @include affiliate-finance -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/calculator.js"></script>
+</body>
+</html>

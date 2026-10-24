@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Split PDF Online Free — Extract Pages, No Upload | PrivyForge</title>
+  <meta name="description" content="Split a PDF into single pages or custom ranges, or extract just the pages you need. Runs in your browser — your file is never uploaded. Free and unlimited." />
+  <link rel="canonical" href="{{SITE_URL}}/split-pdf/" />
+  <meta property="og:title" content="Split PDF — Free, Private, No Upload" />
+  <meta property="og:description" content="Extract pages or split by range without sending your PDF anywhere." />
+  <meta property="og:url" content="{{SITE_URL}}/split-pdf/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Split PDF","url":"{{SITE_URL}}/split-pdf/","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Split PDF","item":"{{SITE_URL}}/split-pdf/"}]}
+  ]}
+  </script>
+</head>
+<body data-tool="split">
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Split PDF</nav>
+    <section class="hero">
+      <h1>Split a PDF or extract pages — privately</h1>
+      <p class="lede">Break a PDF into single pages, split it by ranges, or pull out only the pages you need. Your document never leaves your device.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Split PDF tool">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a PDF to split">
+        <strong>Drop a PDF here or click to choose</strong>
+        <small>One file at a time · any size</small>
+        <input type="file" />
+      </div>
+      <ul class="files" id="files"></ul>
+      <div class="controls">
+        <fieldset class="field" style="border:0;padding:0;margin:0">
+          <legend style="margin-bottom:4px">What do you want?</legend>
+          <label><input type="radio" name="mode" value="ranges" checked> Split into ranges (one PDF per range)</label><br>
+          <label><input type="radio" name="mode" value="one"> Extract pages into one PDF</label><br>
+          <label><input type="radio" name="mode" value="all"> Every page as its own PDF</label>
+        </fieldset>
+        <label class="field" id="ranges-field" style="min-width:240px">Pages
+          <input id="ranges" placeholder="e.g. 1-3, 4, 5-10" />
+        </label>
+      </div>
+      <div class="row-actions">
+        <button class="btn" id="run" disabled>Split &amp; download</button>
+        <span class="status" id="status" role="status"></span>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to split a PDF</h2>
+      <ol>
+        <li><b>Add your PDF.</b></li>
+        <li><b>Choose a mode.</b> Type ranges like <code>1-3, 8, 10-</code> (a trailing dash means "to the end").</li>
+        <li><b>Download.</b> One result downloads as a PDF; several come as a ZIP.</li>
+      </ol>
+      <h2>Why split PDFs locally?</h2>
+      <p>Splitting is often done to share part of a sensitive document: one page of a lease, a single bank statement, a section of a medical report. Uploading the whole file to a third party to do that defeats the purpose. PrivyForge splits files entirely in your browser, with no page or size limits.</p>
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Does splitting reduce quality?</summary><p>No. Pages are copied exactly as they are; nothing is re-rendered or re-compressed.</p></details>
+        <details><summary>Can I reorder pages?</summary><p>Use "Extract pages into one PDF" with the order you want, e.g. <code>3, 1, 2</code>. Pages are added in the order listed.</p></details>
+        <details><summary>Is there a page limit?</summary><p>No. Documents with thousands of pages work; speed depends on your device.</p></details>
+      </div>
+      <h2>More PDF tools</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="/merge-pdf/"><b>Merge PDF</b><span>Combine PDFs in any order.</span></a>
+        <a class="tool-card" href="/compress-pdf/"><b>Compress PDF</b><span>Make PDFs small enough to email.</span></a>
+      </div>
+      <!-- @include affiliate-pdf -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/pdf-tools.js"></script>
+</body>
+</html>
