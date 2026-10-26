@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>PDF to JPG Converter — Free, No Upload | PrivyForge</title>
+  <meta name="description" content="Convert PDF pages to JPG images in your browser at 72, 150 or 300 DPI. Pick pages, get a ZIP. Your PDF is never uploaded. Free, no sign-up." />
+  <link rel="canonical" href="{{SITE_URL}}/pdf-to-jpg/" />
+  <meta property="og:title" content="PDF to JPG — Free, Private, No Upload" />
+  <meta property="og:description" content="Turn PDF pages into JPG images without sending the document to a server." />
+  <meta property="og:url" content="{{SITE_URL}}/pdf-to-jpg/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge PDF to JPG","url":"{{SITE_URL}}/pdf-to-jpg/","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"PDF to JPG","item":"{{SITE_URL}}/pdf-to-jpg/"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is my PDF uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Pages are rendered by pdf.js inside your browser and saved as JPG files on your device."}},
+      {"@type":"Question","name":"Which resolution should I choose?","acceptedAnswer":{"@type":"Answer","text":"150 DPI suits screens, slides and email. 300 DPI suits printing or reading fine print. 72 DPI gives small previews."}}
+    ]}
+  ]}
+  </script>
+</head>
+<body data-tool="pdf-to-jpg">
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/pdf-tools/">PDF tools</a> › PDF to JPG</nav>
+    <section class="hero">
+      <h1>Convert PDF pages to JPG images</h1>
+      <p class="lede">Save every page, or only the pages you pick, as a JPG at the resolution you need, made in your browser without uploading the PDF.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="PDF to JPG tool">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a PDF to convert">
+        <strong>Drop a PDF here or click to choose</strong>
+        <small>One file at a time · multi-page PDFs download as a ZIP</small>
+        <input type="file" />
+      </div>
+      <ul class="files" id="files"></ul>
+      <div class="controls">
+        <label class="field">Resolution
+          <select id="dpi">
+            <option value="72">72 DPI — small preview</option>
+            <option value="150" selected>150 DPI — screen &amp; email</option>
+            <option value="300">300 DPI — print quality</option>
+          </select>
+        </label>
+        <label class="field"><span>JPEG quality: <output id="quality-out" for="quality">85</output></span>
+          <input type="range" id="quality" min="50" max="100" step="5" value="85" />
+        </label>
+        <label class="field">Pages
+          <input id="ranges" type="text" inputmode="numeric" placeholder="All pages" autocomplete="off" />
+        </label>
+      </div>
+      <div class="row-actions">
+        <button class="btn" id="run" disabled>Convert &amp; download</button>
+        <span class="status" id="status" role="status"></span>
+      </div>
+      <ul class="pages-grid" id="pages" aria-label="Converted pages"></ul>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to convert a PDF to JPG</h2>
+      <ol>
+        <li><b>Add your PDF</b> by dropping it on the box or clicking to choose it.</li>
+        <li><b>Choose a resolution.</b> 150 DPI suits most uses. Pick 300 DPI for printing or zooming into small text.</li>
+        <li><b>Set the JPEG quality</b> if you want to. 85 is a good balance; higher means sharper text edges and bigger files.</li>
+        <li><b>Choose pages (optional).</b> Leave the box empty for every page, or type ranges like <code>1-3, 7</code> or <code>5-</code> (page 5 to the end).</li>
+        <li><b>Click "Convert &amp; download".</b> One page downloads as a JPG; several pages download as a ZIP. Previews appear below the button, and clicking one saves just that page.</li>
+      </ol>
+
+      <h2>Resolution: what the DPI numbers mean</h2>
+      <p>A PDF page has a physical size, and DPI (dots per inch) sets how many pixels each inch becomes. These are the exact image sizes you'll get:</p>
+      <div class="table-scroll">
+        <table class="compare-table">
+          <thead><tr><th>Setting</th><th>US Letter (8.5 × 11 in)</th><th>A4 (210 × 297 mm)</th></tr></thead>
+          <tbody>
+            <tr><td>72 DPI</td><td>612 × 792 px</td><td>595 × 842 px</td></tr>
+            <tr><td>150 DPI</td><td>1,275 × 1,650 px</td><td>1,240 × 1,754 px</td></tr>
+            <tr><td>300 DPI</td><td>2,550 × 3,300 px</td><td>2,480 × 3,508 px</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Doubling the DPI makes four times as many pixels, so files grow fast. A 300 DPI Letter page is 8.4 megapixels, four times a 150 DPI page. Use 300 DPI when the image will be printed or when you need to zoom in on fine detail such as a signature or a chart label. For a slide, a website, a chat message or an email, 150 DPI is plenty and much smaller.</p>
+
+      <h2>Worked example: very large pages</h2>
+      <p>To stay within what phones and tablets can handle, a page is never drawn larger than 16 megapixels. Mobile Safari refuses canvases much bigger than that. Ordinary pages never hit this limit. A tabloid page (11 × 17 in) at 300 DPI would be 3,300 × 5,100 = 16.8 megapixels, just over the limit, so it is drawn at 3,218 × 4,973 pixels instead (about 293 DPI). The status line tells you when this happens. Engineering drawings and posters are scaled further, keeping their proportions.</p>
+
+      <h2>What's inside the JPGs</h2>
+      <p>Each page is drawn by <a href="https://mozilla.github.io/pdf.js/" rel="noopener">pdf.js</a>, the PDF engine built into Firefox, onto a white background. Text, vector graphics, images and form fields that are visible on the page all appear in the picture. Transparent areas turn white because JPG has no transparency. The images are only pictures: text in them can't be selected or searched. Files are named after your PDF with the page number, for example <code>report-page-03.jpg</code>, so they sort in the right order.</p>
+      <p>Going the other way? <a href="/image-to-pdf/">Image to PDF</a> turns JPGs back into one PDF, and <a href="/split-pdf/">Split PDF</a> extracts pages while keeping them as real PDF pages.</p>
+
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Is my PDF uploaded?</summary><p>No. Rendering and JPEG encoding happen inside your browser tab, and the files are saved straight to your device. The page works offline after it has loaded once.</p></details>
+        <details><summary>Which resolution should I choose?</summary><p>150 DPI for screens, slides and email; 300 DPI for printing or reading fine print; 72 DPI for small previews or thumbnails.</p></details>
+        <details><summary>Why are my images blurry when I zoom in?</summary><p>A JPG has a fixed number of pixels. Convert again at 300 DPI and a higher quality setting for sharper text.</p></details>
+        <details><summary>Can I convert a password-protected PDF?</summary><p>No. Open it in your PDF reader, save an unlocked copy, and convert that.</p></details>
+        <details><summary>Can I get PNG instead of JPG?</summary><p>Not on this page yet. JPG keeps files small for scans and photos. If you need PNG, convert the JPGs with our <a href="/compress-image/">image tool</a>; note that this won't restore detail the JPEG step removed.</p></details>
+      </div>
+      <!-- @related -->
+      <!-- @include affiliate-pdf -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/pdf-to-jpg.js"></script>
+</body>
+</html>
