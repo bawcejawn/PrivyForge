@@ -32,7 +32,7 @@ According to iLovePDF's [pricing page](https://www.ilovepdf.com/pricing):
 
 ## What iLovePDF does that PrivyForge doesn't (yet)
 
-An honest comparison has to say this: iLovePDF has far more tools. Its pricing page lists, among others, Office-to-PDF conversion, PDF to Word, Excel and PowerPoint, OCR, signing and redaction. PrivyForge currently covers the most common jobs — merge, split, compress, compress to a size target, images to PDF and PDF to JPG — and does them privately. If you need Office conversion or OCR today, iLovePDF (or a desktop PDF editor) is the better fit.
+An honest comparison has to say this: iLovePDF has far more tools. Its pricing page lists, among others, Office-to-PDF conversion, PDF to Word, Excel and PowerPoint, OCR, signing and redaction. PrivyForge currently covers the most common jobs — merge, split, compress, compress to a size target, images to PDF, PDF to JPG, PDF to text (with OCR for scanned pages), signing and form filling — and does them privately. If you need Office conversion or redaction today, iLovePDF (or a desktop PDF editor) is the better fit.
 
 ## Why "no upload" matters for PDFs
 

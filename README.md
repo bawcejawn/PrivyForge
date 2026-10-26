@@ -36,7 +36,7 @@ The claim: **no tool uploads files or entered data.** Anyone can verify it:
 3. **Automated test.** The Playwright suites in `tests/e2e/` run every tool in headless Chromium and fail if any cross-origin request or any non-GET request happens. They also check that hostile input (HTML in CSVs, share links, backup files) renders as plain text.
 
 ```bash
-pip install playwright pypdf opencv-python pillow reportlab && python -m playwright install chromium
+pip install playwright pypdf pypdfium2 opencv-python pillow reportlab && python -m playwright install chromium
 python tests/e2e/make_fixtures.py
 npm run build && npm run preview &   # serves :4173
 python tests/e2e/e2e.py && python tests/e2e/e2e_money.py && python tests/e2e/e2e_hash.py
