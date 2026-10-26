@@ -242,6 +242,36 @@
     "featured": false
   },
   {
+    "slug": "sign-pdf",
+    "href": "/sign-pdf/",
+    "title": "Sign PDF",
+    "blurb": "Add your signature, dates and text.",
+    "category": "PDF",
+    "keywords": [
+      "sign pdf",
+      "esign pdf",
+      "add signature to pdf",
+      "fill and sign"
+    ],
+    "enabled": true,
+    "featured": true
+  },
+  {
+    "slug": "fill-pdf-form",
+    "href": "/fill-pdf-form/",
+    "title": "Fill PDF Form",
+    "blurb": "Fill in fillable PDF forms privately.",
+    "category": "PDF",
+    "keywords": [
+      "fill pdf form",
+      "fillable pdf",
+      "pdf form filler",
+      "flatten pdf form"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
     "slug": "qr-code-generator",
     "href": "/qr-code-generator/",
     "title": "QR Code Generator",
