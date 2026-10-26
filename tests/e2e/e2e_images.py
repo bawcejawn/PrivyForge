@@ -11,7 +11,7 @@ results = []
 def check(name, ok, info=''):
     results.append(ok); print(('PASS ' if ok else 'FAIL ') + name, str(info)[:220])
 
-# A real 320x240 HEIC (made with libheif). Chromium can't decode HEIC, which is the point.
+# A real 320x240 HEIC (made with libheif). Chromium has no native HEIC decoder.
 HEIC = ('AAAAHGZ0eXBoZWljAAAAAG1pZjFoZWljbWlhZgAAAVZtZXRhAAAAAAAAACFoZGxyAAAAAAAAAABwaWN0AAAAAAAAAAAAAAAAAAAAACJpbG9jAAAAAERAAAEAAQAAAAABegABAAAAAAAAAJ8AAAAjaWluZgAAAAAAAQAAABVpbmZlAgAAAAABAABodmMxAAAAAA5waXRtAAAAAAABAAAA1mlwcnAAAAC3aXBjbwAAAHhodmNDAQNwAAAAkAAAAAAAPPAA/P34+AAADwNgAAEAGEABDAH//wNwAAADAJAAAAMAAAMAPLoCQGEAAQArQgEBA3AAAAMAkAAAAwAAAwA8oAoIDxZbqSSmubgIaDAgAAADAyAAAAMAIWIAAQAHRAHBcrBiQAAAABNjb2xybmNseAABAA0ABoAAAAAUaXNwZQAAAAAAAAFAAAAA8AAAABBwaXhpAAAAAAMICAgAAAAXaXBtYQAAAAAAAAABAAEEgQIDBAAAAKdtZGF0AAAAmygBrwnIamSO0tG9QJKOxqL8JUn4Vf2bk2sBlsCcuyUKy0Lyag483NHjsCk8RbwBrgKuovJzZZN0kAMDsOJg2sWE8y/8iFvMNyULoy88bNITXgAEZA+Bw5jsfhSVQBH+R/xCL/RD9gBcrH07efCc/YqH6GbGOIAdswefcJPsdhKTJ23Lr/NRuyrKrJnCz/TwAAADAAADAAADAAFL')
 
 PAGES = ['/jpg-to-webp/', '/png-to-jpg/', '/heic-to-jpg/', '/resize-image/',
@@ -102,18 +102,17 @@ async def main():
         await page.wait_for_function("document.querySelector('.file .meta').innerText.includes('4800×3200') && document.querySelector('.file .btn')", timeout=120000)
         check('resize: allow enlarging (4800x3200)', True)
 
-        # ---- HEIC on Chromium: honest unsupported message, never a silent failure
+        # ---- HEIC on Chromium: no native decoder, so the lazily loaded libheif decoder converts it
+        # (full coverage in e2e_heic.py)
         await page.goto(f'{BASE}/heic-to-jpg/')
         await page.wait_for_function("document.documentElement.dataset.heic", timeout=10000)
         state = await page.evaluate("document.documentElement.dataset.heic")
-        check('heic: Chromium detected as unsupported', state == 'unsupported', state)
-        check('heic: unsupported notice visible, mentions Safari + Most Compatible',
-              await page.is_visible('#heic-unsupported') and 'Safari' in await page.inner_text('#heic-unsupported') and 'Most Compatible' in await page.inner_text('#heic-unsupported'))
-        check('heic: "supported" notice hidden', not await page.is_visible('#heic-supported'))
+        check('heic: Chromium uses the built-in (wasm) decoder', state == 'wasm', state)
+        check('heic: decoder notice visible, no Safari-only message', await page.is_visible('#heic-decoder') and not await page.locator('#heic-unsupported').count())
         heic = os.path.join(OUT, 'sample.heic'); open(heic, 'wb').write(base64.b64decode(HEIC))
         await add_and_wait(page, [heic])
-        err = await page.locator('.file .file-err').all_inner_texts()
-        check('heic: uploaded file shows a friendly per-file message', err and 'Safari' in err[0] and await page.locator('.file .btn').count() == 0, err)
+        name, data, path = await download(page)
+        check('heic: 320x240 HEIC converts to a 320x240 JPEG', is_jpeg(data) and Image.open(path).size == (320, 240) and name == 'sample.jpg', f'{name} {Image.open(path).size}')
         await page.screenshot(path=f'{OUT}/img-heic.png', full_page=True)
 
         # ---- /compress-image/ deep links still work

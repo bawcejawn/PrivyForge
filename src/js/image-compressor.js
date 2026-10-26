@@ -1,6 +1,7 @@
 import { zipSync } from 'fflate';
 import { $, formatBytes, downloadBlob, baseName, setupDropzone } from './util.js';
 import { kbToBytes } from './lib/target-size.js';
+import { isHeicFile, nativeHeic, decodeHeic, DecoderLoadError } from './heic.js';
 import '../css/images.css';
 
 // ---------- Worker pool (parallel compression, UI never freezes)
@@ -28,16 +29,31 @@ function pump() {
     if (!w) return;
     queue.splice(queue.indexOf(job), 1);
     w.busy = true;
-    w.postMessage(job.msg, [job.msg.buffer]);
+    w.postMessage(job.msg, job.transfer);
   }
 }
-function compress(file, opts) {
-  return file.arrayBuffer().then((buffer) => new Promise((resolve, reject) => {
-    const id = ++seq;
-    pending.set(id, { resolve, reject });
-    queue.push({ msg: { id, buffer, type: file.type, opts } });
+function post(msg, transfer) {
+  return new Promise((resolve, reject) => {
+    msg.id = ++seq;
+    pending.set(msg.id, { resolve, reject });
+    queue.push({ msg, transfer });
     pump();
-  }));
+  });
+}
+// HEIC the browser can't decode itself: libheif (heic-to, its own worker) decodes it to an
+// ImageBitmap, which we hand to the compression worker, so every output format, quality,
+// resize and target-size option works the same as for a JPG.
+async function compress(file, opts, onStage) {
+  const heic = await isHeicFile(file);
+  if (heic && !(await nativeHeic())) {
+    onStage?.('decoding HEIC…');
+    const bitmap = await decodeHeic(file);
+    onStage?.('working…');
+    return post({ bitmap, type: 'image/heic', opts }, [bitmap]);
+  }
+  const buffer = await file.arrayBuffer();
+  // Safari decodes HEIC natively; tell the worker it's HEIC even if the name/MIME said otherwise.
+  return post({ buffer, type: heic ? 'image/heic' : file.type, opts }, [buffer]);
 }
 
 // ---------- UI
@@ -90,7 +106,6 @@ function opts() {
   };
 }
 
-const isHeic = (file) => /\.(heic|heif)$/i.test(file.name) || /image\/hei[cf]/i.test(file.type);
 // Rounded down so a 99,989-byte file never reads as "100.0 KB" next to "under 100 KB".
 const kb = (n) => `${(Math.floor(n / 100) / 10).toFixed(1)} KB`;
 
@@ -106,7 +121,7 @@ function rowFor(file) {
   const img = new Image(); img.className = 'thumb'; img.alt = '';
   img.src = URL.createObjectURL(file);
   img.onload = () => thumb.replaceChildren(img);
-  img.onerror = () => { thumb.textContent = isHeic(file) ? 'HEIC' : 'IMG'; };
+  img.onerror = () => { URL.revokeObjectURL(img.src); if (!thumb.querySelector('img')) thumb.textContent = /\.hei[cf]$/i.test(file.name) ? 'HEIC' : 'IMG'; };
   return li;
 }
 
@@ -132,10 +147,9 @@ function describe(file, blob, r) {
     r.keptOriginal ? 'already optimized' : pct > 0 ? `−${pct}%` : `+${-pct}%`}</span> · ${r.width}×${r.height}${r.flattenedAlpha ? ' · transparency → white' : ''}`;
 }
 
-function failMessage(file) {
-  if (isHeic(file) && heicSupport !== true) {
-    return 'This browser can’t open HEIC photos. Safari can: open this page in Safari on an iPhone, iPad or Mac, or set your iPhone camera to “Most Compatible” so it saves JPGs.';
-  }
+function failMessage(err) {
+  if (err instanceof DecoderLoadError) return 'Couldn’t load the HEIC decoder (a one-time download). Check your connection and add the photo again.';
+  if (err?.heic) return 'Couldn’t read this HEIC photo. The file may be damaged or incomplete.';
   return 'Couldn’t read this image. It may be damaged or in a format this browser can’t open.';
 }
 
@@ -145,20 +159,27 @@ async function run(item) {
   row.querySelector('.out').textContent = 'working…';
   row.querySelector('.act').replaceChildren();
   try {
-    const r = await compress(file, opts());
+    const r = await compress(file, opts(), (s) => { row.querySelector('.out').textContent = s; });
     const blob = new Blob([r.buffer], { type: r.mime });
     if (item.url) URL.revokeObjectURL(item.url);
     item.result = { blob, name: outName(file, r), target: r.target };
     item.url = URL.createObjectURL(blob);
     row.querySelector('.out').innerHTML = describe(file, blob, r);
     row.dataset.bytes = blob.size;
+    // Browsers that can't show the original (HEIC in Chrome/Firefox) get the converted image as thumbnail.
+    const thumb = row.querySelector('.thumb');
+    if (!thumb.querySelector('img')) {
+      const img = new Image(); img.className = 'thumb'; img.alt = ''; img.src = item.url;
+      img.onload = () => thumb.replaceChildren(img);
+      item.noBefore = true;
+    }
     const dl = Object.assign(document.createElement('button'), { className: 'btn sm', textContent: 'Download' });
     dl.onclick = () => downloadBlob(blob, item.result.name);
     row.querySelector('.act').append(dl);
   } catch (e) {
     item.result = null;
     const out = row.querySelector('.out');
-    const span = Object.assign(document.createElement('span'), { className: 'file-err', textContent: failMessage(file) });
+    const span = Object.assign(document.createElement('span'), { className: 'file-err', textContent: failMessage(e) });
     span.title = e.message;
     out.replaceChildren(span);
   } finally {
@@ -189,7 +210,8 @@ function add(files) {
   for (const file of files) {
     const row = rowFor(file);
     const item = { file, row };
-    row.querySelector('.thumb').addEventListener('click', () => item.url && openCompare(URL.createObjectURL(file), item.url));
+    // No before/after slider when the browser can't display the original (HEIC outside Safari).
+    row.querySelector('.thumb').addEventListener('click', () => item.url && !item.noBefore && openCompare(URL.createObjectURL(file), item.url));
     items.push(item); list.append(row);
     run(item);
   }
@@ -213,29 +235,12 @@ for (const b of document.querySelectorAll('[data-preset-w]')) {
   });
 }
 
-// ---------- HEIC support (Safari decodes HEIC natively; Chrome, Firefox and Edge don't)
-// A 402-byte 64x64 HEIC: if the browser can decode it, it can decode iPhone photos too.
-const HEIC_PROBE = 'AAAAHGZ0eXBoZWljAAAAAG1pZjFoZWljbWlhZgAAAVZtZXRhAAAAAAAAACFoZGxyAAAAAAAAAABwaWN0AAAAAAAAAAAAAAAAAAAAACJpbG9jAAAAAERAAAEAAQAAAAABegABAAAAAAAAABgAAAAjaWluZgAAAAAAAQAAABVpbmZlAgAAAAABAABodmMxAAAAAA5waXRtAAAAAAABAAAA1mlwcnAAAAC3aXBjbwAAAHhodmNDAQNwAAAAkAAAAAAAHvAA/P34+AAADwNgAAEAGEABDAH//wNwAAADAJAAAAMAAAMAHroCQGEAAQArQgEBA3AAAAMAkAAAAwAAAwAeoCCBBZbqSSmubgIaDAgAAAMAyAAAAwAIQGIAAQAHRAHBcrAiQAAAABNjb2xybmNseAABAA0ABoAAAAAUaXNwZQAAAAAAAABAAAAAQAAAABBwaXhpAAAAAAMICAgAAAAXaXBtYQAAAAAAAAABAAEEgQIDBAAAACBtZGF0AAAAFCgBrwQY/Hk46//uPj91wFtDxHQ4';
-let heicSupport = null;
-async function probeHeic() {
-  try {
-    const bytes = Uint8Array.from(atob(HEIC_PROBE), (c) => c.charCodeAt(0));
-    const bmp = await Promise.race([
-      createImageBitmap(new Blob([bytes], { type: 'image/heic' })),
-      new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 4000)),
-    ]);
-    const ok = bmp.width === 64 && bmp.height === 64; bmp.close?.();
-    return ok;
-  } catch { return false; }
-}
+// ---------- HEIC page: say up front which decoder this browser will use.
 if (mode === 'heic') {
-  probeHeic().then((ok) => {
-    heicSupport = ok;
-    document.documentElement.dataset.heic = ok ? 'supported' : 'unsupported';
-    const yes = $('#heic-supported'), no = $('#heic-unsupported');
-    if (yes) yes.hidden = !ok;
-    if (no) no.hidden = ok;
-    tool.classList.toggle('heic-off', !ok);
+  nativeHeic().then((ok) => {
+    document.documentElement.dataset.heic = ok ? 'native' : 'wasm';
+    const note = $('#heic-decoder');
+    if (note && !ok) note.hidden = false;
   });
 }
 

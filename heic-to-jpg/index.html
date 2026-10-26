@@ -3,22 +3,15 @@
 <head>
   <!-- @include head -->
   <title>HEIC to JPG Converter — Private, No Upload | PrivyForge</title>
-  <meta name="description" content="Convert iPhone HEIC photos to JPG without uploading them. Works in Safari on iPhone, iPad and Mac, with honest workarounds for other browsers." />
+  <meta name="description" content="Convert iPhone HEIC photos to JPG in Chrome, Edge, Firefox or Safari. Free, no upload: photos are converted on your device and GPS data is removed." />
   <link rel="canonical" href="{{SITE_URL}}/heic-to-jpg/" />
   <meta property="og:title" content="HEIC to JPG — Private, No Upload" />
-  <meta property="og:description" content="Convert iPhone HEIC photos to JPG in Safari, without sending them to a server." />
+  <meta property="og:description" content="Convert iPhone HEIC photos to JPG in any modern browser, without sending them to a server." />
   <meta property="og:url" content="{{SITE_URL}}/heic-to-jpg/" />
   <script type="application/ld+json">
   {"@context":"https://schema.org","@graph":[
-    {"@type": "WebApplication", "name": "PrivyForge HEIC to JPG Converter", "url": "{{SITE_URL}}/heic-to-jpg/", "applicationCategory": "MultimediaApplication", "operatingSystem": "Safari on iPhone, iPad and Mac (runs in your browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "featureList": ["Convert HEIC/HEIF to JPG in Safari", "Adjustable quality and size", "Removes GPS location", "Batch ZIP download", "Works offline"]},
-    {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/"}, {"@type": "ListItem", "position": 2, "name": "HEIC to JPG", "item": "{{SITE_URL}}/heic-to-jpg/"}]},
-    {"@type":"FAQPage","mainEntity":[
-      {"@type": "Question", "name": "Why doesn’t this work in Chrome, Firefox or Edge?", "acceptedAnswer": {"@type": "Answer", "text": "Those browsers don’t include a HEIC decoder. Rather than upload your photos to a server to convert them, PrivyForge uses the browser’s own decoder, which only Safari has. Open the page in Safari, or set your iPhone camera to “Most Compatible”."}},
-      {"@type": "Question", "name": "Are my photos uploaded?", "acceptedAnswer": {"@type": "Answer", "text": "No. Photos are converted inside your browser and never leave your device. The page keeps working offline after the first visit."}},
-      {"@type": "Question", "name": "Will converting to JPG lower the quality?", "acceptedAnswer": {"@type": "Answer", "text": "JPG compresses differently from HEIC, so files at the same quality are larger. At quality 85 the result looks like the original for normal viewing."}},
-      {"@type": "Question", "name": "Is the location removed from my photos?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The converted JPG is a new image without the original metadata, so GPS coordinates aren’t included."}},
-      {"@type": "Question", "name": "How do I stop my iPhone taking HEIC photos?", "acceptedAnswer": {"@type": "Answer", "text": "Open Settings → Camera → Formats and choose Most Compatible. New photos are saved as JPG; existing photos stay HEIC."}}
-    ]}
+    {"@type": "WebApplication", "name": "PrivyForge HEIC to JPG Converter", "url": "{{SITE_URL}}/heic-to-jpg/", "applicationCategory": "MultimediaApplication", "operatingSystem": "Any modern browser: Chrome, Edge, Firefox, Safari (runs in your browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "featureList": ["Convert HEIC/HEIF to JPG in Chrome, Edge, Firefox and Safari", "No upload: converted on your device", "Adjustable quality and size", "Removes GPS location", "Batch ZIP download", "Works offline after first use"]},
+    {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/"}, {"@type": "ListItem", "position": 2, "name": "HEIC to JPG", "item": "{{SITE_URL}}/heic-to-jpg/"}]}
   ]}
   </script>
 </head>
@@ -28,25 +21,15 @@
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › HEIC to JPG</nav>
     <section class="hero">
       <h1>Convert HEIC to JPG — privately, on your device</h1>
-      <p class="lede">Turn iPhone HEIC photos into JPGs that open anywhere. Works in Safari on iPhone, iPad and Mac, and your photos are never uploaded.</p>
+      <p class="lede">Turn iPhone HEIC photos into JPGs that open anywhere. Works in Chrome, Edge, Firefox and Safari, and your photos are never uploaded.</p>
       <!-- @include privacy-pills -->
     </section>
 
     <section class="tool" aria-label="HEIC to JPG converter" data-mode="heic" data-format="jpeg" data-accept=".heic,.heif,image/heic,image/heif" data-suffix="">
-      <div class="notice warn" id="heic-unsupported" role="status" hidden>
-        <strong>This browser can’t open HEIC photos.</strong>
-        <p>HEIC is Apple’s photo format. Safari can decode it, but Chrome, Firefox and Edge can’t. PrivyForge converts with your browser’s own decoder instead of uploading your photos to a server, so here it can’t read them. Easy fixes:</p>
-        <ul>
-          <li><b>Open this page in Safari</b> on your iPhone, iPad or Mac, then convert.</li>
-          <li><b>Stop new HEIC photos:</b> on iPhone, go to Settings → Camera → Formats and choose <b>Most Compatible</b>. New photos are saved as JPG.</li>
-          <li><b>Copying to a computer:</b> Settings → Photos → Transfer to Mac or PC → <b>Automatic</b> converts photos to JPG as they are copied.</li>
-          <li><b>On a Mac:</b> open the photo in Preview and choose File → Export → JPEG.</li>
-        </ul>
-      </div>
-      <div class="notice ok" id="heic-supported" hidden><strong>Good news: this browser can open HEIC photos.</strong> Add them below and they convert on your device.</div>
+      <p class="notice" id="heic-decoder" hidden>This browser has no built-in HEIC decoder, so the first photo you add loads PrivyForge’s own (about 0.8 MB to download, once). It runs on your device: your photos still aren’t uploaded.</p>
       <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose HEIC photos to convert to JPG">
         <strong>Drop HEIC photos here or click to choose</strong>
-        <small>HEIC / HEIF in → JPG out · Safari on iPhone, iPad and Mac</small>
+        <small>HEIC / HEIF in → JPG out · any number · nothing uploaded</small>
         <input type="file" />
       </div>
       <div class="controls">
@@ -69,21 +52,21 @@
     <article class="content narrow">
       <h2>How to convert HEIC to JPG</h2>
       <ol>
-        <li><b>Open this page in Safari</b> on an iPhone, iPad or Mac. The box above tells you straight away whether your browser can read HEIC.</li>
-        <li><b>Add your photos.</b> Tap the box and pick photos from your library or the Files app. You can choose several at once.</li>
-        <li><b>Pick quality and size.</b> Quality 85 keeps photos looking like the originals. Set a max width if you want smaller files for email or a website.</li>
+        <li><b>Add your photos.</b> Drop HEIC or HEIF files on the box above, or tap it to choose them. On an iPhone or iPad you can pick from your photo library or the Files app. You can add as many as you like.</li>
+        <li><b>Wait a moment.</b> Each photo is decoded and saved as a JPG on your device. Large photos take several seconds each, depending on your device.</li>
+        <li><b>Pick quality and size.</b> Quality 85 keeps photos looking like the originals. Set a max width if you want smaller files for email or a website. Changing a setting re-converts everything.</li>
         <li><b>Download.</b> Save each JPG, or use “Download all” to get a ZIP.</li>
       </ol>
 
-      <h2>Why this only works in Safari (for now)</h2>
-      <p>HEIC (High Efficiency Image Container) stores photos using HEVC compression, the same technology as H.265 video. iPhones have saved photos as HEIC by default since iOS 11 because the files are much smaller than JPGs of similar quality.</p>
-      <p>The catch is support. Safari includes a HEIC decoder because Apple’s operating systems do. Chrome, Firefox and Edge don’t, so they can’t open HEIC files at all. Most “HEIC to JPG” websites get around this by uploading your photos to their server and converting them there. We don’t upload anything, so this page relies on the decoder your browser already has, and it says so honestly instead of failing silently.</p>
-      <p>If you’re on Windows, Android or Linux, the workarounds in the box above (switching the iPhone to “Most Compatible” or letting it convert automatically when copying to a computer) are the quickest fix, and they don’t send your photos anywhere either.</p>
+      <h2>How it works without uploading your photos</h2>
+      <p>HEIC (High Efficiency Image Container) stores photos using HEVC compression, the same technology as H.265 video. iPhones have saved photos as HEIC by default since iOS 11 because the files are much smaller than JPGs of similar quality. The catch is support: Windows, Android and many websites can’t open them.</p>
+      <p>Safari can read HEIC itself, so in Safari this page uses the browser’s own decoder. Chrome, Edge and Firefox can’t, and many online converters work around that by uploading your photos to a server. PrivyForge doesn’t. Instead, the first time you add a HEIC photo in one of those browsers, the page loads an open-source HEIC decoder (libheif, compiled to WebAssembly) and runs it inside your browser. The download is about 0.8 MB compressed (3 MB unpacked), happens once, and contains no photo data in either direction: your photos are read from your disk and the JPGs are written back to it. Your browser keeps the decoder, so later conversions start straight away and also work offline.</p>
+      <p>Pages that don’t involve HEIC never load the decoder, and neither do JPG or PNG files you add here or to the other image tools.</p>
 
       <!-- @include ad-content -->
 
       <h2>A worked example: shrinking an iPhone photo for email</h2>
-      <p>A 12-megapixel iPhone photo is 4032×3024 pixels. Converting it at full size keeps every pixel, which is what you want for printing. For email or a website, set the max width to 2000: the photo is scaled to 2000×1500 (3024 × 2000 ÷ 4032 = 1500), which is about a quarter of the original pixel count (3.0 megapixels instead of 12.2), so the JPG is far smaller and still looks sharp on any screen. If a form demands a specific file size, use <a href="/compress-image-to-100kb/">compress to 100 KB</a> in Safari, which also accepts HEIC.</p>
+      <p>A 12-megapixel iPhone photo is 4032×3024 pixels. Converting it at full size keeps every pixel, which is what you want for printing. For email or a website, set the max width to 2000: the photo is scaled to 2000×1500 (3024 × 2000 ÷ 4032 = 1500), which is about a quarter of the original pixel count (3.0 megapixels instead of 12.2), so the JPG is far smaller and still looks sharp on any screen. If a form demands a specific file size, use <a href="/compress-image-to-100kb/">compress to 100 KB</a>: it accepts HEIC photos too, in every browser.</p>
 
       <h2>Saving the JPGs on iPhone and iPad</h2>
       <p>When you tap Download in Safari, the JPG goes to the Downloads folder in the Files app. To put it in your photo library, open it in Files, tap the Share button and choose Save Image. If you converted several photos, “Download all” saves a single ZIP; tap it in Files to unpack it. On a Mac, downloads land in your Downloads folder as usual.</p>
@@ -96,15 +79,16 @@
         <li><b>A standard JPG</b> that opens in Windows, Android, email, Office and every upload form.</li>
         <li><b>Correct orientation.</b> The rotation stored in the photo is applied, so portrait shots stay upright.</li>
         <li><b>No location data.</b> iPhone photos usually record where they were taken. The converted JPG doesn’t carry that metadata, which makes it safer to share.</li>
-        <li><b>The main image only.</b> For Live Photos, you get the still photo, not the motion clip.</li>
+        <li><b>The main image only.</b> For Live Photos you get the still photo, not the motion clip. If a HEIC file holds several images (some burst or edited photos do), you get its primary image, the one your phone shows.</li>
       </ul>
 
       <h2>Frequently asked questions</h2>
       <div class="faq">
-        <details><summary>Why doesn’t this work in Chrome, Firefox or Edge?</summary><p>Those browsers don’t include a HEIC decoder. Rather than upload your photos to a server to convert them, PrivyForge uses the browser’s own decoder, which only Safari has. Open the page in Safari, or set your iPhone camera to “Most Compatible”.</p></details>
-        <details><summary>Are my photos uploaded?</summary><p>No. Photos are converted inside your browser and never leave your device. The page keeps working offline after the first visit.</p></details>
+        <details><summary>Does this work in Chrome, Edge and Firefox?</summary><p>Yes. Safari reads HEIC with its own decoder; in Chrome, Edge and Firefox the page loads PrivyForge’s built-in decoder the first time you add a HEIC photo (about 0.8 MB, once). Either way the conversion happens on your device.</p></details>
+        <details><summary>Are my photos uploaded?</summary><p>No. Photos are converted inside your browser and never leave your device. The only download is the decoder itself, which is the same file for everyone and carries no photo data.</p></details>
         <details><summary>Will converting to JPG lower the quality?</summary><p>JPG compresses differently from HEIC, so files at the same quality are larger. At quality 85 the result looks like the original for normal viewing.</p></details>
         <details><summary>Is the location removed from my photos?</summary><p>Yes. The converted JPG is a new image without the original metadata, so GPS coordinates aren’t included.</p></details>
+        <details><summary>What if a photo won’t convert?</summary><p>You’ll see “Couldn’t read this HEIC photo” next to it. That usually means the file is damaged or only partly copied. Copy it from your phone again and retry. Very large panoramas can also run out of memory on phones; try a computer.</p></details>
         <details><summary>How do I stop my iPhone taking HEIC photos?</summary><p>Open Settings → Camera → Formats and choose Most Compatible. New photos are saved as JPG; existing photos stay HEIC.</p></details>
       </div>
       <!-- @related -->
