@@ -113,6 +113,29 @@ function ocrAssets() {
   };
 }
 
+// Large third-party browser files copied from node_modules at build (not committed, not
+// precached). heic-to (LGPL-3.0) ships unmodified as its own file; its license texts live
+// next to it in public/vendor/heic-to/.
+function vendorAssets() {
+  const ver = JSON.parse(readFileSync(resolve(root, 'node_modules/heic-to/package.json'), 'utf8')).version;
+  const files = { [`vendor/heic-to/heic-to-csp-${ver}.mjs`]: 'heic-to/dist/csp/heic-to.js' };
+  const src = (f) => resolve(root, 'node_modules', files[f]);
+  return {
+    name: 'privyforge-vendor-assets',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const path = decodeURIComponent((req.url || '').split('?')[0]).slice(BASE.length);
+        if (!files[path]) return next();
+        res.setHeader('Content-Type', 'text/javascript');
+        createReadStream(src(path)).pipe(res);
+      });
+    },
+    generateBundle() {
+      for (const f of Object.keys(files)) this.emitFile({ type: 'asset', fileName: f, source: readFileSync(src(f)) });
+    },
+  };
+}
+
 export default defineConfig({
   base: BASE,
   // Default repo for /admin/ (Actions sets GITHUB_REPOSITORY automatically).
@@ -126,6 +149,7 @@ export default defineConfig({
     partials(),
     basePathLinks(),
     ocrAssets(),
+    vendorAssets(),
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'script-defer',

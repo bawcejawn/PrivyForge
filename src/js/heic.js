@@ -7,7 +7,7 @@ import { looksLikeHeic, sniffHeic, markPrimaryOnly, HEIC_TO_VERSION } from './li
 // this device: the photo is never uploaded.
 //
 // Licensing: heic-to and libheif are LGPL-3.0. We ship heic-to's published "csp" build
-// byte-for-byte unmodified as its own file, public/vendor/heic-to/ (tests/heic.test.js checks
+// byte-for-byte unmodified as its own file, vendor/heic-to/ — copied from node_modules at build by vite.config.js (tests/heic.test.js checks
 // it matches node_modules), with its license, and import it at runtime only when needed, so
 // anyone can swap in their own build of the library. The "csp" build needs no 'unsafe-eval'.
 // It lives in public/ as .mjs (not bundled by Vite) so the service worker doesn't precache

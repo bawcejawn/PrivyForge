@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { sniffHeic, looksLikeHeic, markPrimaryOnly, HEIC_TO_VERSION } from '../src/js/lib/heic.js';
 
 // Build an ftyp box: size, 'ftyp', major brand, minor version, compatible brands.
@@ -57,16 +57,17 @@ test('heic: name / MIME check', () => {
   assert.equal(looksLikeHeic('heic.png', 'image/png'), false);
 });
 
-test('heic-to: vendored copy is the unmodified npm build, with its license (LGPL-3.0)', () => {
+test('heic-to: shipped unmodified from node_modules at build, with its license (LGPL-3.0)', () => {
   const pkg = JSON.parse(readFileSync(new URL('../node_modules/heic-to/package.json', import.meta.url)));
-  assert.equal(pkg.version, HEIC_TO_VERSION, 'npm heic-to was updated: copy dist/csp/heic-to.js to public/vendor/heic-to/heic-to-csp-<version>.mjs and bump HEIC_TO_VERSION');
+  assert.equal(pkg.version, HEIC_TO_VERSION, 'npm heic-to was updated: bump HEIC_TO_VERSION in src/js/lib/heic.js');
   assert.equal(pkg.license, 'LGPL-3.0');
-  const npm = readFileSync(new URL('../node_modules/heic-to/dist/csp/heic-to.js', import.meta.url));
-  const ours = readFileSync(new URL(`../public/vendor/heic-to/heic-to-csp-${HEIC_TO_VERSION}.mjs`, import.meta.url));
-  assert.ok(npm.equals(ours), 'public/vendor copy differs from node_modules/heic-to/dist/csp/heic-to.js');
   const lic = readFileSync(new URL('../public/vendor/heic-to/LICENSE.txt', import.meta.url), 'utf8');
   assert.match(lic, /GNU Lesser General Public License/);
+  assert.ok(readFileSync(new URL('../public/vendor/heic-to/COPYING-GPL-3.txt', import.meta.url), 'utf8').includes('GNU GENERAL PUBLIC LICENSE'));
   assert.match(readFileSync(new URL('../THIRD_PARTY_NOTICES.md', import.meta.url), 'utf8'), /heic-to[\s\S]*libheif[\s\S]*LGPL-3\.0/);
+  // The build copies the file byte-for-byte (vite.config.js vendorAssets); check dist when present.
+  const built = new URL(`../dist/vendor/heic-to/heic-to-csp-${HEIC_TO_VERSION}.mjs`, import.meta.url);
+  if (existsSync(built)) assert.ok(readFileSync(built).equals(readFileSync(new URL('../node_modules/heic-to/dist/csp/heic-to.js', import.meta.url))), 'built copy was modified');
 });
 
 test('heic primary: burst fixture -> the non-primary image (item 1) gets the hidden flag', () => {
