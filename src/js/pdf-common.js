@@ -53,7 +53,9 @@ export async function renderPage(page, dpi, canvas) {
   canvas.width = size.width; canvas.height = size.height;
   const ctx = canvas.getContext('2d');
   ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-  await page.render({ canvasContext: ctx, viewport: vp }).promise;
+  // annotationMode 1 (ENABLE) paints form-field appearances into the image too; the default
+  // leaves them for an HTML layer we don't have.
+  await page.render({ canvasContext: ctx, viewport: vp, annotationMode: 1 }).promise;
   return { ptW: base.width, ptH: base.height, ...size };
 }
 
