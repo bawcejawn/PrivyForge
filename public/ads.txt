@@ -1,2 +1,4 @@
-# Replace with your publisher line once AdSense approves you, e.g.:
+# ads.txt — authorized digital sellers for PrivyForge (https://iabtechlab.com/ads-txt/)
+# Once AdSense approves the site, replace the placeholder below with the line AdSense shows you
+# (AdSense → Sites → ads.txt) and remove the leading "# ". Keep it on its own line.
 # google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
