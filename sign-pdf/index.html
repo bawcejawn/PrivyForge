@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Sign PDF Online Free — Private, No Upload | PrivyForge</title>
+  <meta name="description" content="Draw, type or upload your signature and place it on a PDF with dates, initials and text. Runs in your browser; the PDF is never uploaded. Free." />
+  <link rel="canonical" href="{{SITE_URL}}/sign-pdf/" />
+  <meta property="og:title" content="Sign a PDF — Free, Private, No Upload" />
+  <meta property="og:description" content="Add your signature, initials, dates and text to a PDF without sending it to anyone's server." />
+  <meta property="og:url" content="{{SITE_URL}}/sign-pdf/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Sign PDF","url":"{{SITE_URL}}/sign-pdf/","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Sign PDF","item":"{{SITE_URL}}/sign-pdf/"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is a signature added this way legally binding?","acceptedAnswer":{"@type":"Answer","text":"This tool makes a simple electronic signature: a picture of your signature placed on the document. Many people and organizations accept that for everyday paperwork, but whether it is enough depends on the recipient, the type of document and the law where you are. This is not legal advice. If you need identity checks or an audit trail, use a dedicated e-signature service."}},
+      {"@type":"Question","name":"Is this a digital signature?","acceptedAnswer":{"@type":"Answer","text":"No. A certificate-based digital signature cryptographically seals the file and proves who signed it. This tool doesn't do that. It adds your signature image and text to the pages, like signing a printout and scanning it."}},
+      {"@type":"Question","name":"Is my document uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The PDF is opened, displayed and saved inside your browser with pdf.js and pdf-lib. You can disconnect from the internet after the page loads and it still works."}},
+      {"@type":"Question","name":"Will the rest of my PDF change?","acceptedAnswer":{"@type":"Answer","text":"Your pages are kept as they are. Text stays selectable and nothing is turned into an image; your items are drawn on top. The file is re-saved, so any existing digital signatures in it will no longer validate, and the file size may change slightly."}},
+      {"@type":"Question","name":"Is my signature saved anywhere?","acceptedAnswer":{"@type":"Answer","text":"Only if you tick \"Remember my signature on this device\". Then it is stored in this browser's local storage on this device and nowhere else. Untick the box to delete it. It is off by default."}},
+      {"@type":"Question","name":"Can I sign on my phone?","acceptedAnswer":{"@type":"Answer","text":"Yes. Draw with your finger or a stylus, tap a page to place items, drag them to move, and use the corner handle to resize."}}
+    ]}
+  ]}
+  </script>
+</head>
+<body data-tool="sign-pdf">
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/pdf-tools/">PDF tools</a> › Sign PDF</nav>
+    <section class="hero">
+      <h1>Sign a PDF — without uploading it</h1>
+      <p class="lede">Draw, type or upload your signature, then place it on the document with initials, dates, text and checkmarks. It all happens in your browser.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Sign PDF tool">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a PDF to sign">
+        <strong>Drop a PDF here or click to choose</strong>
+        <small>One file · it stays on your device</small>
+        <input type="file" />
+      </div>
+
+      <div id="editor" hidden>
+        <div class="sign-sticky">
+        <div class="sign-bar" role="toolbar" aria-label="Add to the document">
+          <button type="button" class="btn ghost sm" data-add="signature" aria-pressed="false">✍ Signature</button>
+          <button type="button" class="btn ghost sm" data-add="initials" aria-pressed="false">Initials</button>
+          <button type="button" class="btn ghost sm" data-add="date" aria-pressed="false">Date</button>
+          <button type="button" class="btn ghost sm" data-add="text" aria-pressed="false">Text</button>
+          <button type="button" class="btn ghost sm" data-add="check" aria-pressed="false">✓ Check</button>
+          <span class="sign-spacer"></span>
+          <button type="button" class="btn sm" id="save" disabled>Download signed PDF</button>
+        </div>
+        <div class="sign-props" id="props" hidden></div>
+        </div>
+        <p class="status sign-status" id="status" role="status"></p>
+        <div class="sign-pages" id="pages"></div>
+        <div class="row-actions">
+          <button type="button" class="btn" id="save2" disabled>Download signed PDF</button>
+          <button type="button" class="btn ghost" id="reset">Choose another PDF</button>
+          <span class="status" id="file-label"></span>
+        </div>
+      </div>
+      <p class="sign-note">This adds a <b>simple electronic signature</b> (an image of your signature placed on the pages). It is not a certificate-based digital signature. Whether it's accepted depends on the recipient and where you are. Not legal advice.</p>
+    </section>
+
+    <dialog id="sigdlg" class="sig-dialog" aria-labelledby="sigdlg-title">
+      <h2 id="sigdlg-title">Create your signature</h2>
+      <div class="sig-tabs" role="tablist" aria-label="How to create it">
+        <button type="button" role="tab" data-tab="draw" aria-selected="true" aria-controls="tab-draw">Draw</button>
+        <button type="button" role="tab" data-tab="type" aria-selected="false" aria-controls="tab-type" tabindex="-1">Type</button>
+        <button type="button" role="tab" data-tab="upload" aria-selected="false" aria-controls="tab-upload" tabindex="-1">Upload</button>
+      </div>
+      <div class="sig-ink" role="group" aria-label="Ink colour">
+        <span>Ink</span>
+        <button type="button" data-ink="blue" aria-pressed="true" aria-label="Blue ink"><i style="background:#14286e"></i></button>
+        <button type="button" data-ink="black" aria-pressed="false" aria-label="Black ink"><i style="background:#111"></i></button>
+      </div>
+      <div role="tabpanel" id="tab-draw" aria-label="Draw">
+        <div class="pad-wrap">
+          <canvas id="pad" aria-label="Signature drawing area. Draw with a mouse, finger or pen."></canvas>
+          <span class="pad-line" aria-hidden="true"></span>
+          <span id="pad-hint" class="pad-hint">Sign here with your mouse, finger or pen</span>
+        </div>
+        <div class="row-actions"><button type="button" class="btn ghost sm" id="pad-undo">Undo stroke</button><button type="button" class="btn ghost sm" id="pad-clear">Clear</button></div>
+      </div>
+      <div role="tabpanel" id="tab-type" aria-label="Type" hidden>
+        <label class="field">Your name<input id="type-text" type="text" autocomplete="name" maxlength="60" /></label>
+        <div class="type-opts" id="type-opts" role="radiogroup" aria-label="Style"></div>
+        <p class="hint">Styles use handwriting fonts already on your device, so they look a little different on each system.</p>
+      </div>
+      <div role="tabpanel" id="tab-upload" aria-label="Upload" hidden>
+        <div class="drop sm" id="up-drop" tabindex="0" role="button" aria-label="Choose a signature image">
+          <strong>Choose a photo or scan of your signature</strong>
+          <small>PNG or JPG · sign on white paper for best results</small>
+          <input type="file" />
+        </div>
+        <label class="check"><input type="checkbox" id="up-white" checked /> Remove white background</label>
+        <div class="up-preview" id="up-preview" aria-live="polite"></div>
+      </div>
+      <label class="check"><input type="checkbox" id="remember" /> Remember my signature on this device</label>
+      <p class="hint">Off by default. When ticked, your signature and initials are kept in this browser's storage on this device only. Untick to delete them.</p>
+      <p class="status err" id="sig-err" role="alert"></p>
+      <div class="row-actions sig-actions">
+        <button type="button" class="btn ghost" id="sig-cancel">Cancel</button>
+        <button type="button" class="btn" id="sig-use">Use this</button>
+      </div>
+    </dialog>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to sign a PDF</h2>
+      <ol>
+        <li><b>Open your PDF.</b> Drop it on the box or click to choose it. Pages appear below, one under the other.</li>
+        <li><b>Create your signature.</b> Click <i>Signature</i> and either draw it with a mouse, finger or stylus, type your name and pick a style, or upload a photo of your signature on paper. For a photo, keep <i>Remove white background</i> ticked so the paper disappears and only the ink is placed.</li>
+        <li><b>Place it.</b> Click or tap the spot on the page. Drag it to adjust, and pull the corner handle to make it bigger or smaller.</li>
+        <li><b>Add the rest.</b> Use <i>Initials</i>, <i>Date</i>, <i>Text</i> and <i>✓ Check</i> the same way, on as many pages as you need. Select an item to edit its text, change the date or its format, or remove it.</li>
+        <li><b>Click "Download signed PDF".</b> You get a copy named <code>yourfile-signed.pdf</code>. Your original file is untouched.</li>
+      </ol>
+      <p>Keyboard: select an item and use the arrow keys to nudge it by one point (hold Shift for ten), Delete to remove it and Esc to deselect. With an item chosen in the toolbar, focus a page and press Enter to drop it in the middle.</p>
+
+      <h2>Worked example: a two-page lease</h2>
+      <p>Your landlord emails a lease: page 1 is US Letter (612 × 792 points, 8.5 × 11 in) and page 2 is a sideways A4 scan stored with a 90° rotation. You need to sign and date both pages and initial the first.</p>
+      <ol>
+        <li>Draw your signature once. It is cropped to the ink so there's no empty border.</li>
+        <li>Place it on the line on page 1. It starts 170 points wide, which is 170 ÷ 72 = <b>2.36 inches (6.0 cm)</b>, about the size of a pen signature. Initials start at 64 points, or 0.89 in (2.3 cm).</li>
+        <li>Add a date next to it. It shows today's date at 12 points; change the format to, say, <i>26 October 2026</i> if the landlord is outside the US.</li>
+        <li>Scroll to page 2 and do the same. Even though that page is stored rotated, your signature lands exactly where you put it, the right way up.</li>
+      </ol>
+      <p>The downloaded file still has two pages, the lease text is still selectable and searchable, and your signature, initials and dates sit exactly where you placed them.</p>
+
+      <h2>What kind of signature this is</h2>
+      <p>Be clear about what you're sending. This tool creates a <b>simple electronic signature</b>: a picture of your signature, plus any text you typed, placed on the page. It's the digital version of signing a printout and scanning it back. It is <b>not</b> a certificate-based digital signature, which seals the file cryptographically and identifies the signer through a certificate.</p>
+      <p>Many landlords, employers, schools and businesses accept simple electronic signatures for everyday paperwork. Some documents and some countries require more, such as identity checks, an audit trail of who signed and when, or a qualified signature. Whether a signed PDF from this page is enough depends on the recipient and the law where you are. If in doubt, ask the person who sent it. This page is not legal advice.</p>
+      <p>Because the file is re-saved, any digital signatures already in the PDF will stop validating. If the sender needs to keep those, use their signing process instead.</p>
+
+      <h2>Private by design</h2>
+      <p>Signing usually involves sensitive documents: leases, job offers, medical and school forms, loan papers. Here the PDF is read, displayed and saved inside your browser using <a href="https://mozilla.github.io/pdf.js/" rel="noopener">pdf.js</a> and <a href="https://pdf-lib.js.org/" rel="noopener">pdf-lib</a>. Nothing is uploaded, and you can turn off Wi-Fi once the page has loaded. Your signature isn't stored unless you tick <i>Remember my signature on this device</i>. Even then it stays in this browser on this device, and unticking the box deletes it.</p>
+      <p>Your pages are kept as they are. Nothing is converted into an image, so text stays sharp and selectable. Your items are added on top as a separate layer of the page. Need to fill in a form that already has fillable boxes? Use <a href="/fill-pdf-form/">Fill PDF Form</a>. To combine the signed file with others, use <a href="/merge-pdf/">Merge PDF</a>.</p>
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Is a signature added this way legally binding?</summary><p>This tool makes a simple electronic signature: a picture of your signature placed on the document. Many people and organizations accept that for everyday paperwork, but whether it is enough depends on the recipient, the type of document and the law where you are. This is not legal advice. If you need identity checks or an audit trail, use a dedicated e-signature service.</p></details>
+        <details><summary>Is this a digital signature?</summary><p>No. A certificate-based digital signature cryptographically seals the file and proves who signed it. This tool doesn't do that. It adds your signature image and text to the pages, like signing a printout and scanning it.</p></details>
+        <details><summary>Is my document uploaded?</summary><p>No. The PDF is opened, displayed and saved inside your browser with pdf.js and pdf-lib. You can disconnect from the internet after the page loads and it still works.</p></details>
+        <details><summary>Will the rest of my PDF change?</summary><p>Your pages are kept as they are. Text stays selectable and nothing is turned into an image; your items are drawn on top. The file is re-saved, so any existing digital signatures in it will no longer validate, and the file size may change slightly.</p></details>
+        <details><summary>Is my signature saved anywhere?</summary><p>Only if you tick "Remember my signature on this device". Then it is stored in this browser's local storage on this device and nowhere else. Untick the box to delete it. It is off by default.</p></details>
+        <details><summary>Can I sign on my phone?</summary><p>Yes. Draw with your finger or a stylus, tap a page to place items, drag them to move, and use the corner handle to resize.</p></details>
+      </div>
+      <!-- @related -->
+      <!-- @include affiliate-pdf -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/sign-pdf.js"></script>
+</body>
+</html>
