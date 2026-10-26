@@ -1,0 +1,34 @@
+/* Image tool pages (convert, resize, target size, HEIC). Shared with /compress-image/. */
+.file .file-err { color: var(--err); font-family: var(--font); }
+.file .target-miss { color: var(--warn); font-weight: 700; font-family: var(--font); }
+.file .meta { overflow-wrap: anywhere; }
+.summary.warn { background: var(--surface-2); color: var(--warn); }
+
+.notice { margin: 0 0 16px; padding: 14px 16px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); line-height: 1.5; }
+.notice[hidden] { display: none; }
+.notice p { margin: 6px 0 0; }
+.notice ul { margin: 6px 0 0; padding-left: 1.2em; }
+.notice.warn { border-color: var(--warn); }
+.notice.warn strong { color: var(--warn); }
+.notice.ok { border-color: var(--ok); background: var(--ok-soft); }
+.notice.ok strong { color: var(--ok); }
+
+.check { display: flex; align-items: center; gap: 8px; font-size: .92rem; color: var(--ink); min-height: 38px; cursor: pointer; }
+.check input { width: 18px; height: 18px; accent-color: var(--ember); margin: 0; }
+
+.resize-controls .field input { font-size: 1.15rem; font-weight: 650; width: 9ch; }
+.resize-controls .field { min-width: 0; }
+.resize-controls .times { align-self: end; padding-bottom: 10px; color: var(--ink-2); font-weight: 700; }
+.presets { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 12px; font-size: .88rem; color: var(--ink-2); }
+.tool-hint { font-size: .86rem; color: var(--ink-2); margin: 8px 0 0; }
+.field input.target-input { font-size: 1.15rem; font-weight: 650; width: 8ch; }
+
+@media (max-width: 520px) {
+  .tool[data-mode] .controls { gap: 12px 14px; }
+  .tool[data-mode] .controls > .field { flex: 1 1 140px; }
+  .tool[data-mode] .resize-controls > .field { flex: 0 1 auto; }
+  .resize-controls .check { flex: 1 1 100%; min-height: 28px; }
+}
+
+.content pre { overflow-x: auto; max-width: 100%; background: var(--surface-2); border-radius: 10px; padding: 12px 14px; font-size: .85rem; }
+.tool-hint + .drop { margin-top: 14px; }
