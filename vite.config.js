@@ -3,7 +3,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
 import { SITE } from './site.config.js';
-import { loadSite, loadTools, toolGrid, footerTools, applyAffiliates, announcement, esc } from './scripts/render-data.mjs';
+import { loadSite, loadTools, toolGrid, footerTools, applyAffiliates, announcement, esc, normalizeMeta } from './scripts/render-data.mjs';
 
 const root = resolve(__dirname);
 
@@ -26,7 +26,7 @@ function partials() {
     name: 'privyforge-partials',
     transformIndexHtml: {
       order: 'pre',
-      handler(html) {
+      handler(html, ctx) {
         let out = html;
         for (let i = 0; i < 3; i++) {
           out = out.replace(/<!--\s*@include\s+([\w-]+)\s*-->/g, (_, n) =>
@@ -39,6 +39,8 @@ function partials() {
           .replace('<!-- @footer-tools -->', footerTools(tools))
           .replace('<!-- @announcement -->', announcement(site));
         out = applyAffiliates(out, site);
+        const pagePath = ('/' + (ctx?.path || '/').replace(/^\//, '')).replace(/index\.html$/, '').replace(/404\.html$/, '/404/');
+        out = normalizeMeta(out, pagePath);
         return out
           .replaceAll('{{SITE_URL}}', SITE.url)
           .replaceAll('{{SITE_NAME}}', SITE.name)

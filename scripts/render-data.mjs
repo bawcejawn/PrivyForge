@@ -34,3 +34,55 @@ export function applyAffiliates(html, site) {
 export function announcement(site) {
   return site.announcement ? `<div class="announce" role="status">${esc(site.announcement)}</div>` : '';
 }
+
+// ---------------------------------------------------------------------------
+// SEO normalizer: every page ends up with canonical, og:title/description/url/image,
+// twitter:title/description/image and (except home/utility pages) BreadcrumbList JSON-LD.
+// Pages can set any of these themselves; we only fill what's missing.
+import { existsSync } from 'node:fs';
+
+const attr = (html, re) => (html.match(re) || [])[1];
+const hasMeta = (html, key) => new RegExp(`<meta\\s+(?:property|name)="${key}"`, 'i').test(html);
+const stripTags = (s) => String(s || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+const unescapeHtml = (s) => String(s || '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+
+/** Image for a page: public/og/<slug>.png if it exists, else the default. */
+export function ogImageFor(slug) {
+  return slug && existsSync(resolve(root, 'public/og', `${slug}.png`)) ? `{{SITE_URL}}/og/${slug}.png` : '{{SITE_URL}}/og.png';
+}
+
+/**
+ * @param html  page HTML (after partial includes, before {{SITE_URL}} substitution)
+ * @param pagePath  e.g. '/merge-pdf/' ('/' for home)
+ */
+export function normalizeMeta(html, pagePath) {
+  const tags = [];
+  const title = attr(html, /<title>([\s\S]*?)<\/title>/i);
+  const desc = attr(html, /<meta\s+name="description"\s+content="([^"]*)"/i);
+  const noindex = /<meta\s+name="robots"\s+content="[^"]*noindex/i.test(html);
+  let canonical = attr(html, /<link\s+rel="canonical"\s+href="([^"]*)"/i);
+  if (!canonical && !noindex) { canonical = `{{SITE_URL}}${pagePath}`; tags.push(`<link rel="canonical" href="${canonical}" />`); }
+  const ogTitle = attr(html, /<meta\s+property="og:title"\s+content="([^"]*)"/i) || title;
+  const ogDesc = attr(html, /<meta\s+property="og:description"\s+content="([^"]*)"/i) || desc;
+  const slug = pagePath.replace(/^\/|\/$/g, '').split('/').pop();
+  const ogImage = attr(html, /<meta\s+property="og:image"\s+content="([^"]*)"/i) || ogImageFor(slug);
+  if (!hasMeta(html, 'og:title') && ogTitle) tags.push(`<meta property="og:title" content="${ogTitle}" />`);
+  if (!hasMeta(html, 'og:description') && ogDesc) tags.push(`<meta property="og:description" content="${ogDesc}" />`);
+  if (!hasMeta(html, 'og:url') && canonical) tags.push(`<meta property="og:url" content="${canonical}" />`);
+  if (!hasMeta(html, 'og:image')) tags.push(`<meta property="og:image" content="${ogImage}" />`, '<meta property="og:image:width" content="1200" />', '<meta property="og:image:height" content="630" />');
+  if (!hasMeta(html, 'og:image:alt') && ogTitle) tags.push(`<meta property="og:image:alt" content="${ogTitle}" />`);
+  if (!hasMeta(html, 'twitter:title') && ogTitle) tags.push(`<meta name="twitter:title" content="${ogTitle}" />`);
+  if (!hasMeta(html, 'twitter:description') && ogDesc) tags.push(`<meta name="twitter:description" content="${ogDesc}" />`);
+  if (!hasMeta(html, 'twitter:image')) tags.push(`<meta name="twitter:image" content="${ogImage}" />`);
+
+  // BreadcrumbList for inner pages that don't define one (home, 404 and noindex pages are skipped).
+  if (pagePath !== '/' && !noindex && !/BreadcrumbList/.test(html)) {
+    const h1 = unescapeHtml(stripTags(attr(html, /<h1[^>]*>([\s\S]*?)<\/h1>/i) || unescapeHtml(title).split(/\s[|—]\s/)[0]));
+    const items = [{ name: 'Home', item: '{{SITE_URL}}/' }];
+    if (pagePath.startsWith('/blog/') && pagePath !== '/blog/') items.push({ name: 'Guides', item: '{{SITE_URL}}/blog/' });
+    items.push({ name: h1, item: canonical || `{{SITE_URL}}${pagePath}` });
+    const ld = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, ...x })) };
+    tags.push(`<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>`);
+  }
+  return tags.length ? html.replace(/<\/head>/i, `  ${tags.join('\n  ')}\n</head>`) : html;
+}
