@@ -23,7 +23,19 @@
 
     <article class="content narrow">
       <h2>What these tools use under the hood</h2>
-      <p>PrivyForge's image tools run WebAssembly builds of well-known open-source encoders — MozJPEG for JPEG, libwebp for WebP, libavif for AVIF and OxiPNG for PNG — in background workers on your own device. That's the same family of codecs used by Google's Squoosh app. Because nothing is uploaded, there's no queue, no file-size cap and no waiting for a download.</p>
+      <p>PrivyForge's free image tools run WebAssembly builds of well-known open-source encoders — MozJPEG for JPEG, libwebp for WebP, libavif for AVIF and OxiPNG for PNG — in background workers on your own device. That's the same family of codecs used by Google's Squoosh app. Because nothing is uploaded, there's no queue, no file-size cap and no waiting for a download.</p>
+
+      <h2>How to compress, convert or resize images</h2>
+      <ol>
+        <li><b>Add your images.</b> Drop in as many as you like, click to choose them, or paste a screenshot.</li>
+        <li><b>Pick an output format.</b> "Keep original" compresses in the same format; choose WebP, AVIF, JPEG or PNG to convert.</li>
+        <li><b>Set the quality.</b> The default of 75 is a good balance; lower means smaller files.</li>
+        <li><b>Resize if needed</b> by entering a maximum width or height. Images keep their proportions and are never enlarged.</li>
+        <li><b>Download</b> each image, or all of them as one ZIP.</li>
+      </ol>
+
+      <h2>Example: shrinking phone photos for a website</h2>
+      <p>A typical 12-megapixel phone photo is 4032 × 3024 pixels — far more than a web page needs. Set the format to WebP and the maximum width to 1600, and each photo comes out at 1600 × 1200 pixels, the same 4:3 shape with about one-sixth of the pixels. Click any thumbnail to compare before and after, then download the whole batch as a ZIP.</p>
 
       <h2>Choosing a format</h2>
       <ul>
@@ -36,7 +48,14 @@
       <!-- @include ad-content -->
 
       <h2>Privacy bonus: location data removed</h2>
-      <p>Phone photos often include EXIF metadata such as the GPS coordinates where the picture was taken. Re-encoding an image here drops that metadata, so the compressed copy is safer to post or send.</p>
+      <p>Phone photos often include EXIF metadata such as the GPS coordinates where the picture was taken. Re-encoding an image here drops that metadata, so the compressed copy is safer to post or send. Photos are still rotated correctly, because the orientation is applied before the metadata is removed.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Are my images uploaded?</summary><p>No. They're processed by your browser on your device and never sent anywhere.</p></details>
+        <details><summary>Will transparent PNGs stay transparent?</summary><p>Yes, when you keep PNG or choose WebP or AVIF. JPEG has no transparency, so transparent areas become white.</p></details>
+        <details><summary>Is there a limit on how many images I can process?</summary><p>No. Images are processed in parallel on your device, so big batches just take a little longer.</p></details>
+      </div>
 
       <h2>More free tools</h2>
       <p>Need to combine scans into one document? Try the <a href="/pdf-tools/">PDF tools</a>. Or see the <a href="/money-tools/">money tools</a>.</p>
