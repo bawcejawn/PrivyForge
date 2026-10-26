@@ -13,8 +13,12 @@
     {"@type":"WebApplication","name":"PrivyForge Merge PDF","url":"{{SITE_URL}}/merge-pdf/","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
     {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Merge PDF","item":"{{SITE_URL}}/merge-pdf/"}]},
     {"@type":"FAQPage","mainEntity":[
-      {"@type":"Question","name":"Is it safe to merge confidential PDFs here?","acceptedAnswer":{"@type":"Answer","text":"Yes. PDFs are combined inside your browser and never uploaded, so contracts, tax forms and medical records stay on your device."}},
-      {"@type":"Question","name":"How many PDFs can I merge?","acceptedAnswer":{"@type":"Answer","text":"As many as your device's memory can hold. There are no file count or daily limits."}}
+      {"@type":"Question","name":"Is it safe to merge confidential PDFs here?","acceptedAnswer":{"@type":"Answer","text":"Yes. Files are combined inside your browser and never uploaded. You can turn off Wi-Fi after the page loads and it still works."}},
+      {"@type":"Question","name":"How many PDFs can I merge?","acceptedAnswer":{"@type":"Answer","text":"As many as your device's memory can handle. There are no caps or daily limits."}},
+      {"@type":"Question","name":"Can I merge just some pages from each file?","acceptedAnswer":{"@type":"Answer","text":"Extract the pages you want with Split PDF first, then merge those smaller files in the order you need."}},
+      {"@type":"Question","name":"Will links, bookmarks and form fields survive?","acceptedAnswer":{"@type":"Answer","text":"Page content, text and images are kept exactly. Document-level bookmarks (outlines) and interactive form fields from the source files may not carry over into the merged file."}},
+      {"@type":"Question","name":"Will there be a watermark?","acceptedAnswer":{"@type":"Answer","text":"No. The merged file contains only your pages."}},
+      {"@type":"Question","name":"Can I merge password-protected PDFs?","acceptedAnswer":{"@type":"Answer","text":"Not yet. Remove the password in your PDF reader first, then merge."}}
     ]}
   ]}
   </script>
@@ -47,18 +51,41 @@
     <article class="content narrow">
       <h2>How to merge PDFs</h2>
       <ol>
-        <li><b>Add your PDFs</b> by dragging them in or clicking the box.</li>
-        <li><b>Put them in order.</b> Drag rows up or down. The top file becomes the first pages.</li>
-        <li><b>Click "Merge &amp; download"</b> to save one combined PDF.</li>
+        <li><b>Add your PDFs</b> by dragging them in, clicking the box, or pasting them. Add more at any time; each row shows the page count.</li>
+        <li><b>Put them in order.</b> Drag rows up or down, or focus a row and press Alt + ↑/↓. The top file becomes the first pages.</li>
+        <li><b>Remove any extras</b> with the ✕ on their row.</li>
+        <li><b>Click "Merge &amp; download"</b> to save one combined file called <code>merged.pdf</code>.</li>
       </ol>
+
+      <h2>Worked example: a job application</h2>
+      <p>A portal asks for one PDF, and you have three: <code>cover-letter.pdf</code> (1 page), <code>resume.pdf</code> (2 pages) and <code>references.pdf</code> (1 page).</p>
+      <ol>
+        <li>Drop all three in and drag them into that order.</li>
+        <li>Click merge. The status line reads "Merged 3 files (4 pages, …)" with the final size.</li>
+        <li>The result has the cover letter on page 1, the résumé on pages 2–3 and the references on page 4. Rename <code>merged.pdf</code> to something the recruiter will recognize.</li>
+      </ol>
+      <p>Only need part of a file? Pull those pages out first with <a href="/split-pdf/">Split PDF</a>, then merge the result. If the combined file is too big for the portal, run it through <a href="/compress-pdf/">Compress PDF</a>.</p>
+
+      <h2>What merging keeps</h2>
+      <p>Pages are copied as they are: text stays selectable, images keep their quality, and each page keeps its own size, so a mix of Letter and A4 pages stays mixed. Nothing is re-compressed, so the merged file is usually about the size of the originals combined. Bookmarks and fillable form fields from the source files may not carry over.</p>
+
+      <h2>Tips for a tidy merged file</h2>
+      <ul>
+        <li>Fix sideways scans before merging. Pages are copied as they are, including their orientation.</li>
+        <li>Compare the page count in the status line with the total you expected. It's a quick way to catch a missing file.</li>
+        <li>Merging never shrinks anything. If the result is too large to send, compress it afterwards.</li>
+      </ul>
+
       <h2>Private by design</h2>
-      <p>Popular PDF sites process your documents on their servers. That's a real risk for contracts, bank statements, tax returns and medical records. PrivyForge uses <a href="https://pdf-lib.js.org/" rel="noopener">pdf-lib</a> to merge files locally in your browser. Nothing is sent anywhere, and there are no limits on file count, size or daily use.</p>
+      <p>Many PDF websites process documents on their own servers. For contracts, bank statements, tax returns and medical records, that's a real risk. PrivyForge uses <a href="https://pdf-lib.js.org/" rel="noopener">pdf-lib</a> to merge files locally in your browser. Nothing is sent anywhere, and there are no limits on file count, size or daily use.</p>
       <!-- @include ad-content -->
       <h2>Frequently asked questions</h2>
       <div class="faq">
         <details><summary>Is it safe to merge confidential PDFs here?</summary><p>Yes. Files are combined inside your browser and never uploaded. You can turn off Wi-Fi after the page loads and it still works.</p></details>
         <details><summary>How many PDFs can I merge?</summary><p>As many as your device's memory can handle. There are no caps or daily limits.</p></details>
+        <details><summary>Can I merge just some pages from each file?</summary><p>Extract the pages you want with Split PDF first, then merge those smaller files in the order you need.</p></details>
         <details><summary>Will links, bookmarks and form fields survive?</summary><p>Page content, text and images are kept exactly. Document-level bookmarks (outlines) and interactive form fields from the source files may not carry over into the merged file.</p></details>
+        <details><summary>Will there be a watermark?</summary><p>No. The merged file contains only your pages.</p></details>
         <details><summary>Can I merge password-protected PDFs?</summary><p>Not yet. Remove the password in your PDF reader first, then merge.</p></details>
       </div>
       <!-- @related -->

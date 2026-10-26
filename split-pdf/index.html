@@ -54,18 +54,37 @@
     <article class="content narrow">
       <h2>How to split a PDF</h2>
       <ol>
-        <li><b>Add your PDF.</b></li>
-        <li><b>Choose a mode.</b> Type ranges like <code>1-3, 8, 10-</code> (a trailing dash means "to the end").</li>
-        <li><b>Download.</b> One result downloads as a PDF; several come as a ZIP.</li>
+        <li><b>Add your PDF.</b> Drop it on the box, click to choose it, or paste it. The page count appears next to the file name.</li>
+        <li><b>Choose a mode.</b> "Split into ranges" makes one PDF per range. "Extract pages into one PDF" collects the pages you list into a single file. "Every page as its own PDF" needs no typing at all.</li>
+        <li><b>Type the pages.</b> Separate ranges with commas: <code>1-3</code> means pages 1 to 3, <code>8</code> is a single page, <code>10-</code> runs from page 10 to the end, and <code>-3</code> means pages 1 to 3.</li>
+        <li><b>Click "Split &amp; download".</b> A single result downloads as a PDF. Several results come as one ZIP file.</li>
       </ol>
+
+      <h2>Worked example: a 12-page lease</h2>
+      <p>Say you have <code>lease.pdf</code> with 12 pages and you type <code>1-3, 8, 10-</code>:</p>
+      <ul>
+        <li><b>Split into ranges</b> gives <code>lease-split.zip</code> containing three files: <code>lease-p1-3.pdf</code> (3 pages), <code>lease-p8.pdf</code> (1 page) and <code>lease-p10-12.pdf</code> (3 pages).</li>
+        <li><b>Extract pages into one PDF</b> with the same input gives a single 7-page PDF: pages 1, 2, 3, 8, 10, 11 and 12, in that order.</li>
+        <li><b>Every page as its own PDF</b> gives a ZIP of twelve files, <code>lease-p1.pdf</code> through <code>lease-p12.pdf</code>.</li>
+      </ul>
+      <p>To <b>delete</b> a page, extract everything except that page. For example, to drop page 4 from the lease, choose "Extract pages into one PDF" and type <code>1-3, 5-</code>.</p>
+
+      <h2>What splitting changes (and what it doesn't)</h2>
+      <p>Pages are copied into new files exactly as they are. Nothing is re-rendered or re-compressed, so text stays selectable and images keep their original quality. Each new file carries its own copy of the fonts and images its pages need, so the parts can add up to a little more than the original. Document-level extras such as bookmarks and fillable form fields may not carry over.</p>
+      <p>Page numbers must exist in the document and each range must run forward: <code>3-5</code> works, <code>5-3</code> doesn't. If the input can't be read, the tool tells you instead of guessing.</p>
+
+      <!-- @include ad-content -->
+
       <h2>Why split PDFs locally?</h2>
       <p>Splitting is often done to share part of a sensitive document: one page of a lease, a single bank statement, a section of a medical report. Uploading the whole file to a third party to do that defeats the purpose. PrivyForge splits files entirely in your browser, with no page or size limits.</p>
-      <!-- @include ad-content -->
+
       <h2>Frequently asked questions</h2>
       <div class="faq">
         <details><summary>Does splitting reduce quality?</summary><p>No. Pages are copied exactly as they are; nothing is re-rendered or re-compressed.</p></details>
         <details><summary>Can I reorder pages?</summary><p>Use "Extract pages into one PDF" with the order you want, e.g. <code>3, 1, 2</code>. Pages are added in the order listed.</p></details>
-        <details><summary>Is there a page limit?</summary><p>No. Documents with thousands of pages work; speed depends on your device.</p></details>
+        <details><summary>Can I split a password-protected PDF?</summary><p>Not yet. Open it in your PDF reader, save a copy without the password, then split that copy.</p></details>
+        <details><summary>How do I split one PDF into several files at once?</summary><p>Choose "Split into ranges" and list each part, such as <code>1-4, 5-9, 10-</code>. You get one PDF per range in a single ZIP.</p></details>
+        <details><summary>Is there a page limit?</summary><p>No. Large documents work; speed depends on your device.</p></details>
       </div>
       <!-- @related -->
       <!-- @include affiliate-pdf -->
