@@ -31,6 +31,7 @@ After the first deploy, check:
 
 - `https://your-domain.com/sitemap.xml` lists your domain (not `localhost`).
 - `https://your-domain.com/robots.txt` points at that sitemap.
+- The build log line `sitemap.xml: N URLs` — if it says *shallow git clone*, page `lastmod` dates were skipped (guides still get theirs). That's harmless.
 - An unknown URL returns the PrivyForge 404 page with HTTP status 404.
 - Then submit the sitemap in Google Search Console and Bing Webmaster Tools.
 
@@ -42,6 +43,10 @@ The GitHub Pages workflow (`.github/workflows/deploy-pages.yml`) no longer runs 
 2. Optionally delete `.github/workflows/deploy-pages.yml`.
 
 Until then, `https://bawcejawn.github.io/PrivyForge/` keeps serving the last version it built.
+
+## Share images
+
+`public/og.png`, `public/og/<slug>.png` and the PNG icons are generated locally and committed: `python scripts/make-images.py` (needs Playwright). Re-run after adding a tool or guide; until then that page uses `og.png`.
 
 ## Admin
 
