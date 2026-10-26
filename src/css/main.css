@@ -37,6 +37,7 @@ h3 { font-size: 1.1rem; margin-top: 1.6em; }
 .nav a { color: var(--ink-2); text-decoration: none; padding: 6px 10px; border-radius: 8px; font-size: .93rem; white-space: nowrap; }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--ink); background: var(--surface-2); }
 @media (max-width: 720px) { .nav .hide-sm { display: none; } }
+@media (min-width: 721px) { .nav .show-sm { display: none; } }
 .site-footer { border-top: 1px solid var(--line); margin-top: 72px; padding: 36px 0 48px; color: var(--ink-2); font-size: .92rem; }
 .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 24px; }
 .footer-grid h4 { margin: 0 0 8px; color: var(--ink); font-size: .95rem; }
