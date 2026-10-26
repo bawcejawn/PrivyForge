@@ -18,7 +18,8 @@ export function toolGrid(tools) {
 export function footerTools(tools) {
   const cats = {};
   for (const t of tools.filter((x) => x.enabled !== false)) (cats[t.category] ||= []).push(t);
-  return Object.entries(cats).map(([c, list]) => `<div><h4>${esc(c)}</h4>${list.map((t) => `<a href="${esc(t.href)}">${esc(t.title)}</a>`).join('')}</div>`).join('\n');
+  const hub = { Image: '/image-tools/', PDF: '/pdf-tools/', Finance: '/money-tools/', 'Save money': '/money-tools/' };
+  return Object.entries(cats).map(([c, list]) => `<div><h4>${hub[c] ? `<a href="${hub[c]}" style="color:inherit;padding:0">${esc(c)}</a>` : esc(c)}</h4>${list.map((t) => `<a href="${esc(t.href)}">${esc(t.title)}</a>`).join('')}</div>`).join('\n');
 }
 
 /** Replace #AFFILIATE_KEY links with configured URLs; drop unset items and empty boxes. */
@@ -109,4 +110,17 @@ export function relatedBlock(tools, pagePath) {
   const list = relatedTools(tools, pagePath);
   if (!list.length) return '';
   return `<section class="related" aria-labelledby="related-h"><h2 id="related-h">Related tools</h2><div class="tool-grid">${list.map((t) => `<a class="tool-card" href="${esc(t.href)}"><em>${esc(t.category)}</em><b>${esc(t.title)}</b><span>${esc(t.blurb)}</span></a>`).join('')}</div></section>`;
+}
+
+// ---------------------------------------------------------------------------
+// Category hubs: <!-- @tools-grid:PDF --> or <!-- @tools-grid:Finance,Save money -->
+export const HUBS = { Image: '/image-tools/', PDF: '/pdf-tools/', Finance: '/money-tools/', 'Save money': '/money-tools/' };
+
+export function categoryGrids(html, tools) {
+  return html.replace(/<!--\s*@tools-grid:([^>]+?)\s*-->/g, (_, cats) => {
+    const want = cats.split(',').map((c) => c.trim());
+    const list = tools.filter((t) => t.enabled !== false && want.includes(t.category));
+    const ld = { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: list.map((t, i) => ({ '@type': 'ListItem', position: i + 1, name: t.title, url: `{{SITE_URL}}${t.href}` })) };
+    return `${toolGrid(list)}\n<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>`;
+  });
 }

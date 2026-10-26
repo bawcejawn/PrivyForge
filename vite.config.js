@@ -3,7 +3,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
 import { SITE } from './site.config.js';
-import { loadSite, loadTools, toolGrid, footerTools, applyAffiliates, announcement, esc, normalizeMeta, relatedBlock } from './scripts/render-data.mjs';
+import { loadSite, loadTools, toolGrid, footerTools, applyAffiliates, announcement, esc, normalizeMeta, relatedBlock, categoryGrids } from './scripts/render-data.mjs';
 
 const root = resolve(__dirname);
 
@@ -36,6 +36,7 @@ function partials() {
         const site = loadSite(), tools = loadTools();
         out = out
           .replace('<!-- @tools-grid -->', toolGrid(tools))
+          .replace(/<!--\s*@tools-grid:[^>]+-->/g, (m) => categoryGrids(m, tools))
           .replace('<!-- @footer-tools -->', footerTools(tools))
           .replace('<!-- @announcement -->', announcement(site));
         out = applyAffiliates(out, site);

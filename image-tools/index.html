@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Free Image Tools — Compress, Convert &amp; Resize Without Uploading | PrivyForge</title>
+  <meta name="description" content="Compress, convert and resize JPG, PNG, WebP and AVIF images in your browser. No upload, no sign-up, no limits, no watermarks." />
+  <link rel="canonical" href="{{SITE_URL}}/image-tools/" />
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Image Tools</nav>
+    <section class="hero">
+      <h1>Free image tools that run in your browser</h1>
+      <p class="lede">Compress, convert and resize images without sending them anywhere. Batch as many as you like and download them all as a ZIP.</p>
+      <!-- @include privacy-pills -->
+    </section>
+    <div class="tool-grid">
+      <!-- @tools-grid:Image -->
+    </div>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>What these tools use under the hood</h2>
+      <p>PrivyForge's image tools run WebAssembly builds of well-known open-source encoders — MozJPEG for JPEG, libwebp for WebP, libavif for AVIF and OxiPNG for PNG — in background workers on your own device. That's the same family of codecs used by Google's Squoosh app. Because nothing is uploaded, there's no queue, no file-size cap and no waiting for a download.</p>
+
+      <h2>Choosing a format</h2>
+      <ul>
+        <li><b>JPEG</b>: photos that must open everywhere, including older software and email clients.</li>
+        <li><b>WebP</b>: the practical default for websites. Every current browser supports it, and files are usually noticeably smaller than JPEG at similar quality.</li>
+        <li><b>AVIF</b>: often smaller still, but slower to encode. Good for sites that want the fastest pages.</li>
+        <li><b>PNG</b>: logos, screenshots and graphics with sharp edges or transparency.</li>
+      </ul>
+
+      <!-- @include ad-content -->
+
+      <h2>Privacy bonus: location data removed</h2>
+      <p>Phone photos often include EXIF metadata such as the GPS coordinates where the picture was taken. Re-encoding an image here drops that metadata, so the compressed copy is safer to post or send.</p>
+
+      <h2>More free tools</h2>
+      <p>Need to combine scans into one document? Try the <a href="/pdf-tools/">PDF tools</a>. Or see the <a href="/money-tools/">money tools</a>.</p>
+      <!-- @include affiliate-image -->
+    </article>
+  </main>
+  <!-- @include footer -->
+</body>
+</html>

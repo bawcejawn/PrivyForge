@@ -61,6 +61,10 @@ def jobs():
         if t.get('enabled') is False or '?' in t['href']:
             continue
         out.append((f"og/{t['slug']}.png", card(t['title'], t.get('blurb', ''), t.get('category', 'Tool')), (1200, 630)))
+    for slug, title, sub in [('pdf-tools', 'Free PDF tools', 'Merge, split and compress PDFs without uploading them.'),
+                             ('image-tools', 'Free image tools', 'Compress, convert and resize images in your browser.'),
+                             ('money-tools', 'Free money tools', 'Find forgotten subscriptions, plan debt payoff, check a refinance.')]:
+        out.append((f'og/{slug}.png', card(title, sub, 'Category'), (1200, 630)))
     gdir = os.path.join(ROOT, 'content/guides')
     for f in sorted(os.listdir(gdir)) if os.path.isdir(gdir) else []:
         if f.endswith('.md'):
