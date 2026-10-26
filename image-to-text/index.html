@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Image to Text (OCR) — Free, Private, No Upload | PrivyForge</title>
+  <meta name="description" content="Copy text from photos, scans and screenshots with OCR that runs in your browser. JPG, PNG, WebP. Images are never uploaded. Free, no sign-up." />
+  <link rel="canonical" href="{{SITE_URL}}/image-to-text/" />
+  <meta property="og:title" content="Image to Text (OCR) — Free, Private, No Upload" />
+  <meta property="og:description" content="Extract text from images with OCR that runs on your own device. Nothing is uploaded." />
+  <meta property="og:url" content="{{SITE_URL}}/image-to-text/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Image to Text (OCR)","url":"{{SITE_URL}}/image-to-text/","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Image to Text","item":"{{SITE_URL}}/image-to-text/"}]}
+  ]}
+  </script>
+</head>
+<body data-tool="image-to-text">
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/image-tools/">Image tools</a> › Image to Text</nav>
+    <section class="hero">
+      <h1>Image to text (OCR), without uploading</h1>
+      <p class="lede">Pull the text out of a photo, scan or screenshot so you can copy, edit and search it, read by an OCR engine that runs in your own browser.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Image to text tool">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose images to read">
+        <strong>Drop images here, paste a screenshot, or click to choose</strong>
+        <small>JPG, PNG, WebP (HEIC if your browser can open it) · several at once · English text</small>
+        <input type="file" />
+      </div>
+      <p class="ocr-notice" id="ocr-notice"><b>First use downloads about <span data-size>7 MB</span> of OCR data to your browser; it's cached for next time.</b> The download comes from this site, not a third party, and contains only the reading engine. Your images stay on your device.</p>
+      <div class="row-actions">
+        <button class="btn ghost" id="download-all" hidden>Download all as one .txt</button>
+        <button class="btn ghost sm" id="clear">Clear</button>
+        <span class="status" id="status" role="status"></span>
+      </div>
+      <ul class="ocr-results" id="results" aria-label="Text found in your images"></ul>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to copy text from an image</h2>
+      <ol>
+        <li><b>Add one or more images.</b> Drop them on the box, click to choose them, or press Ctrl+V (⌘V on a Mac) to paste a screenshot straight from your clipboard.</li>
+        <li><b>Wait for the reading to finish.</b> Each image gets its own card with a progress bar. The very first time, the OCR engine loads before reading starts; after that, images start almost immediately.</li>
+        <li><b>Check and fix the text.</b> The result is in an editable box. OCR makes mistakes, so read it through, especially numbers, names and anything you will paste into a form.</li>
+        <li><b>Copy or download.</b> "Copy text" puts it on your clipboard; "Download .txt" saves a plain-text file named after the image. With two or more images you can also download everything as one file, with a heading for each image.</li>
+      </ol>
+
+      <h2>What OCR is good at, and where it struggles</h2>
+      <p>OCR (optical character recognition) looks at the shapes in a picture and guesses which letters they are. This page uses <a href="https://github.com/naptha/tesseract.js" rel="noopener">Tesseract.js</a>, a WebAssembly build of the open-source Tesseract engine, with its standard English model. It does well on:</p>
+      <ul>
+        <li>screenshots of documents, web pages, chats and error messages;</li>
+        <li>flat, evenly lit photos or scans of printed pages, receipts, letters and labels;</li>
+        <li>dark text on a plain, light background.</li>
+      </ul>
+      <p>Results get worse, sometimes much worse, with blurry or tilted photos, low light and shadows, tiny text, busy backgrounds, stylised fonts, text curving around a bottle, and tables (the words come out, but the column layout does not). <b>Handwriting is read poorly</b>; expect gibberish rather than a transcript. And for now the engine only knows <b>English</b>: other languages that use the Latin alphabet often come out partly readable but with accents dropped or wrong, and other scripts won't work at all.</p>
+      <p>Each card shows a confidence score. It is the engine's own average certainty about the words it read, not a guarantee. A score in the 90s on a clean screenshot usually means very few errors; a score below about 60 usually means you should retake the photo.</p>
+
+      <h2>Worked example: how images are prepared</h2>
+      <p>Tesseract reads best when ordinary text is a few dozen pixels tall, so each image is resized before reading. Images whose longest side is under 1,600 pixels are enlarged, by up to 2×; a 400 × 300 screenshot is read at 800 × 600, and a 1,000 × 500 crop at 1,600 × 800. Typical phone photos are left as they are: a 12-megapixel photo (4,032 × 3,024) is read at full size. Very large images are reduced so the longest side is 5,000 pixels, which keeps memory use reasonable on phones; a 50-megapixel photo (8,160 × 6,120) is read at 5,000 × 3,750. Photos are also turned upright using their camera rotation tag first. None of this changes your file; it happens to a copy in memory.</p>
+
+      <h2>Tips for better results</h2>
+      <ul>
+        <li>Fill the frame with the text and hold the phone parallel to the page.</li>
+        <li>Use daylight or bright, even light, and avoid your own shadow.</li>
+        <li>Crop away everything that isn't text before you drop the image in.</li>
+        <li>For a screenshot, zoom in on the page first so the text is bigger.</li>
+        <li>Have a PDF instead? <a href="/pdf-to-text/">PDF to Text</a> takes the exact text from digital PDFs and uses OCR only for scanned pages.</li>
+      </ul>
+
+      <h2>Why it's private</h2>
+      <p>Most online OCR services upload your picture to a server and read it there. Here, the reading happens in a background thread of your browser tab. The engine and the English data are downloaded once, from this site, and kept in your browser's cache, so the tool keeps working offline afterwards. Your images are never sent anywhere; you can check this by opening your browser's developer tools on the Network tab while you use it.</p>
+
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Are my images uploaded?</summary><p>No. Images are decoded and read inside your browser. The only download is the OCR engine and English data, about 7 MB, from this site on first use. After that the tool works offline.</p></details>
+        <details><summary>Which languages does it read?</summary><p>English only for now. Text in other languages may come out partly readable, with mistakes, but isn't supported.</p></details>
+        <details><summary>Can it read handwriting?</summary><p>Not well. Tesseract is built for printed text. Neat block capitals sometimes work; cursive handwriting usually does not.</p></details>
+        <details><summary>Why is some of the text wrong?</summary><p>OCR is a best guess based on letter shapes. Blur, glare, small text, unusual fonts and tilted photos all cause errors. Retake the photo straight-on in good light, crop it to the text, and try again.</p></details>
+        <details><summary>Can I convert HEIC photos from an iPhone?</summary><p>Only if your browser can open HEIC itself (Safari usually can). Otherwise, convert the photo with <a href="/heic-to-jpg/">HEIC to JPG</a> first, also without uploading.</p></details>
+        <details><summary>Does it keep the layout or tables?</summary><p>No. You get plain text, line by line. Columns and tables are flattened, so check the order of the lines.</p></details>
+      </div>
+      <!-- @related -->
+      <!-- @include affiliate-image -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/image-to-text.js"></script>
+</body>
+</html>
