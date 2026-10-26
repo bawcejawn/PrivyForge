@@ -1,0 +1,21 @@
+/* Extra styles for compress-to-size, image-to-PDF and PDF-to-JPG. Built on main.css tokens. */
+.file img.thumb { object-fit: cover; padding: 0; }
+.result-box { margin-top: 16px; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); }
+.result-box[hidden] { display: none; }
+.result-box.ok { background: var(--ok-soft); border-color: transparent; }
+.result-box.warn { background: var(--ember-soft); border-color: transparent; }
+.result-box h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.result-box p { margin: 6px 0; }
+.result-box .big { font-family: var(--mono); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+.attempts { margin: 10px 0 0; padding: 0; list-style: none; font-family: var(--mono); font-size: .84rem; color: var(--ink-2); display: grid; gap: 2px; }
+.attempts li { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.attempts .fit { color: var(--ok); font-weight: 700; }
+.attempts .chosen { color: var(--ink); font-weight: 700; }
+.pages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 14px; padding: 0; list-style: none; }
+.pages-grid li { border: 1px solid var(--line); border-radius: 10px; padding: 6px; background: var(--bg); text-align: center; font-size: .78rem; color: var(--ink-2); font-family: var(--mono); }
+.pages-grid img { display: block; width: 100%; height: 140px; object-fit: contain; background: #fff; border-radius: 6px; margin-bottom: 4px; }
+.pages-grid a { color: inherit; text-decoration: none; }
+.pages-grid a:hover { color: var(--ember); }
+.field output { font-family: var(--mono); color: var(--ink); }
+.field .hint { font-size: .78rem; color: var(--ink-2); }
+@media (max-width: 520px) { .controls .field { flex: 1 1 140px; } }
