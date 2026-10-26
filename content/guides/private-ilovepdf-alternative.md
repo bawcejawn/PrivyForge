@@ -1,5 +1,6 @@
 ---
 title: A Private iLovePDF Alternative That Doesn't Upload Your Files
+seoTitle: Private iLovePDF Alternative: PDF Tools, No Upload
 description: Merge, split and compress PDFs in your browser instead of on a server. An honest comparison with iLovePDF's free plan, as of October 2026.
 date: 2026-10-26
 tool: /merge-pdf/

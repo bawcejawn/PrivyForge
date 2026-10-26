@@ -1,5 +1,6 @@
 ---
 title: How to Compress a PDF Without Uploading It (3 Private Ways)
+seoTitle: Compress a PDF Without Uploading It: 3 Private Ways
 description: Need a smaller PDF but don't want to upload a sensitive document? Here are three ways to compress PDFs privately on Windows, Mac and your phone.
 date: 2026-10-23
 tool: /compress-pdf/

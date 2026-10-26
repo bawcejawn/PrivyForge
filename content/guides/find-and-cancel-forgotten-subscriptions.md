@@ -1,5 +1,6 @@
 ---
 title: How to Find and Cancel Forgotten Subscriptions (Without Linking Your Bank)
+seoTitle: Find & Cancel Forgotten Subscriptions Privately
 description: A step-by-step way to find every recurring charge in your bank and card statements, decide what to cancel, and stop it before the next bill — privately.
 date: 2026-10-26
 tool: /subscription-finder/

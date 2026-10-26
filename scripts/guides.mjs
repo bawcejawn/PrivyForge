@@ -10,7 +10,7 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, existsSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { marked } from 'marked';
-import { parseGuide, slugify } from '../src/js/lib/guide-format.js';
+import { parseGuide, slugify, titleTag } from '../src/js/lib/guide-format.js';
 import { ogImageFor } from './render-data.mjs';
 
 const root = resolve(import.meta.dirname, '..');
@@ -41,7 +41,7 @@ function page(meta, html, slug) {
 <head>
   <!-- @include head -->
   <!-- GENERATED from content/guides/${slug}.md — edit that file, not this one. -->
-  <title>${esc(meta.title)} | PrivyForge</title>
+  <title>${esc(titleTag(meta))}</title>
   <meta name="description" content="${esc(meta.description)}" />
   <link rel="canonical" href="{{SITE_URL}}/blog/${slug}/" />
   <meta property="og:type" content="article" />
@@ -49,7 +49,7 @@ function page(meta, html, slug) {
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="article:published_time" content="${esc(meta.date || '')}" />
-  <meta property="og:title" content="${esc(meta.title)}" />
+  <meta property="og:title" content="${esc(meta.seoTitle || meta.title)}" />
   <meta property="og:description" content="${esc(meta.description)}" />
   <script type="application/ld+json">
   ${ldJson(meta, slug)}

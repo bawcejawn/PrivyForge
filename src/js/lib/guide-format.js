@@ -1,6 +1,12 @@
 // Guide file format shared by the build (scripts/guides.mjs) and the admin editor.
 // A guide is Markdown with a simple "key: value" front matter block.
-export const GUIDE_KEYS = ['title', 'description', 'date', 'updated', 'tool', 'draft'];
+export const GUIDE_KEYS = ['title', 'seoTitle', 'description', 'date', 'updated', 'tool', 'draft'];
+
+/** <title> text: the short SEO title if set, plus the brand only when it still fits in ~60 chars. */
+export function titleTag(meta) {
+  const base = (meta.seoTitle || meta.title || '').trim();
+  return base.length + 13 <= 60 ? `${base} | PrivyForge` : base;
+}
 
 export function parseGuide(text) {
   const m = String(text).match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);

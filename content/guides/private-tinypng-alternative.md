@@ -1,5 +1,6 @@
 ---
 title: The Best Private TinyPNG Alternative (No Upload, No Limits)
+seoTitle: Private TinyPNG Alternative: No Upload, No Limits
 description: Want TinyPNG-style compression without upload caps or sending photos to a server? Here's how a browser-based compressor compares, as of October 2026.
 date: 2026-10-26
 tool: /compress-image/

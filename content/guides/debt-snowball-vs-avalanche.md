@@ -1,5 +1,6 @@
 ---
 title: Debt Snowball vs Avalanche: Which Pays Off Debt Faster?
+seoTitle: Debt Snowball vs Avalanche: Which Is Faster?
 description: The avalanche method saves the most interest; the snowball method gives quicker wins. See both on a real example and pick the one you'll stick with.
 date: 2026-10-26
 tool: /debt-payoff-calculator/

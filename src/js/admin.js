@@ -1,7 +1,7 @@
 // PrivyForge admin. Static page: talks only to api.github.com with a token kept in this browser.
 import { marked } from 'marked';
 import { GitHub } from './lib/github.js';
-import { parseGuide, serializeGuide, slugify, wordCount } from './lib/guide-format.js';
+import { parseGuide, serializeGuide, slugify, wordCount, titleTag } from './lib/guide-format.js';
 import { parseCSV } from './lib/subscriptions.js';
 import { lineChart, money } from './lib/chart.js';
 import { $, setupDropzone, downloadBlob } from './util.js';
@@ -188,7 +188,7 @@ async function openGuide(slug) {
   const { text, sha } = await gh.read(g.path);
   const { meta, body } = parseGuide(text);
   current = { slug, sha, isNew: false };
-  gf.title.value = meta.title || ''; gf.description.value = meta.description || ''; gf.slug.value = slug;
+  gf.title.value = meta.title || ''; gf.seoTitle.value = meta.seoTitle || ''; gf.description.value = meta.description || ''; gf.slug.value = slug;
   gf.date.value = meta.date || ''; gf.tool.value = meta.tool || ''; gf.draft.checked = meta.draft === 'true'; gf.body.value = body;
   $('#editor').hidden = false; $('#delete-guide').hidden = false; preview();
 }
@@ -203,6 +203,8 @@ function sanitize(html) {
 }
 function preview() {
   const t = gf.title.value, d = gf.description.value;
+  const st = titleTag({ title: t, seoTitle: gf.seoTitle.value });
+  $('#s-count').textContent = `${st.length}/60 → "${st}"`; $('#s-count').style.color = st.length > 60 ? 'var(--err)' : '';
   $('#t-count').textContent = `${t.length}/60`; $('#t-count').style.color = t.length > 60 ? 'var(--err)' : '';
   $('#d-count').textContent = `${d.length}/155`; $('#d-count').style.color = d.length > 155 || (d && d.length < 70) ? 'var(--warn)' : '';
   const words = wordCount(gf.body.value);
@@ -215,7 +217,7 @@ $('#save-guide').onclick = () => guard($('#save-guide'), async () => {
   const slug = slugify(gf.slug.value || gf.title.value);
   if (!gf.title.value.trim() || !slug) throw new Error('A guide needs a title.');
   if (current.isNew && guides.some((g) => g.slug === slug)) throw new Error(`A guide called "${slug}" already exists.`);
-  const text = serializeGuide({ title: gf.title.value, description: gf.description.value, date: gf.date.value, tool: gf.tool.value, draft: gf.draft.checked }, gf.body.value);
+  const text = serializeGuide({ title: gf.title.value, seoTitle: gf.seoTitle.value, description: gf.description.value, date: gf.date.value, tool: gf.tool.value, draft: gf.draft.checked }, gf.body.value);
   const path = `content/guides/${slug}.md`;
   if (!current.isNew && slug !== current.slug) { // renamed: create new, delete old
     await gh.write(path, text, `Admin: rename guide ${current.slug} → ${slug}`);

@@ -17,3 +17,11 @@ test('slugify + word count', () => {
   assert.equal(slugify('../../etc/passwd'), 'etcpasswd');
   assert.equal(wordCount("It's a three-word test"), 4);
 });
+
+test('titleTag: short search title, brand only when it fits in 60 chars', async () => {
+  const { titleTag } = await import('../src/js/lib/guide-format.js');
+  assert.equal(titleTag({ title: 'A long human title', seoTitle: 'Short title' }), 'Short title | PrivyForge');
+  const long = 'Private TinyPNG Alternative: No Upload, No Limits';
+  assert.equal(titleTag({ seoTitle: long }), long);
+  assert.equal(titleTag({ title: 'Only a title' }), 'Only a title | PrivyForge');
+});
