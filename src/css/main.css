@@ -180,3 +180,4 @@ thead th { position: sticky; top: 0; background: var(--surface-2); font-family: 
 .offer p { margin: 0; color: var(--ink-2); }
 .offer .btn { justify-self: start; margin-top: 4px; }
 .offer small { color: var(--ink-2); font-size: .78rem; }
+.related { margin-top: 2.2em; }

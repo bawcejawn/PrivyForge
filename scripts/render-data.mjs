@@ -86,3 +86,27 @@ export function normalizeMeta(html, pagePath) {
   }
   return tags.length ? html.replace(/<\/head>/i, `  ${tags.join('\n  ')}\n</head>`) : html;
 }
+
+// ---------------------------------------------------------------------------
+// Related tools: same category first (in tools.json order), then neighbouring categories.
+const NEIGHBOURS = { Image: ['PDF', 'Utility'], PDF: ['Image', 'Utility'], Utility: ['PDF', 'Image'], Finance: ['Save money'], 'Save money': ['Finance'] };
+const pathOf = (href) => href.split('?')[0];
+
+export function relatedTools(tools, slugOrPath, n = 4) {
+  const on = tools.filter((t) => t.enabled !== false);
+  const self = on.find((t) => t.slug === slugOrPath || t.href === slugOrPath);
+  if (!self) return [];
+  const others = on.filter((t) => t.slug !== self.slug && pathOf(t.href) !== pathOf(self.href));
+  const order = [self.category, ...(NEIGHBOURS[self.category] || [])];
+  const ranked = [...others].sort((a, b) => {
+    const ia = order.indexOf(a.category), ib = order.indexOf(b.category);
+    return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib) || (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+  });
+  return ranked.slice(0, n);
+}
+
+export function relatedBlock(tools, pagePath) {
+  const list = relatedTools(tools, pagePath);
+  if (!list.length) return '';
+  return `<section class="related" aria-labelledby="related-h"><h2 id="related-h">Related tools</h2><div class="tool-grid">${list.map((t) => `<a class="tool-card" href="${esc(t.href)}"><em>${esc(t.category)}</em><b>${esc(t.title)}</b><span>${esc(t.blurb)}</span></a>`).join('')}</div></section>`;
+}

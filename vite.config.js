@@ -3,7 +3,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
 import { SITE } from './site.config.js';
-import { loadSite, loadTools, toolGrid, footerTools, applyAffiliates, announcement, esc, normalizeMeta } from './scripts/render-data.mjs';
+import { loadSite, loadTools, toolGrid, footerTools, applyAffiliates, announcement, esc, normalizeMeta, relatedBlock } from './scripts/render-data.mjs';
 
 const root = resolve(__dirname);
 
@@ -40,6 +40,9 @@ function partials() {
           .replace('<!-- @announcement -->', announcement(site));
         out = applyAffiliates(out, site);
         const pagePath = ('/' + (ctx?.path || '/').replace(/^\//, '')).replace(/index\.html$/, '').replace(/404\.html$/, '/404/');
+        const isTool = tools.some((t) => t.enabled !== false && t.href.split('?')[0] === pagePath);
+        if (isTool && !out.includes('<!-- @related -->')) out = out.replace(/(\s*<aside class="affiliate">|\s*<\/article>)/, '\n      <!-- @related -->$1');
+        out = out.replace('<!-- @related -->', isTool ? relatedBlock(tools, pagePath) : '');
         out = normalizeMeta(out, pagePath);
         return out
           .replaceAll('{{SITE_URL}}', SITE.url)
