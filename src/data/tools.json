@@ -19,31 +19,103 @@
   },
   {
     "slug": "convert-image",
-    "href": "/compress-image/?format=webp",
-    "title": "Convert to WebP / AVIF",
-    "blurb": "Modern formats for faster websites.",
+    "href": "/jpg-to-webp/",
+    "title": "JPG to WebP",
+    "blurb": "Smaller WebP files for faster websites.",
     "category": "Image",
     "keywords": [
       "convert",
       "webp",
-      "avif",
       "jpg to webp",
-      "png to webp"
+      "jpeg to webp"
     ],
     "enabled": true,
     "featured": false
   },
   {
     "slug": "resize-image",
-    "href": "/compress-image/?resize=1",
+    "href": "/resize-image/",
     "title": "Resize Image",
-    "blurb": "Batch-resize to a max width or height.",
+    "blurb": "Exact width and height, batch resize.",
     "category": "Image",
     "keywords": [
       "resize",
       "scale",
       "dimensions",
+      "pixels",
       "smaller"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
+    "slug": "png-to-jpg",
+    "href": "/png-to-jpg/",
+    "title": "PNG to JPG",
+    "blurb": "Convert PNGs; transparency becomes white.",
+    "category": "Image",
+    "keywords": [
+      "png to jpg",
+      "png to jpeg",
+      "convert png"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
+    "slug": "heic-to-jpg",
+    "href": "/heic-to-jpg/",
+    "title": "HEIC to JPG",
+    "blurb": "Convert iPhone photos in Safari, no upload.",
+    "category": "Image",
+    "keywords": [
+      "heic",
+      "heic to jpg",
+      "iphone photo",
+      "heif"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
+    "slug": "compress-image-to-100kb",
+    "href": "/compress-image-to-100kb/",
+    "title": "Compress Image to 100 KB",
+    "blurb": "Best quality that fits under 100 KB.",
+    "category": "Image",
+    "keywords": [
+      "100kb",
+      "reduce image size",
+      "under 100 kb",
+      "application photo"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
+    "slug": "compress-image-to-50kb",
+    "href": "/compress-image-to-50kb/",
+    "title": "Compress Image to 50 KB",
+    "blurb": "Photos under 50 KB for application forms.",
+    "category": "Image",
+    "keywords": [
+      "50kb",
+      "passport photo size",
+      "under 50 kb"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
+    "slug": "compress-image-to-20kb",
+    "href": "/compress-image-to-20kb/",
+    "title": "Compress Image to 20 KB",
+    "blurb": "Signatures and small photos under 20 KB.",
+    "category": "Image",
+    "keywords": [
+      "20kb",
+      "signature size",
+      "under 20 kb"
     ],
     "enabled": true,
     "featured": false
