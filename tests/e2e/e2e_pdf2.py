@@ -30,7 +30,9 @@ def noise_pdf(path, pages, full_page=False):
 
 def make_fixtures():
     big = os.path.join(OUT, 'big-noise.pdf'); noise_pdf(big, 4)
-    huge = os.path.join(OUT, 'huge-noise.pdf'); noise_pdf(huge, 8, full_page=True)
+    # 16 full pages of noise: even the lowest setting (~55-60 KB/page) stays far above 500 KB,
+    # so the 'unreachable target' case is deterministic (8 pages hovered right at the limit).
+    huge = os.path.join(OUT, 'huge-noise.pdf'); noise_pdf(huge, 16, full_page=True)
     webp = os.path.join(OUT, 'tall.webp')
     Image.new('RGB', (500, 700), (40, 160, 90)).save(webp, 'WEBP', quality=90)
     # Raw 600×400 JPEG: red top-left block, blue elsewhere, tagged EXIF orientation 6 (display: rotate 90° CW).
