@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>PDF to Text — Extract Text, OCR Scans, No Upload | PrivyForge</title>
+  <meta name="description" content="Extract text from PDFs in your browser. Digital pages are copied exactly; scanned pages are read with OCR. Your PDF is never uploaded. Free." />
+  <link rel="canonical" href="{{SITE_URL}}/pdf-to-text/" />
+  <meta property="og:title" content="PDF to Text — Free, Private, with OCR for Scans" />
+  <meta property="og:description" content="Get the text out of any PDF, including scanned pages, without sending it to a server." />
+  <meta property="og:url" content="{{SITE_URL}}/pdf-to-text/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge PDF to Text","url":"{{SITE_URL}}/pdf-to-text/","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"PDF to Text","item":"{{SITE_URL}}/pdf-to-text/"}]}
+  ]}
+  </script>
+</head>
+<body data-tool="pdf-to-text">
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/pdf-tools/">PDF tools</a> › PDF to Text</nav>
+    <section class="hero">
+      <h1>Extract text from a PDF, scanned pages included</h1>
+      <p class="lede">Copy the exact text out of digital PDFs and read scanned pages with OCR, all inside your browser, so the document never leaves your device.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="PDF to text tool">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a PDF">
+        <strong>Drop a PDF here or click to choose</strong>
+        <small>One file at a time · text pages are instant · scanned pages use OCR (English)</small>
+        <input type="file" />
+      </div>
+      <ul class="files" id="files"></ul>
+      <div class="controls">
+        <label class="field">Pages
+          <input id="ranges" type="text" inputmode="numeric" placeholder="All pages" autocomplete="off" />
+        </label>
+        <label class="toggle"><input type="checkbox" id="ocr-all" /> OCR all pages (ignore the PDF's own text)</label>
+      </div>
+      <p class="ocr-notice" id="ocr-notice"><b>If your PDF has scanned pages, first use downloads about <span data-size>7 MB</span> of OCR data to your browser; it's cached for next time.</b> PDFs with real text don't need it. The download comes from this site; your PDF stays on your device.</p>
+      <div class="row-actions">
+        <button class="btn" id="run" disabled>Extract text</button>
+        <span class="status" id="status" role="status"></span>
+      </div>
+      <div class="ocr-progress" id="progress" hidden><i></i></div>
+      <div id="out-box" hidden>
+        <ul class="ocr-pages" id="page-kinds" aria-label="How each page was read"></ul>
+        <p><textarea class="ocr-text tall" id="out" spellcheck="false" aria-label="Extracted text"></textarea></p>
+        <div class="ocr-actions">
+          <button class="btn sm" id="copy">Copy text</button>
+          <button class="btn sm ghost" id="download">Download .txt</button>
+          <span class="status" id="copy-status" role="status"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to get text out of a PDF</h2>
+      <ol>
+        <li><b>Add your PDF</b> by dropping it on the box or clicking to choose it.</li>
+        <li><b>Choose pages (optional).</b> Leave the box empty for the whole document, or type ranges such as <code>1-3, 7</code> or <code>5-</code> (page 5 to the end).</li>
+        <li><b>Click "Extract text".</b> Each page is checked for real text first. Pages without it are read with OCR, which takes longer; a progress bar shows how far along it is.</li>
+        <li><b>Review the result.</b> The text appears in an editable box, with a line such as <code>--- Page 2 (OCR) ---</code> before each page. Small labels above the box show which pages came from the PDF's own text and which were OCR'd.</li>
+        <li><b>Copy or download.</b> "Download .txt" saves a plain-text (UTF-8) file named after your PDF.</li>
+      </ol>
+
+      <h2>Two kinds of PDF page</h2>
+      <p>A PDF exported from Word, Google Docs, a web browser or accounting software stores its text as real characters. For those pages, this tool uses <a href="https://mozilla.github.io/pdf.js/" rel="noopener">pdf.js</a> to read the characters directly. That is exact (no guessing), fast, and works for any language the PDF contains. The pieces of text are put back into reading order: lines from top to bottom, words from left to right, and a blank line where the gap between lines suggests a new paragraph.</p>
+      <p>A scanned PDF is different: each page is just a picture of paper, with no characters inside. When a page has fewer than 20 letters or digits in its text layer (so a lone page number doesn't count), or its "text" is mostly unreadable symbols, the page is drawn at 300 DPI and read with <a href="https://github.com/naptha/tesseract.js" rel="noopener">Tesseract.js</a> OCR. At 300 DPI a US Letter page becomes a 2,550 × 3,300 pixel image, which is the resolution OCR engines are usually tuned for. These pages are marked "(OCR)" in the output.</p>
+      <p>Tick <b>OCR all pages</b> when a PDF has a text layer you don't trust, for example a scan that was run through a poor OCR program before, or when the extracted text comes out jumbled. The page is then read from its image instead.</p>
+
+      <h2>Worked example</h2>
+      <p>Say you drop in a 12-page contract where pages 1–10 were typed and pages 11–12 are signed pages that were scanned back in. Pages 1–10 come out as exact text in a moment. Pages 11 and 12 have no text layer, so they are rendered and read with OCR; the first time you do this, the OCR engine and English data download first (about 7 MB, once). Your output file contains twelve sections, the last two headed <code>--- Page 11 (OCR) ---</code> and <code>--- Page 12 (OCR) ---</code>, so you know exactly which parts to proofread. The signatures themselves won't turn into names: OCR reads printed text, not handwriting.</p>
+
+      <h2>Limits worth knowing</h2>
+      <ul>
+        <li><b>OCR accuracy depends on scan quality.</b> Clean, straight, high-contrast scans read well. Faxes, photocopies of photocopies, skewed pages and coloured backgrounds produce errors.</li>
+        <li><b>OCR is English only for now.</b> Digital text in any language extracts fine; scanned pages in other languages won't be read correctly.</li>
+        <li><b>Handwriting is read poorly.</b> Expect gibberish for cursive and signatures.</li>
+        <li><b>Layout is not kept.</b> You get plain text. Multi-column pages and tables can come out in a different order than you read them.</li>
+        <li><b>Password-protected PDFs</b> need to be unlocked in your PDF reader first.</li>
+        <li><b>Speed.</b> Text pages take a fraction of a second. OCR takes several seconds per page, more on older phones.</li>
+      </ul>
+      <p>Only have a photo or screenshot? Use <a href="/image-to-text/">Image to Text</a>. Need the pages as pictures instead? Try <a href="/pdf-to-jpg/">PDF to JPG</a>.</p>
+
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Is my PDF uploaded?</summary><p>No. The PDF is opened and read inside your browser tab. If OCR is needed, the engine and English data (about 7 MB) download once from this site; your document is never sent anywhere.</p></details>
+        <details><summary>Why does it say "(OCR)" next to some pages?</summary><p>Those pages had no usable text inside the PDF, usually because they were scanned, so the text was read from the page image. Check them for mistakes.</p></details>
+        <details><summary>Why is the extracted text in a strange order?</summary><p>PDFs store text by position, not by reading order. Single-column pages come out correctly; multi-column layouts, sidebars and tables can be mixed up. Try "OCR all pages" if the order is badly wrong.</p></details>
+        <details><summary>Does it work for languages other than English?</summary><p>Digital text in any language is copied exactly. OCR of scanned pages currently supports English only.</p></details>
+        <details><summary>Will it make my PDF searchable?</summary><p>No. This tool gives you a text file; it doesn't change the PDF. You can search the text file, or paste it wherever you need it.</p></details>
+      </div>
+      <!-- @related -->
+      <!-- @include affiliate-pdf -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/pdf-to-text.js"></script>
+</body>
+</html>

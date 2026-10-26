@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync, createReadStream } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
 import { SITE } from './site.config.js';
 import { loadSite, loadTools, toolGrid, footerTools, applyAffiliates, announcement, esc, normalizeMeta, relatedBlock, categoryGrids, syncFaqSchema } from './scripts/render-data.mjs';
@@ -74,6 +74,45 @@ function basePathLinks() {
   };
 }
 
+// OCR (tesseract.js) assets are self-hosted under /ocr/, never fetched from a CDN. Paths carry
+// the package versions so long-lived caches stay correct after an upgrade. They are copied out
+// of node_modules at build time, served from node_modules in dev, and NOT precached (≈7 MB):
+// the service worker caches them on first use (runtimeCaching below).
+function ocrAssets() {
+  const pkg = (p) => JSON.parse(readFileSync(resolve(root, 'node_modules', p, 'package.json'), 'utf8')).version;
+  const tjs = `ocr/tesseract.js-${pkg('tesseract.js')}`;
+  const core = `ocr/tesseract.js-core-${pkg('tesseract.js-core')}`;
+  const lang = 'ocr/eng-4.0.0_best_int';
+  // Only the LSTM cores are needed (we always use OEM 1, LSTM only); tesseract.js picks
+  // relaxed-SIMD, SIMD or plain at runtime from a corePath directory.
+  const files = {
+    [`${tjs}/worker.min.js`]: 'tesseract.js/dist/worker.min.js',
+    ...Object.fromEntries(['relaxedsimd-lstm', 'simd-lstm', 'lstm'].map((v) =>
+      [`${core}/tesseract-core-${v}.wasm.js`, `tesseract.js-core/tesseract-core-${v}.wasm.js`])),
+    [`${lang}/eng.traineddata.gz`]: '@tesseract.js-data/eng/4.0.0_best_int/eng.traineddata.gz',
+  };
+  const src = (f) => resolve(root, 'node_modules', files[f]);
+  const ID = 'virtual:ocr-assets';
+  return {
+    name: 'privyforge-ocr-assets',
+    resolveId: (id) => (id === ID ? '\0' + ID : null),
+    load: (id) => (id === '\0' + ID
+      ? `export const OCR = ${JSON.stringify({ worker: `${tjs}/worker.min.js`, core, lang, bytes: statSync(src(`${core}/tesseract-core-relaxedsimd-lstm.wasm.js`)).size + statSync(src(`${tjs}/worker.min.js`)).size + statSync(src(`${lang}/eng.traineddata.gz`)).size })};`
+      : null),
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const path = decodeURIComponent((req.url || '').split('?')[0]).slice(BASE.length);
+        if (!files[path]) return next();
+        res.setHeader('Content-Type', path.endsWith('.gz') ? 'application/gzip' : 'text/javascript');
+        createReadStream(src(path)).pipe(res);
+      });
+    },
+    generateBundle() {
+      for (const f of Object.keys(files)) this.emitFile({ type: 'asset', fileName: f, source: readFileSync(src(f)) });
+    },
+  };
+}
+
 export default defineConfig({
   base: BASE,
   // Default repo for /admin/ (Actions sets GITHUB_REPOSITORY automatically).
@@ -86,6 +125,7 @@ export default defineConfig({
   plugins: [
     partials(),
     basePathLinks(),
+    ocrAssets(),
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'script-defer',
@@ -103,13 +143,19 @@ export default defineConfig({
       workbox: {
         // HTML/JS/CSS precached; large wasm codecs cached on first use -> tools work offline.
         globPatterns: ['**/*.{html,js,css,svg}'],
-        globIgnores: ['**/pdf.worker*.mjs', '**/admin*', 'admin/**'],
+        globIgnores: ['**/pdf.worker*.mjs', '**/admin*', 'admin/**', 'ocr/**'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         navigateFallback: null,
         runtimeCaching: [{
           urlPattern: ({ url }) => /\.(wasm|mjs)$/.test(url.pathname),
           handler: 'CacheFirst',
           options: { cacheName: 'codecs', expiration: { maxEntries: 40 } },
+        }, {
+          // OCR engine + English data (self-hosted, versioned paths): cached on first OCR.
+          // (A RegExp, not a function: workbox serializes functions without their closure.)
+          urlPattern: new RegExp(`^[^?#]*?://[^/]+${BASE.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}ocr/`),
+          handler: 'CacheFirst',
+          options: { cacheName: 'ocr', expiration: { maxEntries: 12 } },
         }],
       },
     }),

@@ -1,0 +1,26 @@
+/* Image to Text and PDF to Text. Built on main.css tokens. */
+.ocr-notice { margin: 12px 0 0; padding: 10px 14px; border-radius: 10px; background: var(--surface-2); color: var(--ink-2); font-size: .9rem; }
+.ocr-notice[hidden] { display: none; }
+.ocr-notice b { color: var(--ink); }
+.ocr-results { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 14px; }
+.ocr-card { border: 1px solid var(--line); border-radius: 12px; background: var(--bg); padding: 12px; display: grid; gap: 10px; min-width: 0; }
+.ocr-head { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: center; min-width: 0; }
+.ocr-head img, .ocr-head .thumb { width: 52px; height: 52px; border-radius: 8px; object-fit: cover; background: #fff; border: 1px solid var(--line); box-sizing: border-box; }
+.ocr-head .name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ocr-head .meta { font-size: .85rem; color: var(--ink-2); font-family: var(--mono); }
+.ocr-head .meta.err { color: var(--err); font-family: var(--font); }
+.ocr-progress { height: 4px; background: var(--surface-2); border-radius: 4px; overflow: hidden; margin-top: 6px; }
+.ocr-progress[hidden] { display: none; }
+.ocr-progress i { display: block; height: 100%; width: 0; background: var(--ember); transition: width .2s ease; }
+.ocr-text { width: 100%; min-height: 180px; resize: vertical; box-sizing: border-box; font: .92rem/1.5 var(--mono); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.ocr-text[hidden] { display: none; }
+.ocr-text.tall { min-height: 320px; }
+.ocr-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ocr-actions[hidden] { display: none; }
+.ocr-actions .status { font-size: .85rem; }
+.ocr-pages { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 6px; font-family: var(--mono); font-size: .8rem; }
+.ocr-pages li { padding: 3px 8px; border-radius: 999px; background: var(--surface-2); color: var(--ink-2); }
+.ocr-pages li.ocr { background: var(--ember-soft); color: var(--ink); }
+.toggle { display: inline-flex; gap: 8px; align-items: center; font-size: .92rem; cursor: pointer; }
+.toggle input { width: 18px; height: 18px; accent-color: var(--ember); }
+.ocr-head > div { min-width: 0; }
