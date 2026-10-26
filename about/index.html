@@ -10,8 +10,27 @@
   <!-- @include header -->
   <main class="wrap narrow content">
     <h1>About PrivyForge</h1>
-    <p>PrivyForge started from a simple frustration: to compress a photo or merge two PDFs, the most popular free tools ask you to upload your files to their servers — then limit how many you can process before asking you to pay.</p>
-    <p>Modern browsers are powerful enough to do this work themselves. PrivyForge uses WebAssembly builds of proven open-source libraries (MozJPEG, libwebp, libavif, OxiPNG, pdf.js and pdf-lib) so every tool runs on your own device. Your files are never uploaded, which also means we can offer the tools without artificial limits.</p>
+    <p>PrivyForge is a small, independent website of free tools for PDFs, images and personal finance. It started from a simple frustration: to compress a photo or merge two PDFs, many popular free tools ask you to upload your files to their servers — and some then limit how many you can process before asking you to pay.</p>
+    <p>Modern browsers are powerful enough to do this work themselves. PrivyForge uses proven open-source libraries — MozJPEG, libwebp, libavif and OxiPNG (as WebAssembly), plus pdf.js and pdf-lib — so every tool runs on your own device. Your files are never uploaded, which also means we can offer the tools without artificial limits.</p>
+
+    <h2>How the privacy claim works</h2>
+    <p>When you open a tool, your browser downloads the page and the tool's code from our host. From then on, the work happens locally: files are read into your browser's memory, processed there, and the result is saved straight to your device. Calculator inputs stay in the page and its address bar so you can bookmark a scenario. We never receive your files or your numbers, so we can't see, store or leak them.</p>
+    <p>You don't have to take our word for it:</p>
+    <ol>
+      <li><b>Go offline.</b> Open any tool, let it load, switch off Wi-Fi, and use it. It keeps working.</li>
+      <li><b>Watch the network.</b> Open your browser's developer tools, go to the Network tab, and run a tool. No request carries your file.</li>
+      <li><b>Automated checks.</b> Our test suites run every tool in a real browser and fail if a tool makes any request to another site or tries to send data anywhere.</li>
+    </ol>
+    <p>Like any website, our host (Cloudflare) handles standard request data to deliver pages, and we count visits in aggregate. The <a href="/privacy/">privacy policy</a> has the details.</p>
+
+    <h2>How the site is funded</h2>
+    <p>Running tools on your device keeps our costs low, but not zero. PrivyForge is paid for in two ways:</p>
+    <ul>
+      <li><b>Display ads</b> in clearly marked spots on the page. Ads are shown only after you have been asked for consent.</li>
+      <li><b>Affiliate links</b>, labeled "Affiliate links", to products we think are genuinely useful. If you sign up or buy through one, we may earn a commission at no extra cost to you.</li>
+    </ul>
+    <p>Partners can't pay to change a tool's results. Every calculator gives the same answer whether or not you click an offer.</p>
+
     <h2>Our principles</h2>
     <ul>
       <li><b>Your files stay yours.</b> Tools process files locally. We never receive them.</li>
@@ -19,8 +38,9 @@
       <li><b>Honest monetization.</b> We show ads and label affiliate links clearly. We'll never sell your data.</li>
       <li><b>Credit where due.</b> PrivyForge is built on outstanding open-source software. Thank you to its maintainers.</li>
     </ul>
+
     <h2>Contact</h2>
-    <p>Questions, bug reports or feature ideas? <a href="/contact/">Get in touch</a>.</p>
+    <p>Questions, bug reports or feature ideas? <a href="/contact/">Get in touch</a> by email. Telling us your browser and device helps with bugs. Please don't send us files you processed — we never need them.</p>
   </main>
   <!-- @include footer -->
 </body>

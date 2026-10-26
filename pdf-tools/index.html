@@ -23,7 +23,7 @@
 
     <article class="content narrow">
       <h2>Why use a PDF tool that doesn't upload?</h2>
-      <p>Most free PDF websites work by sending your file to their servers, processing it there, and sending the result back. Even when a site promises to delete files after an hour, the document has still left your control. PrivyForge runs the same kind of processing inside your browser using open-source libraries (pdf-lib and pdf.js), so the file is only ever read into your device's memory.</p>
+      <p>Most free PDF websites work by sending your file to their servers, processing it there, and sending the result back. Even when a site promises to delete files after an hour, the document has still left your control. These free PDF tools run the same kind of processing inside your browser using open-source libraries (pdf-lib and pdf.js), so the file is only ever read into your device's memory.</p>
       <p>You can check this yourself: open a tool, wait for it to load, switch off Wi-Fi, and use it. It keeps working.</p>
 
       <h2>Which tool do you need?</h2>
@@ -33,10 +33,27 @@
         <li><b>Hitting an upload limit</b> on a job portal, government site or email, use <a href="/compress-pdf/">Compress PDF</a>. "Recommended" shrinks scans the most; "Lossless" keeps text selectable.</li>
       </ul>
 
+      <h2>How the PDF tools work</h2>
+      <ol>
+        <li><b>Open the tool</b> and drop your PDF on the box, click to choose it, or paste it.</li>
+        <li><b>Set it up:</b> drag files into order, type page ranges, or pick a compression level.</li>
+        <li><b>Download.</b> One result saves as a PDF; several results come as a single ZIP.</li>
+      </ol>
+
       <!-- @include ad-content -->
 
+      <h2>Example: sending part of a long statement</h2>
+      <p>A landlord asks for proof of income, and you have a 12-page bank statement. Open Split PDF, choose "Extract pages into one PDF" and type <code>1-2</code> to keep only the summary pages. If the result is still too large for their upload form, run it through Compress PDF. The rest of the statement never leaves your device — and neither do the two pages you send, until you choose to send them.</p>
+
       <h2>Limits worth knowing</h2>
-      <p>There are no daily caps or file-count limits; the only limit is your device's memory. Password-protected PDFs need the password removed first. When merging, page content is copied exactly, but bookmarks and interactive form fields from the source files may not carry over.</p>
+      <p>There are no daily caps or file-count limits; the only limit is your device's memory. Password-protected PDFs need the password removed first. When merging, page content is copied exactly, but bookmarks and interactive form fields from the source files may not carry over. Compress PDF's Recommended and Smallest levels turn pages into images, so text is no longer selectable; use Lossless when that matters.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Do the PDF tools add a watermark?</summary><p>No. Your output contains only your pages.</p></details>
+        <details><summary>Do they work on a phone?</summary><p>Yes, in any current mobile browser. Very large documents are faster on a computer.</p></details>
+        <details><summary>Can I edit text or sign a PDF here?</summary><p>Not yet. These tools rearrange and shrink existing pages; they don't change what's written on them.</p></details>
+      </div>
 
       <h2>More free tools</h2>
       <p>Working with photos and scans? See the <a href="/image-tools/">image tools</a>. Sorting out finances? The <a href="/money-tools/">money tools</a> run privately too.</p>

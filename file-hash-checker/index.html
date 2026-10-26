@@ -48,16 +48,33 @@
       <h2>How to verify a download</h2>
       <ol>
         <li>Find the checksum on the official download page (often labeled "SHA-256" or "checksum").</li>
-        <li>Paste it into <b>Expected hash</b>. The algorithm is picked automatically from its length.</li>
+        <li>Paste it into <b>Expected hash</b>. The algorithm is picked automatically from its length, and a pasted line from <code>sha256sum</code> works too — the file name is ignored.</li>
         <li>Drop the downloaded file. A green <b>Match</b> means it's byte-for-byte identical to what the publisher released.</li>
+        <li>If you see <b>No match</b>, download the file again from the official source and re-check before opening it.</li>
       </ol>
+
+      <h2>Worked example: one changed letter</h2>
+      <p>Make a plain text file containing the word <code>hello</code> followed by a line break (6 bytes) and drop it in. With SHA-256 selected, the file hash checker shows:</p>
+      <p><code style="word-break:break-all">5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03</code></p>
+      <p>Change it to <code>Hello</code> with a capital H and hash it again:</p>
+      <p><code style="word-break:break-all">66a045b452102c59d840ec097d59d9467e13a3f34f6494e539ffd32c1bb35f18</code></p>
+      <p>One letter changed and the whole fingerprint changed. That's what makes a checksum useful: any difference at all, whether a corrupted download or a tampered installer, produces a completely different hash.</p>
+
+      <h2>What a hash is</h2>
+      <p>A cryptographic hash turns a file of any size into a short, fixed-length fingerprint. The same file always gives the same hash, on any computer. You can't rebuild the file from its hash, and it's practically impossible to craft a different file with the same SHA-256 hash.</p>
+      <p>Each algorithm has a recognizable length in hex characters: SHA-1 is 40, SHA-256 is 64, SHA-384 is 96 and SHA-512 is 128. That's how the tool recognizes the type of hash you paste.</p>
+      <p>Prefer the command line? <code>sha256sum file</code> on Linux, <code>shasum -a 256 file</code> on macOS and <code>Get-FileHash file</code> in Windows PowerShell give the same SHA-256 result.</p>
+
+      <!-- @include ad-content -->
+
       <h2>Proving a file existed — without sharing it</h2>
       <p>Click <b>Proof</b> to download a small receipt with the file's SHA-256 fingerprint, size and time. Keep it with the file. Later, anyone with the original can recompute the hash and confirm nothing changed. For an independent timestamp that doesn't rely on your own records, submit just the hash (never the file) to a public timestamping service such as OpenTimestamps, which anchors it to the Bitcoin blockchain for free.</p>
-      <!-- @include ad-content -->
       <h2>Frequently asked questions</h2>
       <div class="faq">
         <details><summary>Is my file uploaded?</summary><p>No. Hashing uses your browser's built-in Web Crypto engine. The file is read into memory on your device and nothing is sent anywhere.</p></details>
         <details><summary>Which algorithm should I use?</summary><p>SHA-256 is the modern standard. SHA-1 is only for checking older downloads that publish it; it's no longer considered secure against deliberate tampering.</p></details>
+        <details><summary>Does a match prove the file is safe?</summary><p>It proves the file is identical to the one the checksum describes. If the publisher's own site were compromised, both could be altered, so take checksums from the official source.</p></details>
+        <details><summary>Is there a size limit?</summary><p>Files up to 2 GB. The whole file is read into your browser's memory, so very large files need a device with enough free memory.</p></details>
         <details><summary>What about MD5?</summary><p>MD5 is broken for security purposes and browsers don't include it. If a site only publishes MD5, ask for a SHA-256 checksum instead.</p></details>
       </div>
       <!-- @related -->

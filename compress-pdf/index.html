@@ -51,19 +51,32 @@
     <article class="content narrow">
       <h2>How to compress a PDF</h2>
       <ol>
-        <li><b>Add your PDF(s).</b></li>
-        <li><b>Pick a level.</b> "Recommended" suits most scanned documents. Use "Smallest" for portals with a 1–2 MB cap.</li>
-        <li><b>Download.</b> If a file can't get smaller, you get the original back — never a bigger file.</li>
+        <li><b>Add your PDF(s).</b> Drop them on the box, click to choose, or paste. You can compress several at once.</li>
+        <li><b>Pick a level.</b> "Recommended" suits most scanned documents. Use "Smallest" for portals with a 1–2 MB cap. Choose "Lossless" if the text must stay selectable.</li>
+        <li><b>Click "Compress &amp; download".</b> Each file's row shows its size before and after. One file downloads as <code>name-compressed.pdf</code>; several come as <code>compressed-pdfs.zip</code>.</li>
+        <li><b>Check the result.</b> If a file can't get smaller, you get the original back — never a bigger file.</li>
       </ol>
+
       <h2>Which level should I use?</h2>
-      <p><b>Recommended</b> and <b>Smallest</b> re-render each page as an optimized image. This is the most effective way to shrink scanned documents and photo-heavy PDFs, often by 50–90%. The trade-off: text in the result is no longer selectable or searchable.</p>
-      <p><b>Lossless</b> rebuilds the PDF's internal structure without touching content, so text stays selectable. Savings are smaller (typically 0–20%) and depend on how the PDF was made.</p>
+      <p><b>Recommended</b> and <b>Smallest</b> re-render each page as an optimized JPEG image. This is usually the most effective way to shrink scanned documents and photo-heavy PDFs. The trade-off: text in the result is no longer selectable or searchable, links stop being clickable, and form fields can no longer be filled in.</p>
+      <p><b>Lossless</b> rebuilds the PDF's internal structure without touching content, so text, links and quality stay as they were. Savings are smaller, sometimes zero, and depend on how the PDF was made.</p>
+
+      <h2>Worked example: what the levels do to a page</h2>
+      <p>A US Letter page is 8.5 × 11 inches. At <b>Recommended</b> (150 DPI) each page becomes an image of 1,275 × 1,650 pixels, about 2.1 megapixels, saved at JPEG quality 72. At <b>Smallest</b> (100 DPI) it becomes 850 × 1,100 pixels, about 0.9 megapixels, at quality 55. That's less than half the pixels, at a lower quality setting, which is why Smallest produces much smaller files.</p>
+      <p>150 DPI keeps normal body text comfortably readable on screen and in print. 100 DPI is still readable for most documents, but small print and fine lines get softer, so open the result and zoom in before you submit it. Page sizes are unchanged either way, so the document prints at the same size as before.</p>
+
       <!-- @include ad-content -->
+
+      <h2>When compression won't help much</h2>
+      <p>A PDF that is mostly text from a word processor is often already compact. Turning its pages into images can make it bigger, not smaller. In that case PrivyForge keeps your original and labels it "already optimized". Try Lossless instead, or split the document if a portal's limit is very strict.</p>
+
       <h2>Frequently asked questions</h2>
       <div class="faq">
         <details><summary>Are my PDFs uploaded?</summary><p>No. Everything runs in your browser using pdf.js and pdf-lib. Your documents never leave your device.</p></details>
         <details><summary>Why can't I select text after compressing?</summary><p>The Recommended and Smallest levels convert pages into images to get big savings. Choose Lossless if you need selectable text.</p></details>
         <details><summary>How do I get a PDF under 1 MB?</summary><p>Use "Smallest". If it's still too big, split the PDF and send the parts separately using our <a href="/split-pdf/">Split PDF</a> tool.</p></details>
+        <details><summary>Can compressing make my file bigger?</summary><p>No. If the compressed version would be larger, the tool gives you the original file instead.</p></details>
+        <details><summary>Are there size or page limits?</summary><p>No fixed limits. Very large documents take longer, and speed depends on your device's memory and processor.</p></details>
       </div>
       <!-- @related -->
       <!-- @include affiliate-pdf -->
