@@ -1,30 +1,51 @@
 // Post-build: writes dist/sitemap.xml and dist/robots.txt from the pages actually built.
-import { readdirSync, statSync, writeFileSync } from 'node:fs';
-import { join, relative } from 'node:path';
+// lastmod = date of the last git commit touching the page's source (guides: front-matter
+// `updated`/`date`). If git history is unavailable (shallow clone), lastmod is omitted rather
+// than guessed — search engines ignore an untrustworthy lastmod anyway.
+import { readdirSync, statSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
+import { join, relative, resolve } from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { SITE } from '../site.config.js';
+import { parseGuide } from '../src/js/lib/guide-format.js';
 
-const dist = new URL('../dist/', import.meta.url).pathname;
-const EXCLUDE = new Set(['/terms/', '/contact/', '/admin/', '/my/', '/support/']);
-const PRIORITY = { '/': '1.0', '/compress-image/': '0.9', '/merge-pdf/': '0.9', '/compress-pdf/': '0.9', '/split-pdf/': '0.8' };
+const root = resolve(import.meta.dirname, '..');
+const dist = join(root, 'dist');
+// Utility / personal pages that shouldn't compete in search.
+const EXCLUDE = new Set(['/my/', '/support/', '/contact/', '/terms/']);
+
+const git = (args) => { try { return execFileSync('git', args, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { return ''; } };
+const shallow = git(['rev-parse', '--is-shallow-repository']) !== 'false';
+
+function lastmod(path) {
+  if (path.startsWith('/blog/') && path !== '/blog/') {
+    const f = join(root, 'content/guides', `${path.split('/')[2]}.md`);
+    if (existsSync(f)) { const { meta } = parseGuide(readFileSync(f, 'utf8')); return meta.updated || meta.date || ''; }
+  }
+  if (shallow) return '';
+  const src = path === '/' ? 'index.html' : path === '/blog/' ? 'content/guides' : `${path.slice(1)}index.html`;
+  return git(['log', '-1', '--format=%cs', '--', src]);
+}
 
 const urls = [];
 (function walk(dir) {
   for (const name of readdirSync(dir)) {
     const p = join(dir, name);
-    if (statSync(p).isDirectory()) { if (name !== 'assets') walk(p); }
+    if (statSync(p).isDirectory()) { if (name !== 'assets' && name !== 'og') walk(p); }
     else if (name === 'index.html') {
-      const path = `/${relative(dist, dir)}${relative(dist, dir) ? '/' : ''}`;
-      if (!EXCLUDE.has(path)) urls.push(path);
+      const rel = relative(dist, dir);
+      const path = `/${rel}${rel ? '/' : ''}`;
+      if (EXCLUDE.has(path) || /<meta\s+name="robots"\s+content="[^"]*noindex/i.test(readFileSync(p, 'utf8'))) continue;
+      urls.push(path);
     }
   }
 })(dist);
 
-const today = new Date().toISOString().slice(0, 10);
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.sort().map((u) => `  <url><loc>${SITE.url}${u}</loc><lastmod>${today}</lastmod><priority>${PRIORITY[u] || '0.6'}</priority></url>`).join('\n')}
+${urls.sort().map((u) => { const d = lastmod(u); return `  <url><loc>${SITE.url}${u}</loc>${d ? `<lastmod>${d}</lastmod>` : ''}</url>`; }).join('\n')}
 </urlset>
 `;
 writeFileSync(join(dist, 'sitemap.xml'), xml);
+// robots.txt must live at the host root (Cloudflare serves dist/ at the root).
 writeFileSync(join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
-console.log(`sitemap.xml: ${urls.length} URLs`);
+console.log(`sitemap.xml: ${urls.length} URLs${shallow ? ' (shallow git clone: lastmod only for guides)' : ''}`);
