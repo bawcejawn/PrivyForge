@@ -121,6 +121,23 @@
     "featured": false
   },
   {
+    "slug": "image-to-text",
+    "href": "/image-to-text/",
+    "title": "Image to Text (OCR)",
+    "blurb": "Copy text from photos, scans and screenshots, privately.",
+    "category": "Image",
+    "keywords": [
+      "ocr",
+      "image to text",
+      "extract text from image",
+      "screenshot to text",
+      "photo to text",
+      "jpg to text"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
     "slug": "merge-pdf",
     "href": "/merge-pdf/",
     "title": "Merge PDF",
@@ -204,6 +221,22 @@
       "pdf to image",
       "convert pdf to jpeg",
       "pdf pages to images"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
+    "slug": "pdf-to-text",
+    "href": "/pdf-to-text/",
+    "title": "PDF to Text",
+    "blurb": "Extract text from PDFs; scanned pages read with OCR.",
+    "category": "PDF",
+    "keywords": [
+      "pdf to text",
+      "extract text from pdf",
+      "ocr pdf",
+      "scanned pdf to text",
+      "pdf to txt"
     ],
     "enabled": true,
     "featured": false
