@@ -72,7 +72,7 @@ export default defineConfig({
   // Default repo for /admin/ (Actions sets GITHUB_REPOSITORY automatically).
   define: { __REPO__: JSON.stringify(process.env.GITHUB_REPOSITORY || 'bawcejawn/PrivyForge') },
   appType: 'mpa',
-  build: { rollupOptions: { input: findPages(root) }, target: 'es2022' },
+  build: { rollupOptions: { input: { ...findPages(root), notFound: resolve(root, '404.html') } }, target: 'es2022' },
   worker: { format: 'es' },
   // jSquash ships its own wasm loaders; pre-bundling breaks their relative wasm URLs.
   optimizeDeps: { exclude: ['@jsquash/jpeg', '@jsquash/png', '@jsquash/oxipng', '@jsquash/webp', '@jsquash/avif'] },

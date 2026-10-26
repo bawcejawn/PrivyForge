@@ -1,4 +1,8 @@
-# Free hosting on GitHub Pages. Push to main -> tests run -> site deploys.
+# DISABLED for automatic runs: production is Cloudflare Pages (see DEPLOY.md).
+# This workflow now runs only when started by hand (Actions -> Deploy to GitHub Pages -> Run workflow).
+# Retire the GitHub Pages site once Cloudflare is live; then this file can be deleted.
+#
+# Free hosting on GitHub Pages.
 # One-time setup: repo Settings -> Pages -> Source: "GitHub Actions".
 #
 # URL options:
@@ -8,8 +12,6 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
