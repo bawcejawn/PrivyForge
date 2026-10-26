@@ -1,6 +1,9 @@
 import { compare } from './lib/debt.js';
 import { lineChart, money, monthsToText, dateAfterMonths, monthAxis } from './lib/chart.js';
 import { $ } from './util.js';
+import site from '../data/site.json';
+import { pickOffer, renderOffer } from './lib/offers.js';
+
 
 const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
@@ -45,6 +48,7 @@ function render() {
   $('#min-total').textContent = money(minTotal, 2);
   history.replaceState(null, '', `?d=${list.map((d) => [encodeURIComponent(d.name), d.balance, d.apr, d.min].join('~')).join('|')}&b=${budget}`);
   const out = $('#results');
+  renderOffer($('#offer'), null);
   if (!list.length) { out.innerHTML = '<p class="status">Add at least one debt.</p>'; return; }
   const c = compare(list, budget);
   if (!c.avalanche.ok && c.avalanche.reason) {
@@ -52,6 +56,7 @@ function render() {
     lineChart($('#chart'), []); return;
   }
   const best = c.avalanche, snow = c.snowball, mins = c.minimum;
+  renderOffer($('#offer'), pickOffer('debt', { ok: best.ok, debts: list }, site.affiliates));
   const vsMin = mins.ok ? mins.totalInterest - best.totalInterest : null;
   out.innerHTML = `
     <div class="kpis">

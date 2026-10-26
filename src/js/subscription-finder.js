@@ -2,6 +2,9 @@
 import { parseCSV, detectColumns, toTransactions, findRecurring } from './lib/subscriptions.js';
 import { money } from './lib/chart.js';
 import { $, setupDropzone, downloadBlob } from './util.js';
+import site from '../data/site.json';
+import { pickOffer, renderOffer } from './lib/offers.js';
+
 
 const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const fmtDate = (ms) => new Date(ms).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
@@ -65,6 +68,7 @@ function render() {
     const m = found[+c.dataset.i].merchant; c.checked ? cancel.add(m) : cancel.delete(m); render();
   }));
   $('#export').disabled = !found.length;
+  renderOffer($('#offer'), pickOffer('subscriptions', { found, saving }, site.affiliates));
 }
 
 $('#export').onclick = () => {

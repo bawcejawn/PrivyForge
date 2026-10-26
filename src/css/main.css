@@ -173,3 +173,10 @@ thead th { position: sticky; top: 0; background: var(--surface-2); font-family: 
 /* Favorite star on tool pages */
 .fav-btn { margin-left: 8px; vertical-align: middle; font-size: .85rem; }
 .fav-btn[aria-pressed="true"] { background: var(--ember-soft); color: var(--ember); }
+
+/* Result-matched offer card (src/js/lib/offers.js) */
+.offer { margin-top: 16px; padding: 16px 18px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2); display: grid; gap: 6px; }
+.offer[hidden] { display: none; }
+.offer p { margin: 0; color: var(--ink-2); }
+.offer .btn { justify-self: start; margin-top: 4px; }
+.offer small { color: var(--ink-2); font-size: .78rem; }

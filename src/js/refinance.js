@@ -1,6 +1,9 @@
 import { refinance } from './lib/finance.js';
 import { lineChart, money, monthsToText, syncFormWithURL, monthAxis } from './lib/chart.js';
 import { $ } from './util.js';
+import site from '../data/site.json';
+import { pickOffer, renderOffer } from './lib/offers.js';
+
 
 const form = $('#calc');
 const save = syncFormWithURL(form);
@@ -35,6 +38,7 @@ function render() {
     { values: r.series.old.slice(0, n), color: '--warn' },
     { values: r.series.new.slice(0, n), color: '--ok' },
   ], { ...monthAxis(n, 1), minZero: false });
+  renderOffer($('#offer'), pickOffer('refinance', r, site.affiliates));
   save();
 }
 form.addEventListener('input', render);
