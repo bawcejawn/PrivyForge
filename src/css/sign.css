@@ -1,0 +1,103 @@
+/* Sign PDF + Fill PDF Form. Built on main.css tokens. */
+[hidden] { display: none !important; }
+.sign-sticky { position: sticky; top: var(--pf-hdr, 0px); z-index: 5; background: var(--surface); margin: -4px -4px 0; padding: 4px 4px 8px; border-bottom: 1px solid var(--line); }
+.sign-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 6px 2px; }
+.sign-bar [aria-pressed="true"] { background: var(--ember); color: var(--ember-ink); }
+.sign-spacer { flex: 1 1 0; }
+.sign-props { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: end; padding: 10px; margin-top: 8px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); }
+.sign-props .field { min-width: 90px; }
+.sign-props .field.grow { flex: 1 1 220px; }
+.sign-props textarea { min-height: 0; }
+.sign-props input[type="number"] { width: 80px; }
+.sign-props-title { align-self: center; font-size: .9rem; }
+@media (max-width: 640px) {
+  .sign-bar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; padding-bottom: 8px; }
+  .sign-bar .btn { flex: none; }
+  .sign-spacer { display: none; }
+  .sign-props { gap: 8px; padding: 8px; }
+  .sign-props .field { min-width: 0; flex: 1 1 120px; font-size: .8rem; }
+  .sign-props .field.grow { flex-basis: 100%; }
+  .sign-props input[type="number"] { width: 64px; }
+  .sign-props-title { display: none; }
+  .sign-pages { padding: 8px; gap: 22px; margin: 0 -10px; }
+}
+.sign-status { min-height: 1.4em; margin: 10px 2px; }
+.sign-note { font-size: .85rem; color: var(--ink-2); margin: 14px 0 0; }
+
+.sign-pages { display: grid; gap: 18px; padding: 14px; margin: 0 -4px; background: var(--surface-2); border-radius: 12px; }
+.sign-page { position: relative; width: 100%; max-width: 900px; margin: 0 auto; background: #fff; box-shadow: 0 1px 3px rgb(0 0 0 / .18), 0 6px 18px rgb(0 0 0 / .08); --s: 1; }
+.sign-page canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.sign-layer { position: absolute; inset: 0; outline-offset: -3px; }
+.sign-layer:focus-visible { outline: 3px solid var(--ember); }
+.sign-pages.placing .sign-layer { cursor: crosshair; }
+.sign-pno { position: absolute; right: 6px; bottom: -17px; font: 600 .72rem var(--mono); color: var(--ink-2); pointer-events: none; }
+
+.sign-item { position: absolute; box-sizing: border-box; cursor: move; touch-action: none; user-select: none; -webkit-user-select: none; outline: 1px dashed transparent; }
+.sign-item:hover { outline-color: rgb(217 72 15 / .55); }
+.sign-item.sel, .sign-item:focus-visible { outline: 2px solid var(--ember); outline-offset: 1px; }
+.sign-item img, .sign-item svg { display: block; width: 100%; height: 100%; pointer-events: none; }
+.sign-item svg polyline { fill: none; stroke: #111; stroke-width: .12; stroke-linecap: round; stroke-linejoin: round; }
+.sign-text { display: block; white-space: pre; color: #111; font-family: Helvetica, Arial, "Liberation Sans", sans-serif; line-height: 1.2;
+  font-size: calc(var(--s) * var(--fs, 12) * 1px); pointer-events: none; }
+.sign-handle { position: absolute; right: -9px; bottom: -9px; width: 18px; height: 18px; border-radius: 50%; background: var(--ember); border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / .3); cursor: nwse-resize; display: none; }
+.sign-x { position: absolute; right: -6px; top: -28px; width: 22px; height: 22px; padding: 0; border-radius: 50%; border: 0; background: #1c1814; color: #fff;
+  font: 700 14px/22px var(--font); cursor: pointer; display: none; }
+.sign-item.sel .sign-handle, .sign-item.sel .sign-x { display: block; }
+@media (pointer: coarse) { .sign-handle { width: 26px; height: 26px; right: -13px; bottom: -13px; } }
+
+/* Signature dialog */
+.sig-dialog { width: min(620px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); color: var(--ink); padding: 18px; box-shadow: var(--shadow); }
+.sig-dialog::backdrop { background: rgb(0 0 0 / .55); }
+.sig-dialog h2 { margin: 0 0 12px; font-size: 1.2rem; }
+.sig-tabs { display: inline-flex; background: var(--surface-2); border-radius: 9px; padding: 3px; margin-right: 12px; }
+.sig-tabs button { font: inherit; font-size: .9rem; border: 0; background: none; color: var(--ink-2); padding: 6px 14px; border-radius: 7px; cursor: pointer; }
+.sig-tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.sig-ink { display: inline-flex; gap: 6px; align-items: center; font-size: .85rem; color: var(--ink-2); vertical-align: middle; }
+.sig-ink button { border: 2px solid transparent; background: none; padding: 2px; border-radius: 50%; cursor: pointer; line-height: 0; }
+.sig-ink button[aria-pressed="true"] { border-color: var(--ember); }
+.sig-ink i { display: block; width: 18px; height: 18px; border-radius: 50%; }
+[role="tabpanel"] { margin-top: 14px; }
+.pad-wrap { position: relative; }
+#pad { display: block; width: 100%; height: 190px; background: #fff; border: 1px solid var(--line); border-radius: 10px; touch-action: none; cursor: crosshair; }
+.pad-line { position: absolute; left: 8%; right: 8%; bottom: 46px; border-bottom: 1.5px dashed #c9c0b4; pointer-events: none; }
+.pad-hint { position: absolute; left: 0; right: 0; top: 40%; text-align: center; color: #9a9187; font-size: .9rem; pointer-events: none; }
+.type-opts { display: grid; gap: 8px; margin-top: 12px; }
+.type-opt { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: #111; cursor: pointer; }
+.type-opt:has(input:checked) { border-color: var(--ember); box-shadow: 0 0 0 1px var(--ember); }
+.type-sample { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1.5; }
+.type-opt small { color: #6b625a; }
+.drop.sm { padding: 22px 14px; }
+.up-preview { margin-top: 10px; min-height: 40px; display: grid; place-items: center; font-size: .9rem; color: var(--ink-2);
+  background: repeating-conic-gradient(#eee 0 25%, #fff 0 50%) 0 0 / 16px 16px; border-radius: 10px; }
+.up-preview:empty { display: none; }
+.up-preview img { max-width: 100%; max-height: 140px; display: block; }
+.check { display: flex; gap: 8px; align-items: center; margin-top: 12px; font-size: .92rem; cursor: pointer; }
+.check input { width: 18px; height: 18px; accent-color: var(--ember); margin: 0; }
+.hint { font-size: .8rem; color: var(--ink-2); margin: 4px 0 0; }
+.sig-actions { justify-content: flex-end; }
+#sig-err:empty { display: none; }
+
+/* Fill PDF Form */
+.form-layout { display: grid; gap: 18px; margin-top: 16px; }
+@media (min-width: 900px) { .form-layout { grid-template-columns: minmax(300px, 400px) 1fr; align-items: start; } .form-preview { position: sticky; top: calc(var(--pf-hdr, 0px) + 8px); max-height: calc(100vh - var(--pf-hdr, 0px) - 16px); overflow: auto; } }
+.form-fields { display: grid; gap: 4px; }
+.form-fields h3 { margin: 14px 0 4px; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); }
+.form-fields h3:first-child { margin-top: 0; }
+.ff { padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); }
+.ff.active { border-color: var(--ember); }
+.ff > label, .ff legend { display: block; font-size: .9rem; font-weight: 600; margin-bottom: 4px; overflow-wrap: anywhere; }
+.ff .fname { display: block; font: 400 .72rem var(--mono); color: var(--ink-2); overflow-wrap: anywhere; }
+.ff input[type="text"], .ff textarea, .ff select { width: 100%; box-sizing: border-box; font: inherit; font-size: .95rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; }
+.ff textarea { min-height: 70px; resize: vertical; }
+.ff fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.ff .opts { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.ff .opts label, .ff label.inline-check { display: inline-flex; gap: 6px; align-items: center; font-weight: 400; font-size: .92rem; }
+.ff .opts input, .ff label.inline-check input { accent-color: var(--ember); width: 17px; height: 17px; margin: 0; }
+.ff.ro { opacity: .7; }
+.form-preview { display: grid; gap: 14px; padding: 12px; background: var(--surface-2); border-radius: 12px; }
+.form-preview .sign-page { max-width: 100%; }
+.fbox { position: absolute; border: 1.5px solid rgb(217 72 15 / .35); background: rgb(217 72 15 / .06); border-radius: 2px; pointer-events: auto; cursor: pointer; }
+.fbox.active { border-color: var(--ember); background: rgb(217 72 15 / .18); box-shadow: 0 0 0 3px rgb(217 72 15 / .25); }
+.form-msg { margin-top: 14px; }

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Fill PDF Form Online Free — No Upload | PrivyForge</title>
+  <meta name="description" content="Fill in fillable PDF forms in your browser: text boxes, checkboxes, choices and dropdowns. Optional flattening. The PDF is never uploaded. Free." />
+  <link rel="canonical" href="{{SITE_URL}}/fill-pdf-form/" />
+  <meta property="og:title" content="Fill PDF Forms — Free, Private, No Upload" />
+  <meta property="og:description" content="Type into a PDF's form fields and download the filled copy, without sending it to a server." />
+  <meta property="og:url" content="{{SITE_URL}}/fill-pdf-form/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Fill PDF Form","url":"{{SITE_URL}}/fill-pdf-form/","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Fill PDF Form","item":"{{SITE_URL}}/fill-pdf-form/"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is my form uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The PDF is read, filled and saved inside your browser with pdf-lib, and the preview is drawn with pdf.js. Nothing is sent to a server."}},
+      {"@type":"Question","name":"Why does it say my PDF has no fillable fields?","acceptedAnswer":{"@type":"Answer","text":"The form was made as a flat document or a scan, so there are no form fields inside it, only printed lines and boxes. Use Sign PDF to place text boxes, dates and checkmarks anywhere on the page instead."}},
+      {"@type":"Question","name":"What does Flatten form do?","acceptedAnswer":{"@type":"Answer","text":"It turns the fields and your answers into ordinary page content, so nobody can change them in a PDF reader. Leave it off if the recipient needs to edit or read the fields electronically."}},
+      {"@type":"Question","name":"Why can't I fill an XFA form?","acceptedAnswer":{"@type":"Answer","text":"XFA is an older Adobe form format. The open-source library this tool uses can't fill it, and many PDF apps can't display it. Open XFA forms in Adobe Acrobat Reader."}},
+      {"@type":"Question","name":"Can I type accents or other alphabets?","acceptedAnswer":{"@type":"Answer","text":"Latin letters with accents (é, ü, ñ and so on) work. Characters outside the standard PDF font, such as Chinese, Arabic or emoji, can't be drawn yet; the tool tells you which field contains them."}},
+      {"@type":"Question","name":"Can I sign the form too?","acceptedAnswer":{"@type":"Answer","text":"Yes. Download the filled form, then open it in Sign PDF to add your signature, initials and date."}}
+    ]}
+  ]}
+  </script>
+</head>
+<body data-tool="fill-pdf-form">
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/pdf-tools/">PDF tools</a> › Fill PDF Form</nav>
+    <section class="hero">
+      <h1>Fill in a PDF form — without uploading it</h1>
+      <p class="lede">Type into a fillable PDF's boxes, tick its checkboxes and pick its options, then download the completed form. Everything stays on your device.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Fill PDF form tool">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a PDF form">
+        <strong>Drop a fillable PDF here or click to choose</strong>
+        <small>One file · it stays on your device</small>
+        <input type="file" />
+      </div>
+      <div class="result-box warn form-msg" id="msg" hidden aria-live="polite"></div>
+
+      <div id="editor" hidden>
+        <p class="result-box warn" id="xfa-note" hidden>This PDF also contains an XFA form (an older Adobe format this tool can't fill). We'll fill its standard form fields and remove the XFA part, so most PDF apps show your answers. The layout may look slightly different in Adobe Reader.</p>
+        <div class="row-actions">
+          <label class="check" style="margin:0"><input type="checkbox" id="flatten" /> Flatten form (answers can't be edited afterwards)</label>
+        </div>
+        <div class="form-layout">
+          <div class="form-fields" id="fields" aria-label="Form fields"></div>
+          <div class="form-preview" id="preview" aria-label="Page preview. Highlighted boxes are form fields; click one to jump to it."></div>
+        </div>
+        <p class="hint">The preview shows the original pages with fields highlighted. Your answers appear in the downloaded file.</p>
+        <div class="row-actions">
+          <button type="button" class="btn" id="save">Download filled PDF</button>
+          <button type="button" class="btn ghost" id="reset">Choose another PDF</button>
+          <span class="status" id="status" role="status"></span>
+        </div>
+        <p class="status" id="file-label"></p>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to fill in a PDF form</h2>
+      <ol>
+        <li><b>Open the form.</b> Drop the PDF on the box or click to choose it. The tool finds every form field and lists them in page order, top to bottom, next to a preview of the pages.</li>
+        <li><b>Fill in the fields.</b> Text boxes, checkboxes, choices (radio buttons), dropdowns and lists each get a matching control. Fields are named after the form's own tooltip where it has one, otherwise after the field's internal name. Click a highlighted box on the preview to jump to its field.</li>
+        <li><b>Decide whether to flatten.</b> Leave <i>Flatten form</i> off if the recipient may need to edit the answers or read them electronically. Turn it on to lock the answers into the page.</li>
+        <li><b>Click "Download filled PDF".</b> You get <code>yourform-filled.pdf</code>. The original file isn't changed.</li>
+      </ol>
+
+      <h2>Worked example: a membership application</h2>
+      <p>A club sends a one-page application with four fields: a <i>Full name</i> box, an <i>I agree to the terms</i> checkbox, a <i>plan</i> choice between "basic" and "premium", and a <i>State</i> dropdown that starts on CA.</p>
+      <ol>
+        <li>Open it. The list shows four fields under "Page 1", in the order they appear on the page, and the preview highlights five boxes, because each of the two plan options has its own box.</li>
+        <li>Type <i>Jane Q. Public</i>, tick the checkbox, choose <i>premium</i> and change the state to <i>NY</i>.</li>
+        <li>Download. Open the result in any PDF reader and the four answers are in their boxes and still editable. With <i>Flatten form</i> on, the same answers are printed into the page and the fields are gone.</li>
+      </ol>
+
+      <h2>When a PDF can't be filled here</h2>
+      <p><b>Flat or scanned forms.</b> Many forms are just pictures of lines and boxes, with no fields inside. The tool tells you when that's the case. Use <a href="/sign-pdf/">Sign PDF</a> instead, which lets you place text boxes, dates and checkmarks anywhere on a page.</p>
+      <p><b>XFA forms.</b> Some government and corporate forms use XFA, an older Adobe technology. The open-source PDF library this tool uses can't fill XFA, so pure XFA forms are explained rather than opened. Fill those in Adobe Acrobat Reader. If an XFA file also includes standard fields as a fallback, the tool fills those and removes the XFA part so other apps show your answers.</p>
+      <p><b>Unusual characters.</b> Answers are drawn with Helvetica, a standard PDF font that covers English and Western European letters, including accented ones like é, ü and ñ. Characters outside it, such as Chinese, Arabic or emoji, can't be drawn yet. The tool names the field that contains them instead of saving a broken file.</p>
+      <p>Buttons, signature fields and read-only fields are listed so you know they exist, but they can't be changed here. To sign the completed form, open the downloaded file in <a href="/sign-pdf/">Sign PDF</a>.</p>
+
+      <h2>Flattening, explained</h2>
+      <p>A filled but unflattened form keeps its answers in the form fields, so the recipient can read them with software or correct a typo. Flattening turns each field's appearance into ordinary page content and removes the fields. That's useful when you send a final copy and want it to look the same everywhere. It can't be undone in the downloaded file, so keep your unflattened copy if you might need to change an answer.</p>
+
+      <h2>Private by design</h2>
+      <p>Forms tend to hold the most personal details: names, addresses, dates of birth, tax and account numbers. Online form fillers often process your file on their servers. Here the PDF is read and saved inside your browser using <a href="https://pdf-lib.js.org/" rel="noopener">pdf-lib</a>, and the preview is drawn with <a href="https://mozilla.github.io/pdf.js/" rel="noopener">pdf.js</a>. Nothing is uploaded, and the tool keeps working with Wi-Fi off once the page has loaded.</p>
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Is my form uploaded?</summary><p>No. The PDF is read, filled and saved inside your browser with pdf-lib, and the preview is drawn with pdf.js. Nothing is sent to a server.</p></details>
+        <details><summary>Why does it say my PDF has no fillable fields?</summary><p>The form was made as a flat document or a scan, so there are no form fields inside it, only printed lines and boxes. Use Sign PDF to place text boxes, dates and checkmarks anywhere on the page instead.</p></details>
+        <details><summary>What does Flatten form do?</summary><p>It turns the fields and your answers into ordinary page content, so nobody can change them in a PDF reader. Leave it off if the recipient needs to edit or read the fields electronically.</p></details>
+        <details><summary>Why can't I fill an XFA form?</summary><p>XFA is an older Adobe form format. The open-source library this tool uses can't fill it, and many PDF apps can't display it. Open XFA forms in Adobe Acrobat Reader.</p></details>
+        <details><summary>Can I type accents or other alphabets?</summary><p>Latin letters with accents (é, ü, ñ and so on) work. Characters outside the standard PDF font, such as Chinese, Arabic or emoji, can't be drawn yet; the tool tells you which field contains them.</p></details>
+        <details><summary>Can I sign the form too?</summary><p>Yes. Download the filled form, then open it in Sign PDF to add your signature, initials and date.</p></details>
+      </div>
+      <!-- @related -->
+      <!-- @include affiliate-pdf -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/fill-pdf-form.js"></script>
+</body>
+</html>
