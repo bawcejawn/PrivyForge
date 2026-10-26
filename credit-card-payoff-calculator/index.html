@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Credit Card Payoff Calculator — Months &amp; Interest | PrivyForge</title>
+  <meta name="description" content="See how long your credit card takes to pay off, the interest you'll pay, and what paying only the minimum or a 0% balance transfer would cost. Private." />
+  <link rel="canonical" href="{{SITE_URL}}/credit-card-payoff-calculator/" />
+  <meta property="og:title" content="Credit Card Payoff Calculator" />
+  <meta property="og:description" content="Your payoff date and total interest — versus minimum payments and a balance transfer." />
+  <meta property="og:url" content="{{SITE_URL}}/credit-card-payoff-calculator/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Credit Card Payoff Calculator","url":"{{SITE_URL}}/credit-card-payoff-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Credit Card Payoff Calculator","item":"{{SITE_URL}}/credit-card-payoff-calculator/"}]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Credit Card Payoff Calculator</nav>
+    <section class="hero">
+      <h1>Credit card payoff calculator</h1>
+      <p class="lede">Find out when your card will be paid off and how much interest it will cost — and compare that with paying only the minimum or moving the balance to a 0% card.</p>
+      <ul class="pills"><li class="pill">🔒 Your numbers never leave your device</li><li class="pill">✓ No sign-up</li><li class="pill neutral">Interest rounded to the cent each month</li></ul>
+    </section>
+
+    <section class="tool grid-2" aria-label="Credit card payoff calculator">
+      <form class="form-stack" id="calc" onsubmit="return false">
+        <div class="inline">
+          <label class="field">Card balance ($)<input name="balance" inputmode="decimal" value="5000" /></label>
+          <label class="field">APR (%)<input name="apr" inputmode="decimal" value="22.99" /></label>
+        </div>
+        <label class="field">I want to…
+          <select name="mode"><option value="payment">Pay a fixed amount each month</option><option value="months">Be debt-free in a set number of months</option></select>
+        </label>
+        <label class="field" id="f-payment">Monthly payment ($)<input name="payment" inputmode="decimal" value="200" /></label>
+        <label class="field" id="f-months" hidden>Pay off in (months)<input name="months" inputmode="numeric" value="24" /></label>
+        <fieldset class="calc-sub">
+          <legend>Minimum payment formula</legend>
+          <div class="inline">
+            <label class="field">% of balance (+ interest)<input name="minPct" inputmode="decimal" value="1" /></label>
+            <label class="field">Floor ($)<input name="minFloor" inputmode="decimal" value="25" /></label>
+          </div>
+          <p class="calc-note">Minimum = the greater of the floor or this % of the balance plus the month's interest. Issuers' formulas vary — check your statement.</p>
+        </fieldset>
+        <label class="field check"><input type="checkbox" name="bt" /> Compare a balance transfer</label>
+        <fieldset class="calc-sub" id="bt-fields" hidden>
+          <legend>Balance transfer card</legend>
+          <div class="inline">
+            <label class="field">Transfer fee (%)<input name="btFee" inputmode="decimal" value="3" /></label>
+            <label class="field">Promo APR (%)<input name="btApr" inputmode="decimal" value="0" /></label>
+          </div>
+          <div class="inline">
+            <label class="field">Promo length (months)<input name="btMonths" inputmode="numeric" value="18" /></label>
+            <label class="field">APR after promo (%)<input name="btAfter" inputmode="decimal" value="22.99" /></label>
+          </div>
+        </fieldset>
+      </form>
+      <div>
+        <div class="summary" id="verdict" style="margin-top:0" aria-live="polite"></div>
+        <div class="kpis" id="kpis" style="margin-top:12px"></div>
+        <div id="compare"></div>
+        <div class="offer" id="offer" hidden></div>
+        <div class="chart-wrap">
+          <canvas id="chart" role="img" aria-label="Card balance over time: your plan, minimum payments and balance transfer"></canvas>
+          <div class="legend"><span><i style="background:var(--ok)"></i>Your plan</span><span><i style="background:var(--warn)"></i>Minimum only</span><span id="lg-bt" hidden><i style="background:var(--ember)"></i>Balance transfer</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to use it</h2>
+      <ol>
+        <li>Enter the balance and the purchase APR from your latest statement.</li>
+        <li>Choose a fixed monthly payment, or switch to "be debt-free in a set number of months" to get the payment you need.</li>
+        <li>Check the minimum payment formula against your statement. The defaults (1% of the balance plus interest, $25 floor) are a common shape, but issuers' formulas vary.</li>
+        <li>Optionally tick "Compare a balance transfer" and enter the card's fee, promo rate, promo length and the rate after the promo.</li>
+      </ol>
+      <p>Your inputs stay in the page link, so you can bookmark a scenario or save it to My PrivyForge.</p>
+
+      <h2>Worked example</h2>
+      <p>Say you owe <b>$5,000 at 22.99% APR</b> and pay <b>$200 a month</b>. The first month's interest is $95.79, so only about $104 of that payment reduces the balance. Keep going and the card is clear in <b>35 months</b>, with <b>$1,871.10</b> of interest.</p>
+      <p>Pay only the minimum (1% of the balance plus interest, $25 floor) and the first payment is $145.79 — but it shrinks as the balance does. That stretches payoff to <b>232 months (19 years 4 months)</b> and <b>$8,488.89</b> of interest: more than four times what the $200 plan costs.</p>
+      <p>Want it gone in two years instead? Switch the mode to 24 months and the calculator asks for <b>$261.85 a month</b>, for $1,284.17 of interest.</p>
+      <p>Now tick the balance transfer: a 3% fee ($150), 0% for 18 months, then 22.99%. At the same $200 a month, $1,550 is still owed when the promo ends, and the card is paid off in <b>27 months</b>. Fee plus interest comes to <b>$294.39</b> — about $1,577 less than staying put. The transfer only wins this clearly because most of the balance is paid during the promo; a smaller payment or a shorter promo narrows the gap, which is why the calculator shows the numbers instead of a rule.</p>
+
+      <!-- @include ad-content -->
+
+      <h2>How the math works</h2>
+      <p>Each month, interest is the balance times the APR divided by 12, rounded to the cent. It's added to the balance, then your payment comes off. The last payment is just what's left, so nothing is overpaid. Card issuers actually charge interest daily on your average daily balance, and months have different lengths, so your statement can differ from this by a few cents to a few dollars a month. The payoff time and the comparison between plans hold up.</p>
+      <p>If your payment is less than or equal to the month's interest, the balance never falls. The calculator says so instead of showing a payoff date, and tells you the smallest payment that makes progress.</p>
+      <p>The estimate assumes no new purchases, fees or rate changes. If you're still using the card, those charges add to the time and cost.</p>
+
+      <p class="status"><b>Not financial advice.</b> These are estimates for planning. Your card agreement and statements are authoritative.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Why does paying the minimum take so long?</summary><p>Because the minimum is mostly interest and falls as the balance falls. With a 1%-plus-interest formula, you only repay about 1% of what you owe each month until the floor kicks in.</p></details>
+        <details><summary>Is a balance transfer always worth it?</summary><p>No. You pay a fee up front (often 3–5% of the balance), and anything left when the promo ends is charged the regular rate. It works best when you can pay most of the balance during the promo. Enter the real offer terms above to check.</p></details>
+        <details><summary>What APR should I enter?</summary><p>The purchase APR on your statement. If part of the balance is a cash advance or already on a promo rate, the result is an approximation.</p></details>
+        <details><summary>Should I pay this card or another debt first?</summary><p>For several debts, try the <a href="/debt-payoff-calculator/">debt payoff planner</a>, which compares paying the highest rate first with paying the smallest balance first.</p></details>
+        <details><summary>Is my data private?</summary><p>Yes. Everything is calculated in your browser; nothing you enter is sent anywhere.</p></details>
+        <details><summary>Is this financial advice?</summary><p>No. It's a planning estimate. Check your card agreement and statements for the exact terms.</p></details>
+      </div>
+      <!-- @related -->
+      <!-- @include affiliate-debt -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/credit-card-payoff.js"></script>
+</body>
+</html>
