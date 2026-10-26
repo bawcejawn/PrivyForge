@@ -10,7 +10,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "devDependencies": {
     "vite": "^6.4.5",
     "vite-plugin-pwa": "^2.0.0"
@@ -28,5 +28,6 @@
     "qrcode": "^1.5.4",
     "upng-js": "^2.1.0"
   },
-  "type": "module"
+  "type": "module",
+  "private": true
 }
