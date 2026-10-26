@@ -68,3 +68,99 @@ export function compare(debts, budget) {
     minimum: simulate(debts, budget, 'minimum'),
   };
 }
+
+// ---------------------------------------------------------------------------
+// Single credit card: fixed payment, payoff-by-date, minimum payments, balance transfer.
+// Integer cents throughout; monthly interest = balance × APR ÷ 12, rounded half-up to the
+// cent (same rule as amortization.js). Real cards charge daily interest on the average
+// daily balance, so statements can differ by a few cents a month.
+
+import { monthlyInterestCents, monthlyPayment } from '../amortization.js';
+
+const C = (d) => Math.round((Number(d) || 0) * 100);
+const D = (c) => c / 100;
+const CARD_MAX = 1200; // 100 years: anything longer is reported as "never"
+
+function cardResult(startC, rows, interestC, extra = {}) {
+  return {
+    ok: true, months: rows.length, totalInterest: D(interestC), totalPaid: D(startC + interestC + (extra.feeC || 0)),
+    timeline: rows, ...extra.out,
+  };
+}
+
+/**
+ * Pay a fixed amount every month until the card is clear.
+ * @returns {{ok, reason?, months, totalInterest, totalPaid, timeline:number[] (balance after each month), firstInterest}}
+ */
+export function cardPayoff(balance, apr, payment) {
+  let bal = C(balance); const pay = C(payment);
+  const firstInterest = D(monthlyInterestCents(bal, apr));
+  if (bal <= 0) return { ok: true, months: 0, totalInterest: 0, totalPaid: 0, timeline: [], firstInterest: 0, payment: D(pay) };
+  if (pay <= monthlyInterestCents(bal, apr)) {
+    return { ok: false, reason: 'interest', months: Infinity, totalInterest: Infinity, totalPaid: Infinity, timeline: [], firstInterest, payment: D(pay) };
+  }
+  const start = bal, rows = []; let intC = 0;
+  while (bal > 0 && rows.length < CARD_MAX) {
+    const i = monthlyInterestCents(bal, apr);
+    bal += i; intC += i;
+    bal -= Math.min(pay, bal);
+    rows.push(D(bal));
+  }
+  return { ...cardResult(start, rows, intC), firstInterest, payment: D(pay), lastPayment: D(start + intC - pay * (rows.length - 1)) };
+}
+
+/** Smallest whole-cent monthly payment that clears the card in `months` (never more months). */
+export function paymentForMonths(balance, apr, months) {
+  if (!(balance > 0) || !(months > 0)) return 0;
+  return monthlyPayment(balance, apr, Math.round(months), 'up');
+}
+
+/**
+ * Minimum payments only: each month pay max(floor, pct% of the balance + that month's interest),
+ * or the whole balance if it's smaller. Issuers' formulas vary; this is the common
+ * "1% plus interest, $25 floor" shape.
+ */
+export function minimumPayoff(balance, apr, { pct = 1, floor = 25 } = {}) {
+  let bal = C(balance); const start = bal, floorC = C(floor);
+  const rows = [], pays = []; let intC = 0;
+  if (bal <= 0) return { ok: true, months: 0, totalInterest: 0, totalPaid: 0, timeline: [], firstPayment: 0 };
+  if (floorC <= 0 && !(pct > 0)) return { ok: false, reason: 'interest', months: Infinity, totalInterest: Infinity, totalPaid: Infinity, timeline: [], firstPayment: 0 };
+  while (bal > 0 && rows.length < CARD_MAX) {
+    const i = monthlyInterestCents(bal, apr);
+    const pctC = Math.round(bal * pct / 100); // pct% of the balance before this month's interest
+    const due = Math.max(floorC, pctC + i);
+    bal += i; intC += i;
+    const pay = Math.min(due, bal);
+    bal -= pay; pays.push(D(pay)); rows.push(D(bal));
+  }
+  if (bal > 0) return { ok: false, reason: 'too-long', months: Infinity, totalInterest: Infinity, totalPaid: Infinity, timeline: rows, firstPayment: pays[0] };
+  return { ...cardResult(start, rows, intC), firstPayment: pays[0] };
+}
+
+/**
+ * Move the balance to a promo card: fee% added to the balance on day one, promoApr for
+ * promoMonths, then afterApr. Same fixed monthly payment as the comparison.
+ * totalCost = fee + all interest.
+ */
+export function balanceTransfer(balance, payment, { feePct = 3, promoApr = 0, promoMonths = 18, afterApr = 0 } = {}) {
+  const feeC = Math.round(C(balance) * feePct / 100);
+  let bal = C(balance) + feeC; const start = C(balance), pay = C(payment);
+  const rows = []; let intC = 0;
+  if (start <= 0) return { ok: true, months: 0, fee: 0, totalInterest: 0, totalCost: 0, totalPaid: 0, timeline: [], promoBalanceLeft: 0 };
+  let promoLeftC = null;
+  while (bal > 0 && rows.length < CARD_MAX) {
+    const m = rows.length + 1;
+    const rate = m <= promoMonths ? promoApr : afterApr;
+    const i = monthlyInterestCents(bal, rate);
+    if (pay <= i) return { ok: false, reason: 'interest', months: Infinity, fee: D(feeC), totalInterest: Infinity, totalCost: Infinity, totalPaid: Infinity, timeline: rows, promoBalanceLeft: promoLeftC === null ? D(bal) : D(promoLeftC) };
+    bal += i; intC += i;
+    bal -= Math.min(pay, bal);
+    rows.push(D(bal));
+    if (m === promoMonths) promoLeftC = bal;
+  }
+  if (bal > 0) return { ok: false, reason: 'too-long', months: Infinity, fee: D(feeC), totalInterest: Infinity, totalCost: Infinity, totalPaid: Infinity, timeline: rows, promoBalanceLeft: D(promoLeftC ?? bal) };
+  return {
+    ok: true, months: rows.length, fee: D(feeC), totalInterest: D(intC), totalCost: D(feeC + intC),
+    totalPaid: D(start + feeC + intC), timeline: rows, promoBalanceLeft: D(promoLeftC ?? 0),
+  };
+}

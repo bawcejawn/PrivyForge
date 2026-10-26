@@ -33,3 +33,24 @@ test('subscriptions: savings offer once something is marked to cancel', () => {
   const o = pickOffer('subscriptions', { found: [{}], saving: 215.88 }, ALL);
   assert.equal(o.key, 'HIGH_YIELD_SAVINGS'); assert.match(o.title, /\$216/);
 });
+
+test('card: balance transfer only for a real, high-rate result', () => {
+  assert.equal(pickOffer('card', null, ALL), null);
+  assert.equal(pickOffer('card', { balance: 0, apr: 25, ok: true, totalInterest: 0 }, ALL), null);
+  assert.equal(pickOffer('card', { balance: 5000, apr: 9.9, ok: true, totalInterest: 400 }, ALL), null);
+  const o = pickOffer('card', { balance: 5000, apr: 22.99, ok: true, totalInterest: 1871.1 }, ALL);
+  assert.equal(o.key, 'BALANCE_TRANSFER'); assert.match(o.title, /23%/); assert.match(o.body, /\$1,871/);
+  // payment doesn't cover interest: still relevant, no fake interest figure
+  const n = pickOffer('card', { balance: 5000, apr: 29.99, ok: false, totalInterest: Infinity }, ALL);
+  assert.equal(n.key, 'BALANCE_TRANSFER'); assert.doesNotMatch(n.body, /Infinity|\$∞/);
+  assert.equal(pickOffer('card', { balance: 5000, apr: 25, ok: true, totalInterest: 1 }, { DEBT_CONSOLIDATION: ALL.DEBT_CONSOLIDATION }).key, 'DEBT_CONSOLIDATION');
+  assert.equal(pickOffer('card', { balance: 5000, apr: 25, ok: true, totalInterest: 1 }, {}), null);
+});
+
+test('savings: high-yield savings once a balance is projected', () => {
+  assert.equal(pickOffer('savings', { final: 0 }, ALL), null);
+  assert.equal(pickOffer('savings', {}, ALL), null);
+  const o = pickOffer('savings', { final: 16288.95 }, ALL);
+  assert.equal(o.key, 'HIGH_YIELD_SAVINGS'); assert.match(o.title, /\$16,289/);
+  assert.equal(pickOffer('savings', { final: 16288.95 }, { HIGH_YIELD_SAVINGS: { url: '' } }), null);
+});

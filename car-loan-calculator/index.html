@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Car Loan Calculator — Payment, Trade-In &amp; Tax | PrivyForge</title>
+  <meta name="description" content="Work out your car payment with down payment, trade-in, sales tax and fees, then compare 36- to 84-month terms side by side. Free and private." />
+  <link rel="canonical" href="{{SITE_URL}}/car-loan-calculator/" />
+  <meta property="og:title" content="Car Loan Calculator — Compare Terms Side by Side" />
+  <meta property="og:description" content="Monthly payment, total interest and total cost for 36 to 84 months." />
+  <meta property="og:url" content="{{SITE_URL}}/car-loan-calculator/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Car Loan Calculator","url":"{{SITE_URL}}/car-loan-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Car Loan Calculator","item":"{{SITE_URL}}/car-loan-calculator/"}]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Car Loan Calculator</nav>
+    <section class="hero">
+      <h1>Car loan calculator</h1>
+      <p class="lede">Enter the price, your down payment, trade-in, tax and fees to see the real monthly payment — and how much a longer loan really costs you.</p>
+      <ul class="pills"><li class="pill">🔒 Your numbers never leave your device</li><li class="pill">✓ No sign-up</li><li class="pill neutral">Cent-accurate amortization</li></ul>
+    </section>
+
+    <section class="tool grid-2" aria-label="Car loan calculator">
+      <form class="form-stack" id="calc" onsubmit="return false">
+        <div class="inline">
+          <label class="field">Vehicle price ($)<input name="price" inputmode="decimal" value="30000" /></label>
+          <label class="field">Down payment ($)<input name="down" inputmode="decimal" value="3000" /></label>
+        </div>
+        <div class="inline">
+          <label class="field">Trade-in value ($)<input name="tradeIn" inputmode="decimal" value="8000" /></label>
+          <label class="field">Still owed on trade-in ($)<input name="owed" inputmode="decimal" value="5000" /></label>
+        </div>
+        <div class="inline">
+          <label class="field">Sales tax (%)<input name="tax" inputmode="decimal" value="6" /></label>
+          <label class="field">Dealer &amp; title fees ($)<input name="fees" inputmode="decimal" value="500" /></label>
+        </div>
+        <label class="field check"><input type="checkbox" name="taxAfterTrade" checked /> Tax applies after trade-in credit</label>
+        <p class="calc-note">Many US states tax only the price minus your trade-in; some tax the full price. Rules vary by state — untick if yours taxes the full price. Fees are added untaxed.</p>
+        <div class="inline">
+          <label class="field">APR (%)<input name="apr" inputmode="decimal" value="6.5" /></label>
+          <label class="field">Term
+            <select name="term"><option value="36">36 months</option><option value="48">48 months</option><option value="60" selected>60 months</option><option value="72">72 months</option><option value="84">84 months</option></select>
+          </label>
+        </div>
+      </form>
+      <div>
+        <div class="summary" id="verdict" style="margin-top:0" aria-live="polite"></div>
+        <div class="kpis" id="kpis" style="margin-top:12px"></div>
+        <p class="status" id="breakdown"></p>
+        <h3 class="calc-h3">Compare loan terms</h3>
+        <div class="table-scroll" style="max-height:none"><table class="compare-table" id="terms"></table></div>
+        <p class="status" id="terms-note"></p>
+        <div class="chart-wrap">
+          <canvas id="chart" role="img" aria-label="Loan balance, principal paid and interest paid over time"></canvas>
+          <div class="legend"><span><i style="background:var(--ember)"></i>Remaining balance</span><span><i style="background:var(--ok)"></i>Principal paid</span><span><i style="background:var(--warn)"></i>Interest paid</span></div>
+        </div>
+        <div class="row-actions">
+          <div class="seg" role="group" aria-label="Schedule view"><button type="button" data-view="year" aria-pressed="true">Yearly</button><button type="button" data-view="month" aria-pressed="false">Monthly</button></div>
+          <button class="btn ghost sm" type="button" id="csv">Export CSV</button>
+        </div>
+        <div class="table-scroll"><table id="table"></table></div>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to use it</h2>
+      <ol>
+        <li>Enter the vehicle's price and the cash you'll put down.</li>
+        <li>If you're trading in a car, enter what the dealer will give you for it and what you still owe on it.</li>
+        <li>Enter your sales tax rate and any dealer, title and registration fees you'll finance. Leave "Tax applies after trade-in credit" ticked if your state taxes the price minus your trade-in.</li>
+        <li>Enter the APR from your loan offer and pick a term. The comparison table shows every term from 36 to 84 months at once; click a row to switch to it.</li>
+      </ol>
+
+      <h2>Worked example</h2>
+      <p>A <b>$30,000</b> car with <b>$3,000 down</b>. Your trade-in is worth <b>$8,000</b> and you still owe <b>$5,000</b> on it, so it's worth $3,000 of equity. Sales tax is <b>6%</b> and fees are <b>$500</b>. With tax after the trade-in credit, tax is charged on $22,000: $1,320.</p>
+      <p>Amount financed = $30,000 + $1,320 tax + $500 fees − $3,000 down − $3,000 equity = <b>$25,820</b>.</p>
+      <p>At <b>6.5% APR</b> the terms compare like this:</p>
+      <ul>
+        <li><b>36 months:</b> $791.36 a month, $2,668.87 interest</li>
+        <li><b>48 months:</b> $612.32 a month, $3,571.38 interest</li>
+        <li><b>60 months:</b> $505.20 a month, $4,491.90 interest</li>
+        <li><b>72 months:</b> $434.03 a month, $5,430.40 interest</li>
+        <li><b>84 months:</b> $383.41 a month, $6,386.65 interest</li>
+      </ul>
+      <p>Going from 48 to 72 months cuts the payment by $178.29 but adds $1,859.02 of interest — and that's before any rate difference, since lenders often charge more for longer terms. If your state taxed the full $30,000 instead, tax would be $1,800, you'd borrow $26,300, and the 60-month payment would be $514.59.</p>
+
+      <!-- @include ad-content -->
+
+      <h2>What "total cost" means here</h2>
+      <p>Total cost is the cash you put down, plus the trade-in equity you hand over, plus every loan payment. It's what the car costs you, including tax, fees and interest. If you owe more on your trade-in than it's worth, that negative equity is added to the new loan, so it shows up in your payments and you pay interest on it.</p>
+      <h2>How the payment is calculated</h2>
+      <p>The payment is the standard fixed-rate loan payment, rounded to the cent. Each month's interest is the balance × APR ÷ 12, rounded to the cent, and the final payment is adjusted so the balance ends at exactly zero. Lenders that charge simple daily interest can differ by a few cents depending on when your payment arrives. Rebates, dealer add-ons, GAP coverage and warranties aren't included; add any you'll finance to fees.</p>
+
+      <p class="status"><b>Not financial advice.</b> These are estimates; your lender's Truth in Lending disclosure and the purchase contract are authoritative.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Is a longer car loan a bad idea?</summary><p>It lowers the payment but costs more interest, and a long loan can leave you owing more than the car is worth for years. The comparison table shows exactly what each extra year costs at your rate.</p></details>
+        <details><summary>Is sales tax charged before or after the trade-in?</summary><p>It depends on your state. Many give a trade-in tax credit, so tax is charged on the price minus the trade-in; some don't. Check your state's motor vehicle or revenue department and use the toggle above.</p></details>
+        <details><summary>Should I roll negative equity into the new loan?</summary><p>You can, but you'll pay interest on debt for a car you no longer own. Paying it down first, or keeping the old car longer, often costs less. Enter both scenarios to compare.</p></details>
+        <details><summary>APR or interest rate?</summary><p>Enter the APR from your offer. For most car loans with no prepaid finance charges they're the same; if they differ, APR gives the fairer comparison between lenders.</p></details>
+        <details><summary>Is my data private?</summary><p>Yes. Everything runs in your browser. Your inputs are kept only in the page link so you can bookmark them.</p></details>
+        <details><summary>Is this financial advice?</summary><p>No. It's an estimate to help you compare offers; the lender's disclosures are authoritative.</p></details>
+      </div>
+      <!-- @related -->
+      <!-- @include affiliate-finance -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/car-loan.js"></script>
+</body>
+</html>

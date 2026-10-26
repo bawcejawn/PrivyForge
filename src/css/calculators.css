@@ -1,0 +1,21 @@
+/* Credit card payoff, car loan and compound interest calculators. */
+.summary.warn { background: var(--ember-soft); color: var(--ember); }
+.summary.bad { background: var(--ember-soft); color: var(--err); }
+.calc-sub { display: grid; gap: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 10px; margin: 0; }
+.calc-sub legend { padding: 0 6px; font-weight: 650; color: var(--ink); }
+.calc-sub[hidden], .field[hidden] { display: none; }
+.check { flex-direction: row !important; align-items: center; gap: 8px; }
+.calc-note { font-size: .82rem; color: var(--ink-2); margin: 0; }
+.compare-table tr.sel td { background: var(--ember-soft); }
+.compare-table tr.sel td:first-child { font-weight: 650; }
+.compare-table td.num, .compare-table th.num { text-align: right; font-family: var(--mono); white-space: nowrap; }
+.calc-h3 { margin: 18px 0 6px; font-size: 1rem; }
+.legend .dash { background: repeating-linear-gradient(90deg, currentColor 0 5px, transparent 5px 8px) !important; }
+@media (max-width: 520px) {
+  .kpi.big { grid-column: 1 / -1; }
+  .compare-table { font-size: .85rem; }
+}
+/* Keep long labels/options from widening the grid on phones. */
+.tool.grid-2 > *, #calc .field, #calc .inline > * { min-width: 0; }
+#calc select, #calc input:not([type="checkbox"]) { width: 100%; min-width: 0; box-sizing: border-box; }
+#calc .inline .field { justify-content: flex-end; }
