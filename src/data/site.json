@@ -5,7 +5,8 @@
     "slots": {
       "tool-below": "",
       "content-mid": ""
-    }
+    },
+    "consent": "banner"
   },
   "affiliates": {
     "PHOTO_EDITOR": {
@@ -42,6 +43,22 @@
     },
     "PERSONAL_LOAN": {
       "label": "Personal loan marketplace",
+      "url": ""
+    },
+    "BILL_NEGOTIATION": {
+      "label": "Bill-cutting / subscription-cancel app",
+      "url": ""
+    },
+    "HIGH_YIELD_SAVINGS": {
+      "label": "High-yield savings account",
+      "url": ""
+    },
+    "BALANCE_TRANSFER": {
+      "label": "0% balance transfer card",
+      "url": ""
+    },
+    "DEBT_CONSOLIDATION": {
+      "label": "Debt consolidation loan marketplace",
       "url": ""
     }
   },
