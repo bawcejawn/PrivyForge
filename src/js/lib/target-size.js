@@ -13,7 +13,7 @@
 // the image is far over target: file size grows roughly with pixel count, so the side length
 // needs about sqrt(target / size). That keeps 40-megapixel phone photos from taking 15 rounds.
 
-export const DEFAULTS = { qMin: 30, qMax: 95, iterations: 8, scaleStep: 0.85, minScaleStep: 0.5, minSide: 16, maxRounds: 40 };
+export const DEFAULTS = { qMin: 50, qMax: 95, iterations: 8, scaleStep: 0.85, minScaleStep: 0.5, minSide: 16, maxRounds: 40 };
 
 /**
  * @returns {Promise<{ ok: boolean, result: object, quality: number, scale: number, attempts: number }>}

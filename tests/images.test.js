@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { searchTargetSize, kbToBytes } from '../src/js/lib/target-size.js';
+import { searchTargetSize, kbToBytes, DEFAULTS } from '../src/js/lib/target-size.js';
 import { outputSize, MAX_SIDE } from '../src/js/lib/resize.js';
 
 // A fake encoder that behaves like JPEG: size grows with pixel count and with quality.
@@ -59,7 +59,7 @@ test('target-size: impossible target is reported, with the smallest attempt', as
   const m = model(400, 300, { header: 5000 }); // a fixed 5 KB of overhead can never get under 1 KB
   const r = await searchTargetSize({ target: 1000, encode: m.encode, width: 400, height: 300 });
   assert.equal(r.ok, false);
-  assert.equal(r.quality, 30);
+  assert.equal(r.quality, DEFAULTS.qMin);
   assert.ok(r.result.size > 1000);
   const min = Math.min(...(await Promise.all(m.calls.map(([q, s]) => m.encode(q, s)))).map((x) => x.size));
   assert.equal(r.result.size, min);

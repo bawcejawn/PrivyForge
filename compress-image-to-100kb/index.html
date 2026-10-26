@@ -87,8 +87,8 @@
       <p>File size depends on two things: how many pixels the image has, and the quality setting used to save it. This tool searches for the highest quality that fits first, because lowering quality a little is less noticeable than shrinking the picture:</p>
       <ol>
         <li>It tries quality 95. If that already fits, you get it.</li>
-        <li>Otherwise it tries quality 30. If that fits, it narrows down between the two (a binary search) to find the highest quality that still fits, in at most eight more attempts.</li>
-        <li>If even quality 30 is too big, it shrinks the dimensions step by step (to 85% each time, or more when the file is far too big) and searches again.</li>
+        <li>Otherwise it tries quality 50. If that fits, it narrows down between the two (a binary search) to find the highest quality that still fits, in at most eight more attempts.</li>
+        <li>If even quality 50 is too big, it shrinks the dimensions step by step (to 85% each time, or more when the file is far too big) and searches again.</li>
       </ol>
       <p>The result is never over your limit. In the rare case the limit is impossible (for example 5 KB for a detailed photo), the tool says so and shows the smallest file it could make.</p>
 

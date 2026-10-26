@@ -13,7 +13,7 @@
     {"@type": "WebApplication", "name": "PrivyForge Compress Image to 20 KB", "url": "{{SITE_URL}}/compress-image-to-20kb/", "applicationCategory": "MultimediaApplication", "operatingSystem": "Any (runs in your browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "featureList": ["Compress to under 20 KB (or any size)", "Highest quality that fits", "Downscales only when needed", "JPG or WebP output", "Batch ZIP download", "Works offline"]},
     {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/"}, {"@type": "ListItem", "position": 2, "name": "Compress Image to 20 KB", "item": "{{SITE_URL}}/compress-image-to-20kb/"}]},
     {"@type":"FAQPage","mainEntity":[
-      {"@type": "Question", "name": "Why did my photo get so much smaller in pixels?", "acceptedAnswer": {"@type": "Answer", "text": "20 KB is very little room for a full photo. When even quality 30 is over the limit, the tool shrinks the dimensions step by step until it fits. Cropping first keeps more detail where it matters."}},
+      {"@type": "Question", "name": "Why did my photo get so much smaller in pixels?", "acceptedAnswer": {"@type": "Answer", "text": "20 KB is very little room for a full photo. When even quality 50 is over the limit, the tool shrinks the dimensions step by step until it fits. Cropping first keeps more detail where it matters."}},
       {"@type": "Question", "name": "Can I use this for a signature?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, that is the most common use. Sign in dark ink on white paper, crop tightly, then compress here; a clean signature fits in 20 KB easily."}},
       {"@type": "Question", "name": "Why is my file a bit under 20 KB rather than exactly 20 KB?", "acceptedAnswer": {"@type": "Answer", "text": "Quality goes up in whole steps, and the next step up was over the limit. The tool always picks the highest quality that fits."}},
       {"@type": "Question", "name": "Should I choose JPG or WebP?", "acceptedAnswer": {"@type": "Answer", "text": "JPG for forms and portals, because many accept only JPG/JPEG. WebP gives smaller files for your own website."}},
@@ -69,7 +69,7 @@
       </ol>
 
       <h2>A worked example</h2>
-      <p>20 KB is a tight limit for a full photo. Our 2400×1600 test photo (368 KB) came out at <b>19.9 KB</b>, saved at <b>quality 34</b> and scaled to <b>875×583</b>. Quality alone couldn’t get there, so the photo was scaled down in steps to about 36% of its original width. A tightly cropped signature on white paper is much easier: large plain areas compress to almost nothing, so it usually fits at a higher quality and a larger size.</p>
+      <p>20 KB is a tight limit for a full photo. Our 2400×1600 test photo (368 KB) came out at <b>19.9 KB</b>, saved at <b>quality 62</b> and scaled to <b>602×401</b>. Quality alone couldn’t get there without turning blotchy, so the photo was scaled down in steps to about a quarter of its original width, keeping the quality at 50 or above. A tightly cropped signature on white paper is much easier: large plain areas compress to almost nothing, so it usually fits at a higher quality and a larger size.</p>
 
       <h2>Where 20 KB limits come up</h2>
       <p>The most common place is the <b>signature upload</b> on online application forms, for example exam registrations, recruitment portals and government services, which often pair it with a separate, larger limit for the photograph. Some older systems also use very small limits for profile pictures, thumbnails and scanned stamps. Typical companion rules to look out for:</p>
@@ -85,8 +85,8 @@
       <p>File size depends on two things: how many pixels the image has, and the quality setting used to save it. This tool searches for the highest quality that fits first, because lowering quality a little is less noticeable than shrinking the picture:</p>
       <ol>
         <li>It tries quality 95. If that already fits, you get it.</li>
-        <li>Otherwise it tries quality 30. If that fits, it narrows down between the two (a binary search) to find the highest quality that still fits, in at most eight more attempts.</li>
-        <li>If even quality 30 is too big, it shrinks the dimensions step by step (to 85% each time, or more when the file is far too big) and searches again.</li>
+        <li>Otherwise it tries quality 50. If that fits, it narrows down between the two (a binary search) to find the highest quality that still fits, in at most eight more attempts.</li>
+        <li>If even quality 50 is too big, it shrinks the dimensions step by step (to 85% each time, or more when the file is far too big) and searches again.</li>
       </ol>
       <p>The result is never over your limit. In the rare case the limit is impossible (for example 5 KB for a detailed photo), the tool says so and shows the smallest file it could make.</p>
 
@@ -104,7 +104,7 @@
 
       <h2>Frequently asked questions</h2>
       <div class="faq">
-        <details><summary>Why did my photo get so much smaller in pixels?</summary><p>20 KB is very little room for a full photo. When even quality 30 is over the limit, the tool shrinks the dimensions step by step until it fits. Cropping first keeps more detail where it matters.</p></details>
+        <details><summary>Why did my photo get so much smaller in pixels?</summary><p>20 KB is very little room for a full photo. When even quality 50 is over the limit, the tool shrinks the dimensions step by step until it fits. Cropping first keeps more detail where it matters.</p></details>
         <details><summary>Can I use this for a signature?</summary><p>Yes, that is the most common use. Sign in dark ink on white paper, crop tightly, then compress here; a clean signature fits in 20 KB easily.</p></details>
         <details><summary>Why is my file a bit under 20 KB rather than exactly 20 KB?</summary><p>Quality goes up in whole steps, and the next step up was over the limit. The tool always picks the highest quality that fits.</p></details>
         <details><summary>Should I choose JPG or WebP?</summary><p>JPG for forms and portals, because many accept only JPG/JPEG. WebP gives smaller files for your own website.</p></details>

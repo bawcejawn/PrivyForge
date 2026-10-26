@@ -69,7 +69,7 @@
       </ol>
 
       <h2>A worked example</h2>
-      <p>Starting from our 2400×1600 test photo (368 KB), the tool produced a <b>49.9 KB</b> JPG at <b>quality 33</b>, sized <b>2040×1360</b>. Even quality 30 was too big at full size, so the tool scaled the photo to 85% of its width and then found the highest quality that fits at that size. For a passport-style photo you will usually need far fewer pixels than this anyway; many forms ask for a few hundred pixels across.</p>
+      <p>Starting from our 2400×1600 test photo (368 KB), the tool produced a <b>49.7 KB</b> JPG at <b>quality 59</b>, sized <b>1474×983</b>. Even quality 50 was too big at full size, so the tool scaled the photo down in steps (to about 61% of its width) and then found the highest quality that fits at that size. It keeps quality at 50 or above, because a slightly smaller, clean photo looks better than a full-size blotchy one. For a passport-style photo you will usually need far fewer pixels than this anyway; many forms ask for a few hundred pixels across.</p>
 
       <h2>Where 50 KB limits come up</h2>
       <p>Limits around 50 KB are typical for the <b>photograph field</b> on online application forms: visa and passport-style photo uploads, exam and recruitment registrations, student ID and membership cards. The form is storing a small ID picture rather than a full-size photo, so it keeps the file small. Forms like these often state other rules next to the size limit, so read them carefully:</p>
@@ -86,8 +86,8 @@
       <p>File size depends on two things: how many pixels the image has, and the quality setting used to save it. This tool searches for the highest quality that fits first, because lowering quality a little is less noticeable than shrinking the picture:</p>
       <ol>
         <li>It tries quality 95. If that already fits, you get it.</li>
-        <li>Otherwise it tries quality 30. If that fits, it narrows down between the two (a binary search) to find the highest quality that still fits, in at most eight more attempts.</li>
-        <li>If even quality 30 is too big, it shrinks the dimensions step by step (to 85% each time, or more when the file is far too big) and searches again.</li>
+        <li>Otherwise it tries quality 50. If that fits, it narrows down between the two (a binary search) to find the highest quality that still fits, in at most eight more attempts.</li>
+        <li>If even quality 50 is too big, it shrinks the dimensions step by step (to 85% each time, or more when the file is far too big) and searches again.</li>
       </ol>
       <p>The result is never over your limit. In the rare case the limit is impossible (for example 5 KB for a detailed photo), the tool says so and shows the smallest file it could make.</p>
 
