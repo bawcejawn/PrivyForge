@@ -9,7 +9,7 @@ const root = resolve(__dirname);
 
 // Every folder containing an index.html becomes a page (multi-page static build).
 // /admin/ is a local tool: served by `npm run dev`, never included in production builds.
-const SKIP = ['node_modules', 'dist', 'public', 'src', 'scripts', 'tests', 'content', '.git', '.github', 'admin'];
+const SKIP = ['node_modules', 'dist', 'dist-test', 'public', 'src', 'scripts', 'tests', 'content', '.git', '.github', 'admin'];
 function findPages(dir, out = {}) {
   for (const name of readdirSync(dir)) {
     if (SKIP.includes(name)) continue;
