@@ -21,12 +21,16 @@ function pickFormat(requested, inputType) {
   if (inputType === 'image/png') return 'png';
   if (inputType === 'image/webp') return 'webp';
   if (inputType === 'image/avif') return 'avif';
-  return 'webp'; // gif/bmp/heic-in-safari etc. -> modern default
+  // We can't write HEIC; "keep original" for an iPhone photo means a photo format that opens everywhere.
+  if (/^image\/hei[cf]/.test(inputType)) return 'jpeg';
+  return 'webp'; // gif/bmp etc. -> modern default
 }
 
-async function openBitmap(buffer, type) {
+async function openBitmap({ buffer, bitmap, type }) {
+  // HEIC in browsers without a native decoder arrives already decoded (libheif, rotation applied).
+  if (bitmap) return bitmap;
   // createImageBitmap applies EXIF orientation; re-encoding strips EXIF (incl. GPS location).
-  // HEIC/HEIF only decodes where the browser itself supports it (Safari); elsewhere this throws.
+  // Safari also decodes HEIC/HEIF here natively.
   return createImageBitmap(new Blob([buffer], { type }), { imageOrientation: 'from-image' });
 }
 
@@ -38,8 +42,8 @@ function draw(bmp, w, h) {
   return ctx.getImageData(0, 0, w, h);
 }
 
-async function decode(buffer, type, opts) {
-  const bmp = await openBitmap(buffer, type);
+async function decode(job, opts) {
+  const bmp = await openBitmap(job);
   const size = outputSize(bmp.width, bmp.height, { maxWidth: opts.maxWidth, maxHeight: opts.maxHeight, fit: opts.fit, allowUpscale: opts.allowUpscale });
   const imageData = draw(bmp, size.width, size.height);
   bmp.close();
@@ -78,8 +82,8 @@ async function encode(format, imageData, quality) {
 }
 
 // "Under N KB": decode once, then let the search driver ask for (quality, scale) encodes.
-async function toTarget(buffer, type, opts, format) {
-  const bmp = await openBitmap(buffer, type);
+async function toTarget(job, opts, format) {
+  const bmp = await openBitmap(job);
   const base = outputSize(bmp.width, bmp.height, { maxWidth: opts.maxWidth, maxHeight: opts.maxHeight });
   const frames = new Map(); // scale -> ImageData (reused across qualities)
   let flattenedAlpha = false;
@@ -108,26 +112,27 @@ async function toTarget(buffer, type, opts, format) {
 }
 
 self.onmessage = async ({ data: job }) => {
-  const { id, buffer, type, opts } = job;
+  const { id, buffer, bitmap, type, opts } = job;
   try {
     const format = pickFormat(opts.format, type);
     if (opts.targetBytes > 0) {
       if (format !== 'jpeg' && format !== 'webp') throw new Error('Target size needs JPEG or WebP output');
-      const r = await toTarget(buffer, type, opts, format);
+      const r = await toTarget(job, opts, format);
       self.postMessage({ id, ok: true, buffer: r.out, mime: MIME[format], ext: EXT[format], width: r.width, height: r.height, keptOriginal: false, flattenedAlpha: r.flattenedAlpha, target: r.target }, [r.out]);
       return;
     }
-    const { imageData, resized } = await decode(buffer, type, opts);
+    const { imageData, resized } = await decode(job, opts);
     const width = imageData.width, height = imageData.height;
     const alpha = format === 'jpeg' && hasAlpha(imageData.data);
     let out = await encode(format, imageData, opts.quality);
     let keptOriginal = false;
     // Never hand back a bigger file than the user gave us for a same-format, same-size job.
-    if (!resized && MIME[format] === type && out.byteLength >= buffer.byteLength) {
+    if (buffer && !resized && MIME[format] === type && out.byteLength >= buffer.byteLength) {
       out = buffer; keptOriginal = true;
     }
     self.postMessage({ id, ok: true, buffer: out, mime: MIME[format], ext: EXT[format], width, height, keptOriginal, flattenedAlpha: alpha }, [out]);
   } catch (err) {
+    bitmap?.close();
     self.postMessage({ id, ok: false, error: String(err?.message || err) });
   }
 };
