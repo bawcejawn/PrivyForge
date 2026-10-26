@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Resize Image Online — Exact Pixels, No Upload | PrivyForge</title>
+  <meta name="description" content="Resize JPG, PNG and WebP images to an exact width and height in your browser. Keep aspect ratio, batch resize. No upload, no limits, free." />
+  <link rel="canonical" href="{{SITE_URL}}/resize-image/" />
+  <meta property="og:title" content="Resize Images — Free, Private, No Upload" />
+  <meta property="og:description" content="Resize photos to exact pixel sizes in your browser. Nothing is uploaded." />
+  <meta property="og:url" content="{{SITE_URL}}/resize-image/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type": "WebApplication", "name": "PrivyForge Image Resizer", "url": "{{SITE_URL}}/resize-image/", "applicationCategory": "MultimediaApplication", "operatingSystem": "Any (runs in your browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "featureList": ["Resize to exact width and height", "Keep aspect ratio", "Batch resize", "Optional upscaling", "Output JPG, PNG, WebP or AVIF", "Works offline"]},
+    {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/"}, {"@type": "ListItem", "position": 2, "name": "Resize Image", "item": "{{SITE_URL}}/resize-image/"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type": "Question", "name": "Does resizing reduce image quality?", "acceptedAnswer": {"@type": "Answer", "text": "Making an image smaller removes pixels but looks sharp at the new size. The file is then saved at the quality you choose (85 by default). Enlarging can look soft, which is why it is off by default."}},
+      {"@type": "Question", "name": "Can I resize many images at once?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Add as many as you like; they all get the same settings, and you can download them together as a ZIP."}},
+      {"@type": "Question", "name": "How do I keep the proportions?", "acceptedAnswer": {"@type": "Answer", "text": "Leave “Keep aspect ratio” ticked. Each image then fits inside the width and height you enter without being stretched."}},
+      {"@type": "Question", "name": "How do I make an image smaller in KB?", "acceptedAnswer": {"@type": "Answer", "text": "Use one of the target-size tools, such as compress to 100 KB, which finds the best quality that fits."}},
+      {"@type": "Question", "name": "Are my images uploaded?", "acceptedAnswer": {"@type": "Answer", "text": "No. Everything happens on your device, and the page works offline after the first visit."}}
+    ]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Resize Image</nav>
+    <section class="hero">
+      <h1>Resize images to exact pixel dimensions</h1>
+      <p class="lede">Set a width, a height or both, then resize one image or a hundred. Everything runs in your browser and nothing is uploaded.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Image resizer" data-mode="resize">
+      <div class="controls resize-controls">
+        <label class="field">Width (px)<input id="maxw" type="number" min="1" max="16384" value="1280" inputmode="numeric" /></label>
+        <span class="times" aria-hidden="true">×</span>
+        <label class="field">Height (px)<input id="maxh" type="number" min="1" max="16384" placeholder="Auto" inputmode="numeric" /></label>
+        <label class="check"><input id="keep" type="checkbox" checked /> Keep aspect ratio</label>
+        <label class="check"><input id="upscale" type="checkbox" /> Allow enlarging</label>
+      </div>
+      <div class="presets" role="group" aria-label="Common widths">Quick widths:
+        <button type="button" class="btn ghost sm" data-preset-w="1920">1920</button>
+        <button type="button" class="btn ghost sm" data-preset-w="1280">1280</button>
+        <button type="button" class="btn ghost sm" data-preset-w="1080">1080</button>
+        <button type="button" class="btn ghost sm" data-preset-w="800">800</button>
+        <button type="button" class="btn ghost sm" data-preset-w="400">400</button>
+      </div>
+      <p class="tool-hint">With “Keep aspect ratio” on, each image fits inside the width and height you enter (fill in one to set just that side). Turn it off to stretch to exactly that size.</p>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose images to resize">
+        <strong>Drop images here, click to choose, or paste</strong>
+        <small>JPG · PNG · WebP · AVIF · GIF · BMP — any number</small>
+        <input type="file" />
+      </div>
+      <div class="controls">
+        <label class="field">Output format
+          <select id="format">
+            <option value="auto">Keep original</option>
+            <option value="jpeg">JPG</option>
+            <option value="webp">WebP</option>
+            <option value="png">PNG</option>
+            <option value="avif">AVIF</option>
+          </select>
+        </label>
+        <label class="field" style="min-width:180px"><span>Quality: <b id="qv"></b></span>
+          <input id="quality" type="range" min="10" max="100" value="85" />
+        </label>
+      </div>
+      <ul class="files" id="files" aria-live="polite"></ul>
+      <div class="summary" id="summary" hidden></div>
+      <div class="row-actions">
+        <button class="btn" id="zip" disabled>Download all (.zip)</button>
+        <button class="btn ghost" id="clear" disabled>Clear</button>
+        <span class="status">Change the size and every image re-renders instantly.</span>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to resize an image</h2>
+      <ol>
+        <li><b>Enter the size you want.</b> Type a width, a height, or both. The quick buttons fill in common widths.</li>
+        <li><b>Add your images.</b> Drag them onto the box, click to browse, or paste. Add as many as you like; they all get the same size.</li>
+        <li><b>Adjust if needed.</b> Change any number and every image is resized again straight away, so you can try a few sizes.</li>
+        <li><b>Download</b> each image, or all of them as a ZIP. File names include the new size, e.g. <code>photo-800x533.jpg</code>.</li>
+      </ol>
+
+      <h2>Worked examples</h2>
+      <p>Our test photo is 2400×1600 pixels (368 KB as a JPG).</p>
+      <ul>
+        <li><b>Width 800, keep aspect ratio:</b> the height is worked out for you: 1600 × 800 ÷ 2400 = 533.3, rounded to <b>800×533</b>. At quality 85 the JPG was 58 KB.</li>
+        <li><b>Fit inside 1080×1080, keep aspect ratio:</b> the width is the limiting side (1080 ÷ 2400 = 0.45), so the result is <b>1080×720</b>. Nothing is cropped or stretched.</li>
+        <li><b>1080×1080 with aspect ratio off:</b> the photo is squeezed to exactly <b>1080×1080</b>. Faces and circles will look stretched, so only do this when an exact size matters more than proportions.</li>
+      </ul>
+
+      <h2>Picking the right size</h2>
+      <p>Resize to roughly the largest size the image will actually be shown at. Screens with high pixel density (most phones and many laptops) show an image more sharply when it has about twice as many pixels as the space it fills: a photo displayed 600 pixels wide looks crisp at 1200 pixels. Going much bigger only adds file size.</p>
+      <p>If a website or form gives you exact dimensions, enter both numbers. If the photo’s shape doesn’t match, keep the aspect ratio on to avoid distortion, and crop it first in your phone’s photo editor if the form insists on a particular shape.</p>
+
+      <h2>Resizing a batch</h2>
+      <p>Every image you add gets the same settings, which is handy for product photos or a set of holiday pictures for a website. With “Keep aspect ratio” on, landscape and portrait photos are each fitted inside your box without distortion: enter 1200 for both width and height, and a 2400×1600 landscape photo becomes 1200×800, while a 1600×2400 portrait becomes 800×1200. Output format “Keep original” saves each image in the format it came in; choose JPG or WebP to convert at the same time.</p>
+
+      <!-- @include ad-content -->
+
+      <h2>Making images smaller vs. resizing</h2>
+      <p>Resizing changes the pixel dimensions; the file size usually drops a lot as a result, because there are fewer pixels to store. If what you really need is a file under a certain number of kilobytes, use <a href="/compress-image-to-100kb/">compress to 100 KB</a>, <a href="/compress-image-to-50kb/">50 KB</a> or <a href="/compress-image-to-20kb/">20 KB</a>: those tools adjust quality first and only shrink the dimensions when they have to. To shrink files without changing dimensions at all, use the <a href="/compress-image/">image compressor</a>.</p>
+
+      <h2>About enlarging</h2>
+      <p>By default, images are never made bigger than the original, because enlarging can’t add detail that was never captured; it only spreads the existing pixels out and looks soft. Tick “Allow enlarging” when you genuinely need a minimum size, for example a form that rejects images narrower than 600 pixels.</p>
+
+      <h2>Private by design</h2>
+      <p>Resizing happens in your browser using your device’s own graphics engine and WebAssembly encoders. No image is uploaded, so it’s safe for ID documents, client work and family photos. Resized images are saved without the original metadata, including GPS location.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Does resizing reduce image quality?</summary><p>Making an image smaller removes pixels but looks sharp at the new size. The file is then saved at the quality you choose (85 by default). Enlarging can look soft, which is why it is off by default.</p></details>
+        <details><summary>Can I resize many images at once?</summary><p>Yes. Add as many as you like; they all get the same settings, and you can download them together as a ZIP.</p></details>
+        <details><summary>How do I keep the proportions?</summary><p>Leave “Keep aspect ratio” ticked. Each image then fits inside the width and height you enter without being stretched.</p></details>
+        <details><summary>How do I make an image smaller in KB?</summary><p>Use one of the target-size tools, such as <a href="/compress-image-to-100kb/">compress to 100 KB</a>, which finds the best quality that fits.</p></details>
+        <details><summary>Are my images uploaded?</summary><p>No. Everything happens on your device, and the page works offline after the first visit.</p></details>
+      </div>
+      <!-- @related -->
+
+      <!-- @include affiliate-image -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/image-compressor.js"></script>
+</body>
+</html>

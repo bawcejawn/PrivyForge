@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Compress Image to 100 KB — Free, No Upload | PrivyForge</title>
+  <meta name="description" content="Reduce a photo to under 100 KB in your browser, at the best quality that fits. JPG or WebP. Nothing is uploaded. Free, no sign-up, no limits." />
+  <link rel="canonical" href="{{SITE_URL}}/compress-image-to-100kb/" />
+  <meta property="og:title" content="Compress an Image to Under 100 KB — Private" />
+  <meta property="og:description" content="Get photos under 100 KB at the highest quality that fits, without uploading them." />
+  <meta property="og:url" content="{{SITE_URL}}/compress-image-to-100kb/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type": "WebApplication", "name": "PrivyForge Compress Image to 100 KB", "url": "{{SITE_URL}}/compress-image-to-100kb/", "applicationCategory": "MultimediaApplication", "operatingSystem": "Any (runs in your browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "featureList": ["Compress to under 100 KB (or any size)", "Highest quality that fits", "Downscales only when needed", "JPG or WebP output", "Batch ZIP download", "Works offline"]},
+    {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/"}, {"@type": "ListItem", "position": 2, "name": "Compress Image to 100 KB", "item": "{{SITE_URL}}/compress-image-to-100kb/"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type": "Question", "name": "Will my photo be resized?", "acceptedAnswer": {"@type": "Answer", "text": "Only if quality alone can’t get it under 100 KB. Large phone photos usually are scaled down; the final dimensions are shown next to each file."}},
+      {"@type": "Question", "name": "Does 100 KB mean 100,000 or 102,400 bytes?", "acceptedAnswer": {"@type": "Answer", "text": "Sites differ. We aim for at most 100,000 bytes, which satisfies both definitions."}},
+      {"@type": "Question", "name": "Why is my file a bit under 100 KB rather than exactly 100 KB?", "acceptedAnswer": {"@type": "Answer", "text": "Quality goes up in whole steps, and the next step up was over the limit. The tool always picks the highest quality that fits."}},
+      {"@type": "Question", "name": "Should I choose JPG or WebP?", "acceptedAnswer": {"@type": "Answer", "text": "JPG for forms and portals, because many accept only JPG/JPEG. WebP gives smaller files for your own website."}},
+      {"@type": "Question", "name": "Are my photos uploaded?", "acceptedAnswer": {"@type": "Answer", "text": "No. Everything happens in your browser, so ID photos and documents never leave your device. The page works offline after the first visit."}}
+    ]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Compress Image to 100 KB</nav>
+    <section class="hero">
+      <h1>Compress an image to under 100 KB</h1>
+      <p class="lede">Get any photo under 100 KB at the best quality that fits, ready for application forms and upload portals. Nothing is uploaded.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Compress image to 100 KB" data-mode="target" data-target-kb="100" data-format="jpeg">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose images to compress to under 100 KB">
+        <strong>Drop images here to get them under 100 KB</strong>
+        <small>JPG · PNG · WebP · AVIF · HEIC (Safari) — any number</small>
+        <input type="file" />
+      </div>
+      <div class="controls">
+        <label class="field">Target size (KB)<input id="target" class="target-input" type="number" min="5" max="100000" value="100" inputmode="numeric" /></label>
+        <label class="field">Output format
+          <select id="format">
+            <option value="jpeg">JPG</option>
+            <option value="webp">WebP</option>
+          </select>
+        </label>
+      </div>
+      <p class="tool-hint">JPG is accepted almost everywhere; WebP is smaller, for websites. Each file is made as close to the limit as possible without going over. 1 KB is counted as 1,000 bytes, so files also pass sites that count 1 KB as 1,024 bytes.</p>
+      <ul class="files" id="files" aria-live="polite"></ul>
+      <div class="summary" id="summary" hidden></div>
+      <div class="row-actions">
+        <button class="btn" id="zip" disabled>Download all (.zip)</button>
+        <button class="btn ghost" id="clear" disabled>Clear</button>
+        <span class="status">Each file shows its final size, quality and dimensions.</span>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to compress an image to 100 KB</h2>
+      <ol>
+        <li><b>Add your photo.</b> Drag it onto the box, click to browse, or paste it. Several at once is fine.</li>
+        <li><b>Check the target.</b> It’s set to 100 KB. If your form says something else, type that number instead; every file is redone instantly.</li>
+        <li><b>Keep JPG</b> unless you know the site accepts WebP. Most forms that set a size limit expect JPG/JPEG.</li>
+        <li><b>Download.</b> The row shows the final size, the quality used and the dimensions, so you can confirm it meets the rules before you upload it.</li>
+      </ol>
+
+      <h2>A worked example</h2>
+      <p>Our test photo is a 2400×1600 JPG of 368 KB, much too big for a 100 KB limit. This tool produced a <b>99.9 KB</b> JPG at <b>quality 68</b>, sized <b>2400×1600</b>. Lowering the quality was enough here, so the dimensions didn’t change at all.</p>
+
+      <h2>Why sites ask for images under 100 KB</h2>
+      <p>Online application systems handle a large number of uploads, and small files keep them fast and cheap to store. That is why job applications, university and scholarship forms, government services, membership cards and many exam registration portals set limits such as 100 KB for a photo or a scanned document. The limit is a technical rule, not a quality judgment: a well-compressed 100 KB JPG still looks sharp on screen.</p>
+      <p>Size is often not the only rule. Before you upload, check the form for:</p>
+      <ul>
+        <li><b>Pixel dimensions</b> (for example a minimum or exact width and height). If needed, set them first with the <a href="/resize-image/">image resizer</a>, then bring the result here.</li>
+        <li><b>Shape and cropping.</b> This tool doesn’t crop. If a photo must be a particular shape, crop it in your phone’s photo editor first.</li>
+        <li><b>File type.</b> If it says JPG/JPEG only, keep the JPG option.</li>
+        <li><b>Background or framing rules</b> for ID-style photos. Compression doesn’t change what is in the picture.</li>
+      </ul>
+
+      <!-- @include ad-content -->
+
+      <h2>How the target size is reached</h2>
+      <p>File size depends on two things: how many pixels the image has, and the quality setting used to save it. This tool searches for the highest quality that fits first, because lowering quality a little is less noticeable than shrinking the picture:</p>
+      <ol>
+        <li>It tries quality 95. If that already fits, you get it.</li>
+        <li>Otherwise it tries quality 30. If that fits, it narrows down between the two (a binary search) to find the highest quality that still fits, in at most eight more attempts.</li>
+        <li>If even quality 30 is too big, it shrinks the dimensions step by step (to 85% each time, or more when the file is far too big) and searches again.</li>
+      </ol>
+      <p>The result is never over your limit. In the rare case the limit is impossible (for example 5 KB for a detailed photo), the tool says so and shows the smallest file it could make.</p>
+
+      <h2>Tips for the best result</h2>
+      <ul>
+        <li><b>Start from the original.</b> A photo that has already been compressed several times has less detail left to work with.</li>
+        <li><b>Crop away empty space</b> before compressing. Fewer pixels of background means more of the 100 KB goes to what matters.</li>
+        <li><b>Scanned documents:</b> scan at a moderate resolution (around 150–200 DPI is usually plenty for reading on screen) rather than the scanner’s maximum.</li>
+      </ul>
+      <p><b>Several files?</b> Add them all at once. Each one is compressed separately to fit the limit, and “Download all” saves them as one ZIP.</p>
+      <p>Need a smaller limit? Use <a href="/compress-image-to-50kb/">compress to 50 KB</a> or <a href="/compress-image-to-20kb/">compress to 20 KB</a>.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Will my photo be resized?</summary><p>Only if quality alone can’t get it under 100 KB. Large phone photos usually are scaled down; the final dimensions are shown next to each file.</p></details>
+        <details><summary>Does 100 KB mean 100,000 or 102,400 bytes?</summary><p>Sites differ. We aim for at most 100,000 bytes, which satisfies both definitions.</p></details>
+        <details><summary>Why is my file a bit under 100 KB rather than exactly 100 KB?</summary><p>Quality goes up in whole steps, and the next step up was over the limit. The tool always picks the highest quality that fits.</p></details>
+        <details><summary>Should I choose JPG or WebP?</summary><p>JPG for forms and portals, because many accept only JPG/JPEG. WebP gives smaller files for your own website.</p></details>
+        <details><summary>Are my photos uploaded?</summary><p>No. Everything happens in your browser, so ID photos and documents never leave your device. The page works offline after the first visit.</p></details>
+      </div>
+      <!-- @related -->
+
+      <!-- @include affiliate-image -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/image-compressor.js"></script>
+</body>
+</html>

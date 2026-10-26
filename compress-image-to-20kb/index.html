@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Compress Image to 20 KB — Free, No Upload | PrivyForge</title>
+  <meta name="description" content="Shrink a photo or signature to under 20 KB in your browser at the best quality that fits. JPG or WebP. No upload, no sign-up, free." />
+  <link rel="canonical" href="{{SITE_URL}}/compress-image-to-20kb/" />
+  <meta property="og:title" content="Compress an Image to Under 20 KB — Private" />
+  <meta property="og:description" content="Get signatures and photos under 20 KB at the best quality that fits, without uploading them." />
+  <meta property="og:url" content="{{SITE_URL}}/compress-image-to-20kb/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type": "WebApplication", "name": "PrivyForge Compress Image to 20 KB", "url": "{{SITE_URL}}/compress-image-to-20kb/", "applicationCategory": "MultimediaApplication", "operatingSystem": "Any (runs in your browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "featureList": ["Compress to under 20 KB (or any size)", "Highest quality that fits", "Downscales only when needed", "JPG or WebP output", "Batch ZIP download", "Works offline"]},
+    {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/"}, {"@type": "ListItem", "position": 2, "name": "Compress Image to 20 KB", "item": "{{SITE_URL}}/compress-image-to-20kb/"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type": "Question", "name": "Why did my photo get so much smaller in pixels?", "acceptedAnswer": {"@type": "Answer", "text": "20 KB is very little room for a full photo. When even quality 30 is over the limit, the tool shrinks the dimensions step by step until it fits. Cropping first keeps more detail where it matters."}},
+      {"@type": "Question", "name": "Can I use this for a signature?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, that is the most common use. Sign in dark ink on white paper, crop tightly, then compress here; a clean signature fits in 20 KB easily."}},
+      {"@type": "Question", "name": "Why is my file a bit under 20 KB rather than exactly 20 KB?", "acceptedAnswer": {"@type": "Answer", "text": "Quality goes up in whole steps, and the next step up was over the limit. The tool always picks the highest quality that fits."}},
+      {"@type": "Question", "name": "Should I choose JPG or WebP?", "acceptedAnswer": {"@type": "Answer", "text": "JPG for forms and portals, because many accept only JPG/JPEG. WebP gives smaller files for your own website."}},
+      {"@type": "Question", "name": "Are my photos uploaded?", "acceptedAnswer": {"@type": "Answer", "text": "No. Everything happens in your browser, so ID photos and documents never leave your device. The page works offline after the first visit."}}
+    ]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Compress Image to 20 KB</nav>
+    <section class="hero">
+      <h1>Compress an image to under 20 KB</h1>
+      <p class="lede">Get a signature scan, thumbnail or small photo under 20 KB at the best quality that fits. Everything happens in your browser.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Compress image to 20 KB" data-mode="target" data-target-kb="20" data-format="jpeg">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose images to compress to under 20 KB">
+        <strong>Drop images here to get them under 20 KB</strong>
+        <small>JPG · PNG · WebP · AVIF · HEIC (Safari) — any number</small>
+        <input type="file" />
+      </div>
+      <div class="controls">
+        <label class="field">Target size (KB)<input id="target" class="target-input" type="number" min="5" max="100000" value="20" inputmode="numeric" /></label>
+        <label class="field">Output format
+          <select id="format">
+            <option value="jpeg">JPG</option>
+            <option value="webp">WebP</option>
+          </select>
+        </label>
+      </div>
+      <p class="tool-hint">JPG is accepted almost everywhere; WebP is smaller, for websites. Each file is made as close to the limit as possible without going over. 1 KB is counted as 1,000 bytes, so files also pass sites that count 1 KB as 1,024 bytes.</p>
+      <ul class="files" id="files" aria-live="polite"></ul>
+      <div class="summary" id="summary" hidden></div>
+      <div class="row-actions">
+        <button class="btn" id="zip" disabled>Download all (.zip)</button>
+        <button class="btn ghost" id="clear" disabled>Clear</button>
+        <span class="status">Each file shows its final size, quality and dimensions.</span>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to compress an image to 20 KB</h2>
+      <ol>
+        <li><b>Prepare the image.</b> For a signature, sign in dark ink on plain white paper, photograph or scan it in good light, and crop tightly around the signature.</li>
+        <li><b>Add it</b> by dragging it onto the box, clicking to browse, or pasting.</li>
+        <li><b>Check the target</b> (20 KB) and keep JPG selected unless the site accepts WebP.</li>
+        <li><b>Download</b> the result. The final size, quality and pixel dimensions are listed next to the file.</li>
+      </ol>
+
+      <h2>A worked example</h2>
+      <p>20 KB is a tight limit for a full photo. Our 2400×1600 test photo (368 KB) came out at <b>19.9 KB</b>, saved at <b>quality 34</b> and scaled to <b>875×583</b>. Quality alone couldn’t get there, so the photo was scaled down in steps to about 36% of its original width. A tightly cropped signature on white paper is much easier: large plain areas compress to almost nothing, so it usually fits at a higher quality and a larger size.</p>
+
+      <h2>Where 20 KB limits come up</h2>
+      <p>The most common place is the <b>signature upload</b> on online application forms, for example exam registrations, recruitment portals and government services, which often pair it with a separate, larger limit for the photograph. Some older systems also use very small limits for profile pictures, thumbnails and scanned stamps. Typical companion rules to look out for:</p>
+      <ul>
+        <li><b>A minimum size</b> as well as a maximum (for example “10–20 KB”). If your result is under the minimum, raise the target slightly or use a larger, less tightly cropped image.</li>
+        <li><b>Pixel dimensions</b> for the signature box. Set exact sizes with the <a href="/resize-image/">image resizer</a> first if they are specified.</li>
+        <li><b>Format</b>: usually JPG/JPEG.</li>
+      </ul>
+
+      <!-- @include ad-content -->
+
+      <h2>How the target size is reached</h2>
+      <p>File size depends on two things: how many pixels the image has, and the quality setting used to save it. This tool searches for the highest quality that fits first, because lowering quality a little is less noticeable than shrinking the picture:</p>
+      <ol>
+        <li>It tries quality 95. If that already fits, you get it.</li>
+        <li>Otherwise it tries quality 30. If that fits, it narrows down between the two (a binary search) to find the highest quality that still fits, in at most eight more attempts.</li>
+        <li>If even quality 30 is too big, it shrinks the dimensions step by step (to 85% each time, or more when the file is far too big) and searches again.</li>
+      </ol>
+      <p>The result is never over your limit. In the rare case the limit is impossible (for example 5 KB for a detailed photo), the tool says so and shows the smallest file it could make.</p>
+
+      <h2>What if it can’t reach 20 KB?</h2>
+      <p>For almost any photo or scan, shrinking the dimensions eventually gets the file under 20 KB. If it would have to shrink below 16 pixels on its shortest side, the tool stops and tells you clearly that the target wasn’t reached, showing the smallest file it could make, rather than quietly handing you a file that would be rejected. In that case, crop the image more tightly or ask whether the form accepts a larger file.</p>
+
+      <h2>Tips for a clean signature under 20 KB</h2>
+      <ul>
+        <li><b>Use dark ink on white paper.</b> High contrast keeps the strokes crisp even at low quality.</li>
+        <li><b>Shoot in daylight without shadows.</b> Grey, uneven paper costs bytes and looks dirty after compression.</li>
+        <li><b>Crop tightly.</b> Empty margins add pixels the form doesn’t need.</li>
+        <li><b>Don’t fight the downscale.</b> A signature a few hundred pixels wide is perfectly legible; the tool shrinks only as much as it must.</li>
+      </ul>
+      <p>For photographs with a larger allowance, use <a href="/compress-image-to-50kb/">compress to 50 KB</a> or <a href="/compress-image-to-100kb/">compress to 100 KB</a>.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Why did my photo get so much smaller in pixels?</summary><p>20 KB is very little room for a full photo. When even quality 30 is over the limit, the tool shrinks the dimensions step by step until it fits. Cropping first keeps more detail where it matters.</p></details>
+        <details><summary>Can I use this for a signature?</summary><p>Yes, that is the most common use. Sign in dark ink on white paper, crop tightly, then compress here; a clean signature fits in 20 KB easily.</p></details>
+        <details><summary>Why is my file a bit under 20 KB rather than exactly 20 KB?</summary><p>Quality goes up in whole steps, and the next step up was over the limit. The tool always picks the highest quality that fits.</p></details>
+        <details><summary>Should I choose JPG or WebP?</summary><p>JPG for forms and portals, because many accept only JPG/JPEG. WebP gives smaller files for your own website.</p></details>
+        <details><summary>Are my photos uploaded?</summary><p>No. Everything happens in your browser, so ID photos and documents never leave your device. The page works offline after the first visit.</p></details>
+      </div>
+      <!-- @related -->
+
+      <!-- @include affiliate-image -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/image-compressor.js"></script>
+</body>
+</html>
