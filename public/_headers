@@ -9,6 +9,10 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# OCR engine + language data: paths include the package version, so they never change.
+/ocr/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Optional "provably private" mode BEFORE you add ads: uncomment to block the page from
 # contacting any other server. (AdSense needs this loosened — see README.md, "Privacy proof".)
 # /*
