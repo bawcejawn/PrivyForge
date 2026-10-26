@@ -39,7 +39,7 @@ The claim: **no tool uploads files or entered data.** Anyone can verify it:
 pip install playwright pypdf pypdfium2 opencv-python pillow reportlab && python -m playwright install chromium
 python tests/e2e/make_fixtures.py
 npm run build && npm run preview &   # serves :4173
-python tests/e2e/e2e.py && python tests/e2e/e2e_money.py && python tests/e2e/e2e_hash.py
+for s in e2e e2e_money e2e_hash e2e_revenue e2e_images e2e_pdf2 e2e_calc e2e_ocr e2e_heic e2e_sign; do python tests/e2e/$s.py; done
 npm run dev &                        # serves :5173 (admin is dev-only)
 python tests/e2e/e2e_admin.py
 ```
