@@ -40,6 +40,24 @@ export function pickOffer(tool, r, affiliates = {}) {
     return null;
   }
 
+  if (tool === 'card') {
+    // Single credit card: a promo-rate transfer only matters when the rate is high.
+    if (!(r.balance > 0) || !(r.apr >= 15)) return null;
+    const cost = r.ok && Number.isFinite(r.totalInterest) ? `At this pace you'd pay about ${usd(r.totalInterest)} in interest. ` : '';
+    return make('BALANCE_TRANSFER', `Paying ${pct(r.apr)} on ${usd(r.balance)}?`,
+      `${cost}A 0% balance transfer card can pause interest for a promotional period. Check the transfer fee and the rate after the promo ends.`,
+      'Compare balance transfer cards')
+      || make('DEBT_CONSOLIDATION', `Paying ${pct(r.apr)} on ${usd(r.balance)}?`, 'A personal loan at a lower fixed rate can cut interest and set a firm payoff date.', 'Compare consolidation loans');
+  }
+
+  if (tool === 'savings') {
+    // Compound interest / savings goal: the account's rate is the lever.
+    if (!(r.final > 0)) return null;
+    return make('HIGH_YIELD_SAVINGS', `Your plan grows to ${usd(r.final)}`,
+      'The rate is the part you control most easily. Compare high-yield savings accounts — rates change, so check the current APY and any minimums.',
+      'Compare high-yield savings');
+  }
+
   if (tool === 'subscriptions') {
     if (!r.found?.length) return null;
     if (r.saving > 0) {
