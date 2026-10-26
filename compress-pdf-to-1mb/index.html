@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Compress PDF to 1 MB — Free, No Upload | PrivyForge</title>
+  <meta name="description" content="Get a PDF under 1 MB in your browser. It tries lossless first, then finds the best image quality that fits. Nothing is uploaded. Free, no sign-up." />
+  <link rel="canonical" href="{{SITE_URL}}/compress-pdf-to-1mb/" />
+  <meta property="og:title" content="Compress a PDF to under 1 MB — Private, No Upload" />
+  <meta property="og:description" content="Pick a size limit and get the best-quality PDF that fits, made on your own device." />
+  <meta property="og:url" content="{{SITE_URL}}/compress-pdf-to-1mb/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Compress PDF to 1 MB","url":"{{SITE_URL}}/compress-pdf-to-1mb/","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Compress PDF to 1 MB","item":"{{SITE_URL}}/compress-pdf-to-1mb/"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is my PDF uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The PDF is read and rebuilt inside your browser with pdf.js and pdf-lib. It never leaves your device."}},
+      {"@type":"Question","name":"Why can't I select text after compressing?","acceptedAnswer":{"@type":"Answer","text":"When a lossless re-save isn't small enough, pages are converted to JPEG images, which is what makes big reductions possible. Images don't contain selectable text."}},
+      {"@type":"Question","name":"Which definition of 1 MB do you use?","acceptedAnswer":{"@type":"Answer","text":"By default 1 MB means 1,048,576 bytes (1024 × 1024). If a site counts 1 MB as 1,000,000 bytes, choose the strict option."}}
+    ]}
+  ]}
+  </script>
+</head>
+<body data-tool="compress-target">
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/pdf-tools/">PDF tools</a> › Compress PDF to 1 MB</nav>
+    <section class="hero">
+      <h1>Compress a PDF to under 1 MB</h1>
+      <p class="lede">Choose a size limit and get the best-quality version of your PDF that fits under it. Everything runs in your browser, so the document never leaves your device.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Compress PDF to a target size">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a PDF to compress">
+        <strong>Drop a PDF here or click to choose</strong>
+        <small>One file at a time · any size</small>
+        <input type="file" />
+      </div>
+      <ul class="files" id="files"></ul>
+      <div class="controls">
+        <label class="field">Size limit
+          <select id="target">
+            <option value="1048576" selected>1 MB (1,048,576 bytes)</option>
+            <option value="1000000">1 MB strict (1,000,000 bytes)</option>
+            <option value="512000">500 KB (512,000 bytes)</option>
+            <option value="2097152">2 MB (2,097,152 bytes)</option>
+            <option value="5242880">5 MB (5,242,880 bytes)</option>
+          </select>
+        </label>
+      </div>
+      <div class="row-actions">
+        <button class="btn" id="run" disabled>Compress &amp; download</button>
+        <span class="status" id="status" role="status"></span>
+      </div>
+      <div class="result-box" id="result" hidden aria-live="polite"></div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to get a PDF under 1 MB</h2>
+      <ol>
+        <li><b>Add your PDF</b> by dropping it on the box or clicking to choose it.</li>
+        <li><b>Pick the size limit.</b> 1 MB is selected. If the website you're uploading to says "1 MB" and still rejects a file of about 1,040 KB, use <i>1 MB strict</i>.</li>
+        <li><b>Click "Compress &amp; download".</b> The tool tries settings from best quality to smallest and stops at the first one that fits.</li>
+        <li><b>Check the result.</b> The box under the button shows the final size in exact bytes, which setting was used, and every setting it tried.</li>
+      </ol>
+
+      <h2>What happens to your file</h2>
+      <p>First the tool rebuilds the PDF without changing any content, packing its internal objects more tightly. This <b>lossless re-save</b> keeps text selectable and searchable. If the result is already under your limit, you get that file and nothing else changes. If your original is already under the limit, you get it back untouched, unless the lossless re-save makes it smaller still.</p>
+      <p>If the lossless version is still too big, the tool switches to the only method that reliably makes big cuts in the browser: it <b>draws each page as an image</b> and saves it as a JPEG. It works down this list until the file fits:</p>
+      <ol>
+        <li>150 DPI, JPEG quality 72</li>
+        <li>120 DPI, quality 65</li>
+        <li>100 DPI, quality 55</li>
+        <li>85 DPI, quality 50</li>
+        <li>72 DPI, quality 45</li>
+      </ol>
+      <p>When a step fits but the one before it didn't, the tool tries up to two quality values between them at the same DPI and keeps the sharpest one that still fits. That way you don't get a blurrier file than the limit requires.</p>
+      <p><b>The honest trade-off:</b> hitting a size target usually means pages become pictures of pages. Text in the output can't be selected, copied or searched, and links stop working. That's fine for most upload portals, which just need a readable document. If you need live text, use the lossless option on our <a href="/compress-pdf/">Compress PDF</a> page, or split the document instead.</p>
+
+      <h2>Worked example: how many pages fit in 1 MB?</h2>
+      <p>1 MB here is 1,048,576 bytes. Spread over a 20-page document, that's about 52,429 bytes (51 KB) per page. A US Letter page (8.5 × 11 in) has this many pixels at each step:</p>
+      <ul>
+        <li>150 DPI: 1,275 × 1,650 = 2.1 million pixels</li>
+        <li>100 DPI: 850 × 1,100 = 0.94 million pixels (44% of 150 DPI)</li>
+        <li>72 DPI: 612 × 792 = 0.48 million pixels (23% of 150 DPI)</li>
+      </ul>
+      <p>JPEG size grows roughly with pixel count, so going from 150 to 100 DPI cuts the image data per page to about half before quality changes are counted. Plain typed pages compress far better than photos or colour scans, so they reach the limit at higher settings. A long scanned document full of photos may not fit even at 72 DPI. In that case the tool still gives you its smallest version and tells you it is over the limit. Then <a href="/split-pdf/">split the PDF</a> into parts and upload them separately.</p>
+
+      <h2>Which "1 MB" do we mean?</h2>
+      <p>There are two definitions. <b>1,048,576 bytes</b> (1024 × 1024) is how Windows Explorer reports sizes and what many web servers mean by a "1M" upload limit. <b>1,000,000 bytes</b> is the decimal megabyte, which macOS Finder and some websites use. We default to 1,048,576 because that's the most common meaning of an upload limit. If you're not sure which one a site uses, choose <i>1 MB strict</i>: a file under 1,000,000 bytes passes both.</p>
+
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Is my PDF uploaded?</summary><p>No. pdf.js and pdf-lib read and rebuild the file inside your browser tab. You can disconnect from the internet after the page loads and it still works.</p></details>
+        <details><summary>Why can't I select text after compressing?</summary><p>If the lossless re-save isn't small enough, pages are turned into JPEG images, and an image doesn't contain text. The result box tells you whether this happened.</p></details>
+        <details><summary>It says it couldn't reach 1 MB. What now?</summary><p>Your document has too many pages or too much detail to fit at 72 DPI, our lowest setting. Below that, small text becomes hard to read. Split it with <a href="/split-pdf/">Split PDF</a> and send the parts, or ask the recipient whether a larger file is accepted.</p></details>
+        <details><summary>Will the compressed PDF look worse?</summary><p>Only as much as needed. The tool always tries the highest-quality setting first. Zoom in on the result before you submit it, especially if the document has small print or signatures.</p></details>
+        <details><summary>Does it work on password-protected PDFs?</summary><p>No. Remove the password in your PDF reader first, then compress the unlocked copy.</p></details>
+        <details><summary>Can I compress several PDFs at once?</summary><p>This page does one file at a time, because each file gets its own search for the right setting. To compress many files at a fixed level, use <a href="/compress-pdf/">Compress PDF</a>.</p></details>
+      </div>
+      <!-- @related -->
+      <!-- @include affiliate-pdf -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/compress-pdf-target.js"></script>
+</body>
+</html>
