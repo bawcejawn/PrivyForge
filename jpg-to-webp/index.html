@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>JPG to WebP Converter — Free, No Upload | PrivyForge</title>
+  <meta name="description" content="Convert JPG photos to WebP in your browser. Smaller files that look the same. Nothing is uploaded: no limits, no sign-up, batch ZIP download." />
+  <link rel="canonical" href="{{SITE_URL}}/jpg-to-webp/" />
+  <meta property="og:title" content="JPG to WebP — Free, Private, No Upload" />
+  <meta property="og:description" content="Convert JPG photos to smaller WebP files without sending them to a server." />
+  <meta property="og:url" content="{{SITE_URL}}/jpg-to-webp/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type": "WebApplication", "name": "PrivyForge JPG to WebP Converter", "url": "{{SITE_URL}}/jpg-to-webp/", "applicationCategory": "MultimediaApplication", "operatingSystem": "Any (runs in your browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "featureList": ["Convert JPG/JPEG to WebP", "Adjustable quality", "Optional max width", "Batch ZIP download", "Removes EXIF/GPS metadata", "Works offline"]},
+    {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/"}, {"@type": "ListItem", "position": 2, "name": "JPG to WebP", "item": "{{SITE_URL}}/jpg-to-webp/"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type": "Question", "name": "Are my photos uploaded?", "acceptedAnswer": {"@type": "Answer", "text": "No. Conversion runs inside your browser with WebAssembly. Your photos stay on your device, and the page works offline once loaded."}},
+      {"@type": "Question", "name": "Is the WebP lossy or lossless?", "acceptedAnswer": {"@type": "Answer", "text": "This tool makes lossy WebP files, which is what gives the big size savings for photos. The quality slider controls how much detail is kept."}},
+      {"@type": "Question", "name": "Is there a limit on file size or number of images?", "acceptedAnswer": {"@type": "Answer", "text": "No daily limits, no file caps and no watermarks. The only limit is your device’s memory; very large photos can be slow on older phones."}},
+      {"@type": "Question", "name": "Will the WebP have the same dimensions?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, unless you set a max width. Images are never enlarged."}},
+      {"@type": "Question", "name": "Can I convert WebP back to JPG, or PNG to WebP?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use the image compressor and choose the output format you need."}}
+    ]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › JPG to WebP</nav>
+    <section class="hero">
+      <h1>Convert JPG to WebP — free, private, in your browser</h1>
+      <p class="lede">Turn JPG photos into smaller WebP files for your website or app. Conversion happens on your device, so your photos are never uploaded.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="JPG to WebP converter" data-mode="convert" data-format="webp" data-accept="image/jpeg,.jpg,.jpeg,.jfif" data-suffix="">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose JPG images to convert to WebP">
+        <strong>Drop JPG photos here, click to choose, or paste</strong>
+        <small>JPG / JPEG in → WebP out · any number, any size</small>
+        <input type="file" />
+      </div>
+      <div class="controls">
+        <label class="field" style="min-width:180px"><span>Quality: <b id="qv"></b></span>
+          <input id="quality" type="range" min="10" max="100" value="80" />
+        </label>
+        <label class="field">Max width (px)<input id="maxw" type="number" min="1" placeholder="Original" inputmode="numeric" /></label>
+      </div>
+      <ul class="files" id="files" aria-live="polite"></ul>
+      <div class="summary" id="summary" hidden></div>
+      <div class="row-actions">
+        <button class="btn" id="zip" disabled>Download all (.zip)</button>
+        <button class="btn ghost" id="clear" disabled>Clear</button>
+        <span class="status">Tip: click a thumbnail to compare the JPG and the WebP side by side.</span>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to convert JPG to WebP</h2>
+      <ol>
+        <li><b>Add your JPGs.</b> Drag them onto the box, click to browse, or paste an image with Ctrl/Cmd+V. You can add as many as you like.</li>
+        <li><b>Leave quality at 80, or adjust it.</b> Every image converts immediately and re-converts when you move the slider, so you can watch the file size change.</li>
+        <li><b>Optionally set a max width.</b> If your site never shows the photo wider than, say, 1600 pixels, there is no reason to ship a 4000-pixel file.</li>
+        <li><b>Download.</b> Save each WebP on its own, or click “Download all” for a ZIP.</li>
+      </ol>
+
+      <h2>A worked example</h2>
+      <p>We ran our 2400×1600 test photo, a 368 KB JPG, through this page at the default quality of 80. The WebP came out at <b>79 KB</b>, 79% smaller, with the same dimensions. Setting a max width of 1600 pixels as well brought it down to <b>49 KB</b> at 1600×1067. Your own results will differ: a photo of clear sky shrinks far more than a photo of gravel, because fine random detail is the hardest thing for any encoder to compress.</p>
+
+      <h2>Why convert JPG to WebP?</h2>
+      <p>WebP is an image format from Google that compresses photos more efficiently than JPG. Google’s own comparison study reported WebP files around 25–34% smaller than JPGs of similar visual quality. Smaller images mean pages that load faster, use less of your visitors’ mobile data, and score better on page-speed tools, where the largest image on the page is often what holds the score back.</p>
+      <p>Every current major browser displays WebP: Chrome, Edge, Firefox and Safari (since Safari 14). For a website, WebP is a safe default today.</p>
+
+      <h2>When to keep JPG instead</h2>
+      <ul>
+        <li><b>Upload forms that only accept JPG.</b> Many job, government and exam portals still reject WebP. For those, use <a href="/compress-image-to-100kb/">compress to 100 KB</a> or a similar target-size tool, which outputs JPG.</li>
+        <li><b>Printing and photo labs.</b> Print services and older desktop software expect JPG.</li>
+        <li><b>Sending photos to people.</b> A JPG opens everywhere, including older email clients and image viewers.</li>
+      </ul>
+
+      <!-- @include ad-content -->
+
+      <h2>Choosing a quality setting</h2>
+      <p>Quality is a trade-off between file size and fine detail. Around 75–85 is hard to tell apart from the original for most photos; 80 is the default here. Drop to 60–70 for thumbnails or background images where size matters most. Above 90, files grow quickly for little visible gain. Click any thumbnail to open a before/after slider and judge for yourself before downloading.</p>
+
+      <h2>Converting a whole folder</h2>
+      <p>Select every JPG in a folder at once (Ctrl/Cmd+A in the file picker) or drag the whole selection onto the box. Images are converted in parallel on your processor’s cores, and the settings apply to all of them. When they’re done, “Download all” gives you a single ZIP with the same file names and a .webp extension, ready to upload to your site.</p>
+
+      <h2>Using WebP on your website</h2>
+      <p>If you need to support very old browsers too, serve the WebP with a JPG fallback using the <code>&lt;picture&gt;</code> element. Browsers pick the first format they understand:</p>
+      <pre><code>&lt;picture&gt;
+  &lt;source srcset="photo.webp" type="image/webp"&gt;
+  &lt;img src="photo.jpg" alt="Describe the photo" width="1600" height="1067"&gt;
+&lt;/picture&gt;</code></pre>
+      <p>Most content management systems and image plugins can also do this for you once the WebP files exist.</p>
+
+      <h2>Private by design</h2>
+      <p>Most online converters upload your photos to a server, convert them there, and send them back. This page uses the libwebp encoder compiled to WebAssembly and runs it inside your browser tab, so the photos never leave your device. Converting also drops the photo’s EXIF metadata, including any GPS location your phone recorded. After the first visit, the page keeps working with your internet switched off.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Are my photos uploaded?</summary><p>No. Conversion runs inside your browser with WebAssembly. Your photos stay on your device, and the page works offline once loaded.</p></details>
+        <details><summary>Is the WebP lossy or lossless?</summary><p>This tool makes lossy WebP files, which is what gives the big size savings for photos. The quality slider controls how much detail is kept.</p></details>
+        <details><summary>Is there a limit on file size or number of images?</summary><p>No daily limits, no file caps and no watermarks. The only limit is your device’s memory; very large photos can be slow on older phones.</p></details>
+        <details><summary>Will the WebP have the same dimensions?</summary><p>Yes, unless you set a max width. Images are never enlarged.</p></details>
+        <details><summary>Can I convert WebP back to JPG, or PNG to WebP?</summary><p>Yes. Use the <a href="/compress-image/">image compressor</a> and choose the output format you need.</p></details>
+      </div>
+      <!-- @related -->
+
+      <!-- @include affiliate-image -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/image-compressor.js"></script>
+</body>
+</html>

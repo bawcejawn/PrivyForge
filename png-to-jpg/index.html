@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>PNG to JPG Converter — Free, No Upload | PrivyForge</title>
+  <meta name="description" content="Convert PNG images to JPG in your browser. Transparent areas become white. Files never leave your device. Free, unlimited, batch ZIP download." />
+  <link rel="canonical" href="{{SITE_URL}}/png-to-jpg/" />
+  <meta property="og:title" content="PNG to JPG — Free, Private, No Upload" />
+  <meta property="og:description" content="Convert PNGs to smaller, widely accepted JPGs without uploading them." />
+  <meta property="og:url" content="{{SITE_URL}}/png-to-jpg/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type": "WebApplication", "name": "PrivyForge PNG to JPG Converter", "url": "{{SITE_URL}}/png-to-jpg/", "applicationCategory": "MultimediaApplication", "operatingSystem": "Any (runs in your browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "featureList": ["Convert PNG to JPG/JPEG", "Transparency flattened to white", "Adjustable quality", "Batch ZIP download", "Removes metadata", "Works offline"]},
+    {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/"}, {"@type": "ListItem", "position": 2, "name": "PNG to JPG", "item": "{{SITE_URL}}/png-to-jpg/"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type": "Question", "name": "Why did the transparent background turn white?", "acceptedAnswer": {"@type": "Answer", "text": "JPG has no transparency, so something has to fill those pixels. White is the most useful choice for documents, forms and white web pages. Keep PNG or use WebP if you need transparency."}},
+      {"@type": "Question", "name": "Are my images uploaded?", "acceptedAnswer": {"@type": "Answer", "text": "No. Everything happens in your browser. The page keeps working with your internet turned off after the first visit."}},
+      {"@type": "Question", "name": "Why is my JPG bigger than the PNG?", "acceptedAnswer": {"@type": "Answer", "text": "Simple graphics with few colours compress extremely well as PNG. JPG is better for photos. If the JPG comes out bigger, the PNG was probably the right format."}},
+      {"@type": "Question", "name": "What quality should I use?", "acceptedAnswer": {"@type": "Answer", "text": "Around 80–90 for screenshots with text, 70–85 for photos. Click a thumbnail to compare before and after."}},
+      {"@type": "Question", "name": "Is there a limit on how many PNGs I can convert?", "acceptedAnswer": {"@type": "Answer", "text": "No. There are no daily limits, file caps or watermarks. Very large images can be slow on older phones."}}
+    ]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › PNG to JPG</nav>
+    <section class="hero">
+      <h1>Convert PNG to JPG — free, private, no upload</h1>
+      <p class="lede">Change PNG screenshots, scans and photos into smaller JPG files that every website and app accepts. Everything runs in your browser.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="PNG to JPG converter" data-mode="convert" data-format="jpeg" data-accept="image/png,.png" data-suffix="">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose PNG images to convert to JPG">
+        <strong>Drop PNG images here, click to choose, or paste</strong>
+        <small>PNG in → JPG out · any number, any size</small>
+        <input type="file" />
+      </div>
+      <div class="controls">
+        <label class="field" style="min-width:180px"><span>Quality: <b id="qv"></b></span>
+          <input id="quality" type="range" min="10" max="100" value="85" />
+        </label>
+        <label class="field">Max width (px)<input id="maxw" type="number" min="1" placeholder="Original" inputmode="numeric" /></label>
+      </div>
+      <p class="tool-hint"><b>Heads-up:</b> JPG can’t store transparency, so transparent areas are filled with <b>white</b>.</p>
+      <ul class="files" id="files" aria-live="polite"></ul>
+      <div class="summary" id="summary" hidden></div>
+      <div class="row-actions">
+        <button class="btn" id="zip" disabled>Download all (.zip)</button>
+        <button class="btn ghost" id="clear" disabled>Clear</button>
+        <span class="status">Tip: click a thumbnail to compare the PNG and the JPG.</span>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to convert PNG to JPG</h2>
+      <ol>
+        <li><b>Add your PNGs.</b> Drag them in, click to browse, or paste a screenshot straight from the clipboard.</li>
+        <li><b>Check the quality.</b> The default of 85 suits screenshots and photos. Lower it for smaller files; raise it if you see smudges around text.</li>
+        <li><b>Download.</b> Each JPG keeps the original file name with a .jpg extension. Add several files and use “Download all” for a ZIP.</li>
+      </ol>
+
+      <h2>Worked examples</h2>
+      <p><b>A photo saved as PNG.</b> Our 2400×1600 test photo was 955 KB as a PNG. Converted at quality 85 it became a <b>203 KB</b> JPG, 79% smaller, with no visible difference at normal viewing size. Photos are where this conversion pays off most, because PNG stores every pixel losslessly.</p>
+      <p><b>A logo with a transparent background.</b> Our 800×600 logo test file has a transparent background. As a JPG, the transparent area became solid white and the file was 8.4 KB. Note that the PNG was already smaller (4.0 KB): simple graphics with flat colours are exactly what PNG is good at.</p>
+
+      <h2>Why convert PNG to JPG?</h2>
+      <ul>
+        <li><b>Upload forms that only accept JPG.</b> Many application portals list “JPG/JPEG only”. If you also face a size limit, use <a href="/compress-image-to-100kb/">compress to 100 KB</a>, which converts to JPG and hits the size in one step.</li>
+        <li><b>Photos saved as PNG are huge.</b> Phone screenshots of photos, exports from editing apps and scanned pictures are often saved as PNG. JPG is usually several times smaller for that kind of image.</li>
+        <li><b>Email and messaging.</b> Smaller attachments send faster and stay under mailbox limits.</li>
+      </ul>
+
+      <!-- @include ad-content -->
+
+      <h2>What happens to transparency</h2>
+      <p>PNG can have transparent and semi-transparent pixels; JPG cannot. This converter places the image on a white background before encoding. Fully transparent areas become pure white, and soft edges (like the anti-aliased edge of a logo or a drop shadow) are blended onto white, so they look right on a white page or document. If you plan to put the image on a dark background, keep it as a PNG or convert it to WebP instead, which supports transparency, using the <a href="/compress-image/?format=webp">image compressor</a>.</p>
+
+      <h2>When PNG is the better choice</h2>
+      <p>JPG is designed for photographs. On screenshots of text, line art, charts and logos, its compression can leave faint smudges (“artifacts”) around sharp edges, and the file may even be larger than the PNG, as the logo example shows. If your image is mostly flat colours and crisp edges, keep it as PNG and shrink it with the <a href="/compress-image/">image compressor</a> instead.</p>
+
+      <h2>Making the JPG even smaller</h2>
+      <p>If the JPG is still bigger than you need, set a max width as well. For the 2400×1600 example above, a max width of 1200 gives 1200×800: a quarter of the pixels, so a much smaller file that still looks sharp on most screens. If a form gives you a hard size limit instead, skip the guesswork and use the <a href="/compress-image-to-100kb/">100 KB</a>, <a href="/compress-image-to-50kb/">50 KB</a> or <a href="/compress-image-to-20kb/">20 KB</a> tools, which pick the quality and size for you.</p>
+      <p>The converted files keep their original names with a .jpg extension, so a batch of screenshots stays easy to match up with the originals.</p>
+
+      <h2>Private by design</h2>
+      <p>The conversion uses MozJPEG compiled to WebAssembly, running inside your browser tab. Your images are never uploaded to a server, which matters for screenshots that contain account numbers, messages or other personal details. Re-encoding also removes metadata embedded in the file.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Why did the transparent background turn white?</summary><p>JPG has no transparency, so something has to fill those pixels. White is the most useful choice for documents, forms and white web pages. Keep PNG or use WebP if you need transparency.</p></details>
+        <details><summary>Are my images uploaded?</summary><p>No. Everything happens in your browser. The page keeps working with your internet turned off after the first visit.</p></details>
+        <details><summary>Why is my JPG bigger than the PNG?</summary><p>Simple graphics with few colours compress extremely well as PNG. JPG is better for photos. If the JPG comes out bigger, the PNG was probably the right format.</p></details>
+        <details><summary>What quality should I use?</summary><p>Around 80–90 for screenshots with text, 70–85 for photos. Click a thumbnail to compare before and after.</p></details>
+        <details><summary>Is there a limit on how many PNGs I can convert?</summary><p>No. There are no daily limits, file caps or watermarks. Very large images can be slow on older phones.</p></details>
+      </div>
+      <!-- @related -->
+
+      <!-- @include affiliate-image -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/image-compressor.js"></script>
+</body>
+</html>

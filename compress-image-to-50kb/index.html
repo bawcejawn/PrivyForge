@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Compress Image to 50 KB — Free, No Upload | PrivyForge</title>
+  <meta name="description" content="Make a photo smaller than 50 KB in your browser at the best quality that fits. Ideal for application photos. No upload, no sign-up, free." />
+  <link rel="canonical" href="{{SITE_URL}}/compress-image-to-50kb/" />
+  <meta property="og:title" content="Compress an Image to Under 50 KB — Private" />
+  <meta property="og:description" content="Shrink photos to under 50 KB at the highest quality that fits, without uploading them." />
+  <meta property="og:url" content="{{SITE_URL}}/compress-image-to-50kb/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type": "WebApplication", "name": "PrivyForge Compress Image to 50 KB", "url": "{{SITE_URL}}/compress-image-to-50kb/", "applicationCategory": "MultimediaApplication", "operatingSystem": "Any (runs in your browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "featureList": ["Compress to under 50 KB (or any size)", "Highest quality that fits", "Downscales only when needed", "JPG or WebP output", "Batch ZIP download", "Works offline"]},
+    {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/"}, {"@type": "ListItem", "position": 2, "name": "Compress Image to 50 KB", "item": "{{SITE_URL}}/compress-image-to-50kb/"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type": "Question", "name": "My form says the photo must be between 20 KB and 50 KB. Can I do that?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Leave the target at 50 KB: the tool aims as close to the limit as possible, so results usually land well above 20 KB. If a result is too small, the image simply has little detail; raise the target or use a larger photo."}},
+      {"@type": "Question", "name": "Will my photo be resized?", "acceptedAnswer": {"@type": "Answer", "text": "Only if quality alone can’t get it under 50 KB. The final dimensions are shown next to each file."}},
+      {"@type": "Question", "name": "Why is my file a bit under 50 KB rather than exactly 50 KB?", "acceptedAnswer": {"@type": "Answer", "text": "Quality goes up in whole steps, and the next step up was over the limit. The tool always picks the highest quality that fits."}},
+      {"@type": "Question", "name": "Should I choose JPG or WebP?", "acceptedAnswer": {"@type": "Answer", "text": "JPG for forms and portals, because many accept only JPG/JPEG. WebP gives smaller files for your own website."}},
+      {"@type": "Question", "name": "Are my photos uploaded?", "acceptedAnswer": {"@type": "Answer", "text": "No. Everything happens in your browser, so ID photos and documents never leave your device. The page works offline after the first visit."}}
+    ]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Compress Image to 50 KB</nav>
+    <section class="hero">
+      <h1>Compress an image to under 50 KB</h1>
+      <p class="lede">Shrink a photo below 50 KB for application forms and ID-style photo uploads, at the highest quality that fits. Nothing is uploaded.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Compress image to 50 KB" data-mode="target" data-target-kb="50" data-format="jpeg">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose images to compress to under 50 KB">
+        <strong>Drop images here to get them under 50 KB</strong>
+        <small>JPG · PNG · WebP · AVIF · HEIC (Safari) — any number</small>
+        <input type="file" />
+      </div>
+      <div class="controls">
+        <label class="field">Target size (KB)<input id="target" class="target-input" type="number" min="5" max="100000" value="50" inputmode="numeric" /></label>
+        <label class="field">Output format
+          <select id="format">
+            <option value="jpeg">JPG</option>
+            <option value="webp">WebP</option>
+          </select>
+        </label>
+      </div>
+      <p class="tool-hint">JPG is accepted almost everywhere; WebP is smaller, for websites. Each file is made as close to the limit as possible without going over. 1 KB is counted as 1,000 bytes, so files also pass sites that count 1 KB as 1,024 bytes.</p>
+      <ul class="files" id="files" aria-live="polite"></ul>
+      <div class="summary" id="summary" hidden></div>
+      <div class="row-actions">
+        <button class="btn" id="zip" disabled>Download all (.zip)</button>
+        <button class="btn ghost" id="clear" disabled>Clear</button>
+        <span class="status">Each file shows its final size, quality and dimensions.</span>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to get a photo under 50 KB</h2>
+      <ol>
+        <li><b>Crop first if the form asks for a particular shape</b>, such as a head-and-shoulders photo. This tool doesn’t crop, and a tighter crop leaves more of the 50 KB for the face.</li>
+        <li><b>Add the photo</b> by dragging it onto the box, clicking to browse, or pasting.</li>
+        <li><b>Leave the target at 50 KB</b> (or type the exact limit your form gives) and keep JPG selected.</li>
+        <li><b>Download</b> and check the size, quality and dimensions shown next to the file before uploading.</li>
+      </ol>
+
+      <h2>A worked example</h2>
+      <p>Starting from our 2400×1600 test photo (368 KB), the tool produced a <b>49.9 KB</b> JPG at <b>quality 33</b>, sized <b>2040×1360</b>. Even quality 30 was too big at full size, so the tool scaled the photo to 85% of its width and then found the highest quality that fits at that size. For a passport-style photo you will usually need far fewer pixels than this anyway; many forms ask for a few hundred pixels across.</p>
+
+      <h2>Where 50 KB limits come up</h2>
+      <p>Limits around 50 KB are typical for the <b>photograph field</b> on online application forms: visa and passport-style photo uploads, exam and recruitment registrations, student ID and membership cards. The form is storing a small ID picture rather than a full-size photo, so it keeps the file small. Forms like these often state other rules next to the size limit, so read them carefully:</p>
+      <ul>
+        <li><b>Dimensions</b> in pixels, or in centimetres/inches at a given DPI. If you need to hit exact pixels, use the <a href="/resize-image/">image resizer</a> first and then compress here.</li>
+        <li><b>A minimum size</b> as well as a maximum (for example “between 20 KB and 50 KB”). If the result is too small, raise the target a little: the tool aims as close to the limit as it can.</li>
+        <li><b>Format</b>: almost always JPG/JPEG for these forms.</li>
+        <li><b>Photo rules</b> such as a plain light background, a recent photo and a neutral expression. Compression won’t fix a photo that breaks those rules.</li>
+      </ul>
+
+      <!-- @include ad-content -->
+
+      <h2>How the target size is reached</h2>
+      <p>File size depends on two things: how many pixels the image has, and the quality setting used to save it. This tool searches for the highest quality that fits first, because lowering quality a little is less noticeable than shrinking the picture:</p>
+      <ol>
+        <li>It tries quality 95. If that already fits, you get it.</li>
+        <li>Otherwise it tries quality 30. If that fits, it narrows down between the two (a binary search) to find the highest quality that still fits, in at most eight more attempts.</li>
+        <li>If even quality 30 is too big, it shrinks the dimensions step by step (to 85% each time, or more when the file is far too big) and searches again.</li>
+      </ol>
+      <p>The result is never over your limit. In the rare case the limit is impossible (for example 5 KB for a detailed photo), the tool says so and shows the smallest file it could make.</p>
+
+      <h2>Getting the sharpest result at 50 KB</h2>
+      <p>At 50 KB the biggest win is <b>pixel count</b>. A modern phone photo has 12 megapixels or more, and squeezing all of that into 50 KB forces the quality very low. A head-and-shoulders crop resized to, say, 600 pixels wide has a fraction of the pixels, so it can be saved at a much higher quality and looks cleaner. Plain backgrounds help too: smooth areas cost almost nothing to store, while busy patterns eat bytes.</p>
+      <p>Need a different limit? Try <a href="/compress-image-to-100kb/">compress to 100 KB</a> or, for signatures, <a href="/compress-image-to-20kb/">compress to 20 KB</a>.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>My form says the photo must be between 20 KB and 50 KB. Can I do that?</summary><p>Yes. Leave the target at 50 KB: the tool aims as close to the limit as possible, so results usually land well above 20 KB. If a result is too small, the image simply has little detail; raise the target or use a larger photo.</p></details>
+        <details><summary>Will my photo be resized?</summary><p>Only if quality alone can’t get it under 50 KB. The final dimensions are shown next to each file.</p></details>
+        <details><summary>Why is my file a bit under 50 KB rather than exactly 50 KB?</summary><p>Quality goes up in whole steps, and the next step up was over the limit. The tool always picks the highest quality that fits.</p></details>
+        <details><summary>Should I choose JPG or WebP?</summary><p>JPG for forms and portals, because many accept only JPG/JPEG. WebP gives smaller files for your own website.</p></details>
+        <details><summary>Are my photos uploaded?</summary><p>No. Everything happens in your browser, so ID photos and documents never leave your device. The page works offline after the first visit.</p></details>
+      </div>
+      <!-- @related -->
+
+      <!-- @include affiliate-image -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/image-compressor.js"></script>
+</body>
+</html>
