@@ -181,3 +181,7 @@ thead th { position: sticky; top: 0; background: var(--surface-2); font-family: 
 .offer .btn { justify-self: start; margin-top: 4px; }
 .offer small { color: var(--ink-2); font-size: .78rem; }
 .related { margin-top: 2.2em; }
+
+/* Consent banner (src/js/lib/ads.js, banner mode) */
+.consent { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 60; max-width: 720px; margin: 0 auto; padding: 16px 18px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 10px 40px rgb(0 0 0 / .18); display: grid; gap: 10px; }
+.consent p { margin: 0; font-size: .92rem; }

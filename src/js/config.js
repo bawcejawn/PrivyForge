@@ -5,6 +5,7 @@ import site from '../data/site.json';
 export const MONETIZATION = {
   ADSENSE_CLIENT: site.ads?.adsenseClient || '', // e.g. 'ca-pub-1234567890123456'
   SLOTS: site.ads?.slots || {},
+  CONSENT_MODE: site.ads?.consent === 'google-cmp' ? 'google-cmp' : 'banner', // see src/js/lib/ads.js
   SHOW_PLACEHOLDERS_IN_DEV: true,
 };
 

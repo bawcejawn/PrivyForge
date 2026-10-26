@@ -86,6 +86,7 @@ const sf = $('#settings-form');
 function fillSettings() {
   const d = site.data;
   sf.adsenseClient.value = d.ads?.adsenseClient || '';
+  sf.consent.value = d.ads?.consent === 'google-cmp' ? 'google-cmp' : 'banner';
   sf['slot_tool-below'].value = d.ads?.slots?.['tool-below'] || '';
   sf['slot_content-mid'].value = d.ads?.slots?.['content-mid'] || '';
   sf.contactEmail.value = d.contactEmail || '';
@@ -102,7 +103,7 @@ function readSettings() {
   if (client && !/^ca-pub-\d{10,20}$/.test(client)) errs.push('AdSense ID should look like ca-pub-1234567890123456.');
   const slots = { 'tool-below': sf['slot_tool-below'].value.trim(), 'content-mid': sf['slot_content-mid'].value.trim() };
   for (const [k, v] of Object.entries(slots)) if (v && !/^\d{6,12}$/.test(v)) errs.push(`Ad unit "${k}" should be digits only.`);
-  d.ads = { adsenseClient: client, slots };
+  d.ads = { ...(d.ads || {}), adsenseClient: client, slots, consent: sf.consent.value === 'google-cmp' ? 'google-cmp' : 'banner' };
   for (const tr of $('#aff-table tbody').rows) {
     const url = tr.querySelector('[data-f=url]').value.trim();
     if (!isHttps(url)) errs.push(`Affiliate ${tr.dataset.key}: links must start with https://`);
