@@ -1,9 +1,9 @@
 # Admin + customer dashboard tests. GitHub's API is simulated with Playwright routing,
-# so no real token or network is needed. Run after `npm run build && npm run preview`.
+# so no real token or network is needed. Run against `npm run dev` (admin is not in production builds).
 import asyncio, os, json, base64, re
 from playwright.async_api import async_playwright
 
-BASE = os.environ.get('BASE', 'http://localhost:4173')
+BASE = os.environ.get('BASE', 'http://localhost:5173')  # admin is dev-only: run `npm run dev`
 ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
 results = []
 def check(n, ok, info=''): results.append(ok); print(('PASS ' if ok else 'FAIL ') + n, str(info)[:200])
@@ -53,6 +53,7 @@ async def main():
 
         # ---------- Admin
         await pg.goto(f'{BASE}/admin/')
+        await pg.wait_for_function("document.querySelector('[name=repo]').value !== ''", timeout=20000)  # dev server compiles on first load
         check('admin: noindex', 'noindex' in (await pg.get_attribute('meta[name=robots]', 'content') or ''))
         check('admin: repo prefilled', await pg.input_value('#connect-form [name=repo]') == 'bawcejawn/PrivyForge')
         await pg.fill('#connect-form [name=token]', 'wrong'); await pg.click('#connect-btn'); await pg.wait_for_timeout(400)
@@ -61,7 +62,8 @@ async def main():
         await pg.wait_for_selector('#app:not([hidden])', timeout=5000)
         check('admin: connected + deploy status', 'live' in await pg.inner_text('#deploys'))
         stored = await pg.evaluate("[sessionStorage.getItem('pf-admin:conn'), localStorage.getItem('pf-admin:conn')]")
-        check('admin: token in sessionStorage only (not remembered)', TOKEN in (stored[0] or '') and stored[1] is None)
+        check('admin: token in sessionStorage only', TOKEN in (stored[0] or '') and stored[1] is None)
+        check('admin: no Remember option, no Pro tab', await pg.locator('[name=remember]').count() == 0 and await pg.locator('[data-tab=pro]').count() == 0)
 
         # Settings: invalid then valid
         await pg.fill('[name=adsenseClient]', 'pub-123')
@@ -116,9 +118,6 @@ async def main():
         out = await pg.inner_text('#gsc-out')
         check('search console: opportunities listed, noise filtered', 'merge pdf no upload' in out and 'subscription finder' in out and 'random' not in out)
 
-        # Pro tab reflects settings
-        await pg.click('[data-tab=pro]')
-        check('pro: status panel', 'not set' in await pg.inner_text('#pro-status'))
 
         # ---------- Customer dashboard
         await pg.goto(f'{BASE}/mortgage-calculator/?price=500000&down=100000&rate=6&term=30')

@@ -26,10 +26,11 @@ async function guard(btn, fn) {
 
 // ---------------- Connect
 const cf = $('#connect-form');
-const saved = ss.get(CONN_KEY) || ls.get(CONN_KEY, null);
+try { localStorage.removeItem(CONN_KEY); } catch { /* */ } // older versions could persist the token
+const saved = ss.get(CONN_KEY);
 cf.repo.value = saved?.repo || __REPO__;
 cf.branch.value = saved?.branch || 'main';
-if (saved?.token) { cf.token.value = saved.token; cf.remember.checked = !!ls.get(CONN_KEY, null); }
+if (saved?.token) cf.token.value = saved.token;
 
 $('#connect-btn').onclick = () => guard($('#connect-btn'), async () => {
   $('#connect-status').textContent = 'Checking token…';
@@ -38,7 +39,6 @@ $('#connect-btn').onclick = () => guard($('#connect-btn'), async () => {
   if (repo.permissions && !repo.permissions.push) throw new Error('This token can read the repo but not write to it. Give it "Contents: Read and write".');
   const conn = { repo: gh.repo, branch: gh.branch, token: gh.token };
   ss.set(CONN_KEY, conn);
-  if (cf.remember.checked) ls.set(CONN_KEY, conn); else { try { localStorage.removeItem(CONN_KEY); } catch { /* */ } }
   await loadAll();
   $('#connect').hidden = true; $('#app').hidden = false;
   $('#who').textContent = `${gh.repo} · ${gh.branch}`;
@@ -48,7 +48,7 @@ $('#connect-btn').onclick = () => guard($('#connect-btn'), async () => {
 if (saved?.token) $('#connect-btn').click();
 
 $('#logout').onclick = () => {
-  try { sessionStorage.removeItem(CONN_KEY); localStorage.removeItem(CONN_KEY); } catch { /* */ }
+  try { sessionStorage.removeItem(CONN_KEY); } catch { /* */ }
   location.reload();
 };
 
@@ -69,7 +69,7 @@ async function deployStatus() {
 }
 async function commit(path, text, message, sha) {
   const res = await gh.write(path, text, `Admin: ${message}`, sha);
-  toast(`Saved — committed to ${gh.branch}. The site will redeploy in about a minute.`);
+  toast(`Saved — committed to ${gh.branch}. Deploy picks it up on the next build.`);
   setTimeout(deployStatus, 4000);
   return res.content.sha;
 }
@@ -288,6 +288,7 @@ setupDropzone($('#gsc-drop'), { accept: '.csv,text/csv', onFiles: async (files) 
 
 // ---------------- Pro
 function renderPro() {
+  if (!$('#pro-status')) return;
   const d = site?.data || {};
   const proBtn = (d.support?.links || []).find((l) => /pro|ad-free/i.test(l.label));
   $('#pro-status').innerHTML = [

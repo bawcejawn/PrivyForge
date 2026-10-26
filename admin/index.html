@@ -10,7 +10,7 @@
   <main class="wrap">
     <section class="hero" style="padding-bottom:0">
       <h1>Admin</h1>
-      <p class="lede">Changes you save here are committed to GitHub and the site redeploys in about a minute. Your token stays in this browser.</p>
+      <p class="lede">Local-only admin (runs under <code>npm run dev</code>; not included in production builds). Saves are committed to GitHub; deploy as described in DEPLOY.md.</p>
     </section>
 
     <!-- Connect -->
@@ -22,7 +22,7 @@
         <label class="field">Fine-grained personal access token
           <input name="token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" />
         </label>
-        <label class="field" style="flex-direction:row;align-items:center;gap:8px"><input type="checkbox" name="remember" /> Remember on this device (otherwise forgotten when the tab closes)</label>
+        <p class="status" style="margin:0">The token is kept only for this browser tab and is forgotten when you close it.</p>
         <div class="row-actions" style="margin-top:0"><button class="btn" id="connect-btn">Connect</button><span class="status" id="connect-status" role="status"></span></div>
       </form>
       <details style="margin-top:14px"><summary><b>How to create the token (2 minutes)</b></summary>
@@ -43,7 +43,7 @@
           <button class="btn sm ghost" role="tab" data-tab="tools">Tools</button>
           <button class="btn sm ghost" role="tab" data-tab="guides">Guides</button>
           <button class="btn sm ghost" role="tab" data-tab="traffic">Traffic &amp; revenue</button>
-          <button class="btn sm ghost" role="tab" data-tab="pro">Pro customers</button>
+          <!-- Pro customers tab hidden until a Pro tier exists. -->
         </div>
         <div><span class="status" id="who"></span> <button class="btn sm ghost" id="logout">Disconnect</button></div>
       </div>
@@ -151,7 +151,7 @@
       </div>
 
       <!-- Pro -->
-      <div class="tool" data-panel="pro" hidden>
+      <div class="tool" data-panel="pro" data-disabled hidden>
         <h2 style="margin-top:0">Pro customers</h2>
         <p>PrivyForge has no server, so customer records, payments, refunds and license keys live with your payment provider. That keeps card data and personal details off your site entirely, which is also why the admin never stores them.</p>
         <div class="kpis" id="pro-status"></div>

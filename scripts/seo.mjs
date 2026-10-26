@@ -26,5 +26,5 @@ ${urls.sort().map((u) => `  <url><loc>${SITE.url}${u}</loc><lastmod>${today}</la
 </urlset>
 `;
 writeFileSync(join(dist, 'sitemap.xml'), xml);
-writeFileSync(join(dist, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
+writeFileSync(join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
 console.log(`sitemap.xml: ${urls.length} URLs`);

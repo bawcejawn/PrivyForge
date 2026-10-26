@@ -25,7 +25,7 @@ function page(meta, html, slug) {
 <html lang="en">
 <head>
   <!-- @include head -->
-  <!-- GENERATED from content/guides/${slug}.md — edit that file (or use /admin/), not this one. -->
+  <!-- GENERATED from content/guides/${slug}.md — edit that file, not this one. -->
   <title>${esc(meta.title)} | PrivyForge</title>
   <meta name="description" content="${esc(meta.description)}" />
   <link rel="canonical" href="{{SITE_URL}}/blog/${slug}/" />

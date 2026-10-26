@@ -8,9 +8,11 @@ import { loadSite, loadTools, toolGrid, footerTools, applyAffiliates, announceme
 const root = resolve(__dirname);
 
 // Every folder containing an index.html becomes a page (multi-page static build).
+// /admin/ is a local tool: served by `npm run dev`, never included in production builds.
+const SKIP = ['node_modules', 'dist', 'public', 'src', 'scripts', 'tests', 'content', '.git', '.github', 'admin'];
 function findPages(dir, out = {}) {
   for (const name of readdirSync(dir)) {
-    if (['node_modules', 'dist', 'public', 'src', 'scripts', 'tests', 'content', '.git', '.github'].includes(name)) continue;
+    if (SKIP.includes(name)) continue;
     const p = join(dir, name);
     if (statSync(p).isDirectory()) findPages(p, out);
     else if (name === 'index.html') out[relative(root, dir) || 'home'] = p;
@@ -89,7 +91,7 @@ export default defineConfig({
       workbox: {
         // HTML/JS/CSS precached; large wasm codecs cached on first use -> tools work offline.
         globPatterns: ['**/*.{html,js,css,svg}'],
-        globIgnores: ['**/pdf.worker*.mjs'],
+        globIgnores: ['**/pdf.worker*.mjs', '**/admin*', 'admin/**'],
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         navigateFallback: null,
         runtimeCaching: [{
