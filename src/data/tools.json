@@ -198,6 +198,22 @@
     "featured": false
   },
   {
+    "slug": "car-loan-calculator",
+    "href": "/car-loan-calculator/",
+    "title": "Car Loan Calculator",
+    "blurb": "Payment with trade-in, tax and fees; compare terms.",
+    "category": "Finance",
+    "keywords": [
+      "car loan",
+      "auto loan",
+      "car payment",
+      "trade-in",
+      "72 month loan"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
     "slug": "subscription-finder",
     "href": "/subscription-finder/",
     "title": "Subscription Finder",
@@ -252,6 +268,37 @@
       "rent vs buy",
       "buy a house",
       "renting"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
+    "slug": "credit-card-payoff-calculator",
+    "href": "/credit-card-payoff-calculator/",
+    "title": "Credit Card Payoff",
+    "blurb": "Payoff date and interest vs minimums or a balance transfer.",
+    "category": "Save money",
+    "keywords": [
+      "credit card payoff",
+      "minimum payment",
+      "balance transfer",
+      "credit card interest"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
+    "slug": "compound-interest-calculator",
+    "href": "/compound-interest-calculator/",
+    "title": "Compound Interest",
+    "blurb": "Savings growth, APY vs APR, and goal planning.",
+    "category": "Save money",
+    "keywords": [
+      "compound interest",
+      "savings calculator",
+      "apy",
+      "high yield savings",
+      "savings goal"
     ],
     "enabled": true,
     "featured": false

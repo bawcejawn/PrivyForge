@@ -50,6 +50,14 @@ export function pickOffer(tool, r, affiliates = {}) {
       || make('DEBT_CONSOLIDATION', `Paying ${pct(r.apr)} on ${usd(r.balance)}?`, 'A personal loan at a lower fixed rate can cut interest and set a firm payoff date.', 'Compare consolidation loans');
   }
 
+  if (tool === 'car') {
+    // Only once there's an actual loan to compare against.
+    if (!(r.financed > 0) || !(r.apr > 0)) return null;
+    return make('AUTO_LOAN', `Financing ${usd(r.financed)} at ${pct(r.apr)}?`,
+      `That's about ${usd(r.totalInterest)} in interest. Getting a pre-approved rate before you visit the dealer gives you something to compare their offer against.`,
+      'Compare auto loan rates');
+  }
+
   if (tool === 'savings') {
     // Compound interest / savings goal: the account's rate is the lever.
     if (!(r.final > 0)) return null;

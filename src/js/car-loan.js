@@ -3,6 +3,8 @@ import { carLoan, compareTerms, TERMS } from './lib/autoloan.js';
 import { byYear } from './amortization.js';
 import { lineChart, money, monthsToText, dateAfterMonths, syncFormWithURL, monthAxis } from './lib/chart.js';
 import { $, downloadBlob } from './util.js';
+import site from '../data/site.json';
+import { pickOffer, renderOffer } from './lib/offers.js';
 
 const form = $('#calc');
 const save = syncFormWithURL(form);
@@ -20,6 +22,7 @@ function render() {
   const months = +form.elements.term.value;
   const c = (last = carLoan(deal, apr, months));
   save();
+  renderOffer($('#offer'), pickOffer('car', { financed: c.financed, apr, totalInterest: c.totalInterest }, site.affiliates));
   const v = $('#verdict');
   if (!(deal.price > 0)) { v.className = 'summary warn'; v.textContent = 'Enter the vehicle price to see your payment.'; }
   else if (c.financed === 0) { v.className = 'summary'; v.textContent = 'Nothing to finance: your down payment and trade-in cover the whole price.'; }

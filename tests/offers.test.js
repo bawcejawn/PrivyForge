@@ -54,3 +54,12 @@ test('savings: high-yield savings once a balance is projected', () => {
   assert.equal(o.key, 'HIGH_YIELD_SAVINGS'); assert.match(o.title, /\$16,289/);
   assert.equal(pickOffer('savings', { final: 16288.95 }, { HIGH_YIELD_SAVINGS: { url: '' } }), null);
 });
+
+test('car: auto-loan offer only with a financed amount and rate', () => {
+  const A = { AUTO_LOAN: { url: 'https://partner.example/auto' } };
+  assert.equal(pickOffer('car', { financed: 0, apr: 7, totalInterest: 0 }, A), null);
+  assert.equal(pickOffer('car', { financed: 20000, apr: 0, totalInterest: 0 }, A), null);
+  const o = pickOffer('car', { financed: 25000, apr: 6.9, totalInterest: 4630.2 }, A);
+  assert.equal(o.key, 'AUTO_LOAN'); assert.match(o.body, /\$4,630/);
+  assert.equal(pickOffer('car', { financed: 25000, apr: 6.9, totalInterest: 4630.2 }, {}), null);
+});

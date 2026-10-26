@@ -60,6 +60,10 @@
     "DEBT_CONSOLIDATION": {
       "label": "Debt consolidation loan marketplace",
       "url": ""
+    },
+    "AUTO_LOAN": {
+      "label": "Auto loan rate marketplace",
+      "url": ""
     }
   },
   "support": {
