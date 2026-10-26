@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Compound Interest Calculator — Savings &amp; Goals | PrivyForge</title>
+  <meta name="description" content="See how savings grow with compound interest and monthly deposits, or find how long — or how much a month — it takes to reach a goal. APY or APR." />
+  <link rel="canonical" href="{{SITE_URL}}/compound-interest-calculator/" />
+  <meta property="og:title" content="Compound Interest &amp; Savings Goal Calculator" />
+  <meta property="og:description" content="Year-by-year growth, contributions vs interest, and what it takes to hit your goal." />
+  <meta property="og:url" content="{{SITE_URL}}/compound-interest-calculator/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Compound Interest Calculator","url":"{{SITE_URL}}/compound-interest-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Compound Interest Calculator","item":"{{SITE_URL}}/compound-interest-calculator/"}]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Compound Interest Calculator</nav>
+    <section class="hero">
+      <h1>Compound interest calculator</h1>
+      <p class="lede">See how a savings account grows with monthly deposits — or work out how long it takes, or how much to save each month, to reach a goal.</p>
+      <ul class="pills"><li class="pill">🔒 Your numbers never leave your device</li><li class="pill">✓ No sign-up</li><li class="pill neutral">APY or APR with any compounding</li></ul>
+    </section>
+
+    <section class="tool grid-2" aria-label="Compound interest calculator">
+      <form class="form-stack" id="calc" onsubmit="return false">
+        <label class="field">I want to…
+          <select name="mode"><option value="grow">See how my savings grow</option><option value="time">Find how long to reach a goal</option><option value="contribution">Find the monthly amount to reach a goal</option></select>
+        </label>
+        <label class="field" id="f-target" hidden>Savings goal ($)<input name="target" inputmode="decimal" value="50000" /></label>
+        <div class="inline">
+          <label class="field">Initial deposit ($)<input name="initial" inputmode="decimal" value="10000" /></label>
+          <label class="field" id="f-monthly">Monthly contribution ($)<input name="monthly" inputmode="decimal" value="200" /></label>
+        </div>
+        <div class="inline">
+          <label class="field">Interest rate (%)<input name="rate" inputmode="decimal" value="4.5" /></label>
+          <label class="field">Rate is
+            <select name="rateType"><option value="apy">APY</option><option value="apr">APR</option></select>
+          </label>
+        </div>
+        <label class="field" id="f-freq" hidden>Compounded
+          <select name="freq"><option value="daily">Daily</option><option value="monthly" selected>Monthly</option><option value="quarterly">Quarterly</option><option value="annually">Annually</option></select>
+        </label>
+        <p class="calc-note" id="apy-note"></p>
+        <div class="inline">
+          <label class="field" id="f-years">Years<input name="years" inputmode="decimal" value="10" /></label>
+          <label class="field">Raise contribution each year (%)<input name="increase" inputmode="decimal" value="0" /></label>
+        </div>
+        <p class="calc-note">Deposits are made at the end of each month.</p>
+      </form>
+      <div>
+        <div class="summary" id="verdict" style="margin-top:0" aria-live="polite"></div>
+        <div class="kpis" id="kpis" style="margin-top:12px"></div>
+        <div class="offer" id="offer" hidden></div>
+        <div class="chart-wrap">
+          <canvas id="chart" role="img" aria-label="Balance versus total contributions over time; the gap is interest earned"></canvas>
+          <div class="legend"><span><i style="background:var(--ok)"></i>Balance</span><span><i style="background:var(--ember)"></i>What you put in</span><span>Gap = interest earned</span></div>
+        </div>
+        <h3 class="calc-h3">Year by year</h3>
+        <div class="table-scroll"><table id="table"></table></div>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to use it</h2>
+      <ol>
+        <li>Pick what you want to know: how your savings grow, how long until you reach a goal, or how much to save each month to reach it by a date.</li>
+        <li>Enter your starting balance and monthly deposit.</li>
+        <li>Enter the rate. Savings accounts usually advertise an APY, so that's the default. If you only have an APR, switch to APR and choose how often it compounds.</li>
+        <li>Optionally raise your contribution each year — for example by 3% to keep pace with raises.</li>
+      </ol>
+
+      <h2>Worked examples</h2>
+      <p><b>A lump sum.</b> $10,000 at <b>5% APY</b> for 10 years grows to <b>$16,288.95</b> — that's $10,000 × 1.05<sup>10</sup>. At 5% <i>APR</i> compounded daily it would be $16,486.65, because daily compounding turns a 5% APR into about a 5.127% APY.</p>
+      <p><b>Regular saving.</b> Start with $10,000, add <b>$200 a month</b>, and earn <b>4.5% APY</b>. After 10 years you have <b>$45,624.83</b>: $34,000 you put in and $11,624.83 of interest. Raise the deposit 3% each year and it becomes $49,662.57 ($37,513.31 in, $12,149.26 interest).</p>
+      <p><b>A goal.</b> To turn $5,000 into <b>$50,000 in 10 years</b> at 4.5% APY, you'd need to save <b>$280.68 a month</b>. Or flip it around: saving $300 a month gets you there in <b>9 years 7 months</b>.</p>
+
+      <!-- @include ad-content -->
+
+      <h2>APY vs APR</h2>
+      <p><b>APR</b> (annual percentage rate) is the nominal yearly rate before compounding. <b>APY</b> (annual percentage yield) is what you actually earn in a year once interest earns interest: APY = (1 + APR ÷ n)<sup>n</sup> − 1, where n is the number of times it compounds per year. A 4.5% APR compounded monthly is a 4.594% APY; compounded daily it's 4.602%. APY already includes compounding, so when you enter an APY, the compounding frequency doesn't matter — which is why US banks quote APY for deposit accounts: it lets you compare them directly.</p>
+      <h2>How the calculator works</h2>
+      <p>Each month the balance grows by (1 + APY)<sup>1/12</sup>, then that month's deposit is added. The year-by-year table and chart show how much of the balance is your own money and how much is interest. Interest isn't rounded month by month the way a bank posts it, so a real account can differ by a few cents. Rates on savings accounts are variable and can change at any time; taxes on interest aren't included.</p>
+
+      <p class="status"><b>Not financial advice.</b> These are projections at a fixed rate; real rates change and past rates don't predict future ones.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Does compounding frequency matter much?</summary><p>Less than people think. On a 4.5% APR, daily instead of monthly compounding adds less than 0.01 percentage points of yield. The rate itself and how much you deposit matter far more.</p></details>
+        <details><summary>Should I enter APY or APR?</summary><p>Whatever your bank quotes. For savings accounts and CDs that's usually APY. If you have an APR, pick APR and the compounding frequency, and the calculator converts it.</p></details>
+        <details><summary>When are deposits added?</summary><p>At the end of each month, so a deposit starts earning the following month. Depositing at the start of the month would earn slightly more.</p></details>
+        <details><summary>Can I use it for investments?</summary><p>You can enter an expected return, but investments don't grow at a fixed rate and can lose value. Treat any result as one scenario, not a forecast.</p></details>
+        <details><summary>Is my data private?</summary><p>Yes. The calculation runs in your browser and nothing you type is sent anywhere.</p></details>
+        <details><summary>Is this financial advice?</summary><p>No. It's a projection tool; check account terms and current rates with the bank.</p></details>
+      </div>
+      <!-- @related -->
+      <!-- @include affiliate-savings -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/compound-interest.js"></script>
+</body>
+</html>
