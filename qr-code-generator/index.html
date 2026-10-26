@@ -14,6 +14,9 @@
     {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"QR Code Generator","item":"{{SITE_URL}}/qr-code-generator/"}]},
     {"@type":"FAQPage","mainEntity":[
       {"@type":"Question","name":"Do these QR codes expire?","acceptedAnswer":{"@type":"Answer","text":"No. They are static QR codes: the data is stored in the code itself, so they work forever and don't depend on any website staying online."}},
+      {"@type":"Question","name":"Can I track how many people scan my code?","acceptedAnswer":{"@type":"Answer","text":"No. Scan tracking needs a dynamic code that sends every scan through a redirect server. These codes are static, so nobody — including us — sees who scans them."}},
+      {"@type":"Question","name":"How does the Wi-Fi QR code work?","acceptedAnswer":{"@type":"Answer","text":"Phone cameras on iOS and Android recognize the Wi-Fi format and offer to join the network, no typing needed. Your password is encoded locally and never sent to us."}},
+      {"@type":"Question","name":"Can I change the link after printing?","acceptedAnswer":{"@type":"Answer","text":"No. A static code can't be edited, because the link is the code. If the address might change, point the code at a page you control and update that page instead."}},
       {"@type":"Question","name":"Can I use the QR codes commercially?","acceptedAnswer":{"@type":"Answer","text":"Yes. Codes you generate are yours to use on menus, packaging, flyers and business cards with no attribution required."}}
     ]}
   ]}
@@ -60,27 +63,39 @@
     <article class="content narrow">
       <h2>How to make a QR code</h2>
       <ol>
-        <li><b>Choose a type</b> — URL, Wi-Fi, Contact, Email, Phone, SMS or Text.</li>
-        <li><b>Fill in the details.</b> The code updates as you type.</li>
+        <li><b>Choose a type</b> — URL, Text, Wi-Fi, Email, Phone, SMS or Contact.</li>
+        <li><b>Fill in the details.</b> The code updates as you type, and the line under it shows how many characters it holds.</li>
+        <li><b>Adjust the look if you need to:</b> colors, error correction, margin and download size.</li>
+        <li><b>Test-scan it</b> with your phone camera straight from the screen.</li>
         <li><b>Download</b> PNG for screens and documents, or SVG for print (it scales to any size without blurring).</li>
       </ol>
-      <h2>Why "free" QR codes from other sites stop working</h2>
-      <p>Many QR sites create <em>dynamic</em> codes that point to their own redirect server. After a trial ends, the redirect is switched off and every printed menu, flyer or business card stops working until you pay. PrivyForge creates <em>static</em> codes: your link or data is encoded directly into the pattern, so it works forever, with no middleman tracking who scans it.</p>
+
+      <h2>Worked example: a Wi-Fi code for guests</h2>
+      <p>Pick <b>Wi-Fi</b>, type the network name <code>CafeGuest</code>, the password <code>latte2024</code>, and leave security on WPA. The free QR code generator encodes this text:</p>
+      <p><code>WIFI:T:WPA;S:CafeGuest;P:latte2024;;</code></p>
+      <p>That's 36 characters, so the code stays small and easy to scan. Point a phone camera at it and the phone offers to join the network.</p>
+      <p>For printing, size matters more than resolution. A 1024-pixel PNG prints at about 3.4 inches wide at 300 DPI; the 2048-pixel option gives about 6.8 inches. For anything larger, such as a poster, use the SVG, which stays sharp at any size.</p>
+      <p>Typing a web address without <code>https://</code>? The URL type adds it for you, so <code>example.com/menu</code> becomes <code>https://example.com/menu</code>.</p>
+
+      <h2>Why "free" QR codes from other sites can stop working</h2>
+      <p>Some QR services create <em>dynamic</em> codes that point to their own redirect server. If that redirect is switched off — for example when a trial ends — every printed menu, flyer or business card using it stops working. PrivyForge creates <em>static</em> codes: your link or data is encoded directly into the pattern, so it works forever, with no middleman tracking who scans it.</p>
       <!-- @include ad-content -->
       <h2>Tips for codes that scan reliably</h2>
       <ul>
         <li>Keep strong contrast: a dark code on a light background.</li>
         <li>Print at least 2 × 2 cm (0.8 × 0.8 in); bigger for posters scanned from a distance.</li>
         <li>Leave the margin ("quiet zone") around the code.</li>
-        <li>Use higher error correction if the code may get scratched or have a logo placed over it.</li>
+        <li>Use higher error correction if the code may get scratched or have a logo placed over it. Higher levels make the pattern denser, so keep them for when you need them.</li>
+        <li>Shorter content makes a simpler, easier-to-scan code. Use a short URL where you can.</li>
         <li>Always test-scan before printing.</li>
       </ul>
       <h2>Frequently asked questions</h2>
       <div class="faq">
-        <details><summary>Do these QR codes expire?</summary><p>No. They are static codes; the data is in the code itself, so they work forever.</p></details>
-        <details><summary>Can I track how many people scan my code?</summary><p>Scan tracking requires a dynamic code with a redirect. It's on our roadmap as an optional feature; static codes will always stay free.</p></details>
+        <details><summary>Do these QR codes expire?</summary><p>No. They are static QR codes: the data is stored in the code itself, so they work forever and don't depend on any website staying online.</p></details>
+        <details><summary>Can I track how many people scan my code?</summary><p>No. Scan tracking needs a dynamic code that sends every scan through a redirect server. These codes are static, so nobody — including us — sees who scans them.</p></details>
         <details><summary>How does the Wi-Fi QR code work?</summary><p>Phone cameras on iOS and Android recognize the Wi-Fi format and offer to join the network, no typing needed. Your password is encoded locally and never sent to us.</p></details>
-        <details><summary>Can I use these commercially?</summary><p>Yes, with no attribution required.</p></details>
+        <details><summary>Can I change the link after printing?</summary><p>No. A static code can't be edited, because the link is the code. If the address might change, point the code at a page you control and update that page instead.</p></details>
+        <details><summary>Can I use the QR codes commercially?</summary><p>Yes. Codes you generate are yours to use on menus, packaging, flyers and business cards with no attribution required.</p></details>
       </div>
     </article>
   </main>
