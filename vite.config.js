@@ -3,7 +3,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
 import { SITE } from './site.config.js';
-import { loadSite, loadTools, toolGrid, footerTools, applyAffiliates, announcement, esc, normalizeMeta, relatedBlock, categoryGrids } from './scripts/render-data.mjs';
+import { loadSite, loadTools, toolGrid, footerTools, applyAffiliates, announcement, esc, normalizeMeta, relatedBlock, categoryGrids, syncFaqSchema } from './scripts/render-data.mjs';
 
 const root = resolve(__dirname);
 
@@ -45,6 +45,7 @@ function partials() {
         if (isTool && !out.includes('<!-- @related -->')) out = out.replace(/(\s*<aside class="affiliate">|\s*<\/article>)/, '\n      <!-- @related -->$1');
         out = out.replace('<!-- @related -->', isTool ? relatedBlock(tools, pagePath) : '');
         out = normalizeMeta(out, pagePath);
+        out = syncFaqSchema(out);
         return out
           .replaceAll('{{SITE_URL}}', SITE.url)
           .replaceAll('{{SITE_NAME}}', SITE.name)

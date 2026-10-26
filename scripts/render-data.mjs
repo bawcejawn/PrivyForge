@@ -124,3 +124,28 @@ export function categoryGrids(html, tools) {
     return `${toolGrid(list)}\n<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>`;
   });
 }
+
+// ---------------------------------------------------------------------------
+// FAQ structured data is generated from the visible FAQ (<div class="faq"><details>…), so the
+// two can never drift apart. Any hand-written FAQPage JSON-LD is removed first.
+const plain = (s) => unescapeHtml(stripTags(s));
+export function syncFaqSchema(html) {
+  const faq = html.match(/<div class="faq">([\s\S]*?)<\/div>\s*(?:<p|<h2|<!--|<\/article|<section|<aside)/);
+  // 1) drop existing FAQPage nodes
+  html = html.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, (m, json) => {
+    let data; try { data = JSON.parse(json); } catch { return m; }
+    if (data['@type'] === 'FAQPage') return '';
+    if (Array.isArray(data['@graph'])) {
+      const g = data['@graph'].filter((n) => n['@type'] !== 'FAQPage');
+      if (g.length === data['@graph'].length) return m;
+      return `<script type="application/ld+json">${JSON.stringify({ ...data, '@graph': g }).replace(/</g, '\\u003c')}</script>`;
+    }
+    return m;
+  });
+  if (!faq) return html;
+  // 2) build from what readers see
+  const qa = [...faq[1].matchAll(/<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>/g)].map(([, q, a]) => ({ '@type': 'Question', name: plain(q), acceptedAnswer: { '@type': 'Answer', text: plain(a) } }));
+  if (!qa.length) return html;
+  const ld = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: qa };
+  return html.replace(/<\/head>/i, `  <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>\n</head>`);
+}
