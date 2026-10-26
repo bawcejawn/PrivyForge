@@ -21,7 +21,7 @@
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Loan Calculator</nav>
     <section class="hero">
       <h1>Loan calculator</h1>
-      <p class="lede">Work out the monthly payment, total interest and payoff date for any fixed-rate loan — auto, personal, student or business — and see what paying extra saves.</p>
+      <p class="lede">Use this loan calculator to work out the monthly payment, total interest and payoff date for any fixed-rate loan — auto, personal, student or business — and see what paying extra saves.</p>
     </section>
 
     <section class="tool grid-2" aria-label="Loan calculator">
@@ -42,15 +42,47 @@
     <!-- @include ad-below-tool -->
 
     <article class="content narrow">
-      <h2>How loan payments are calculated</h2>
-      <p>Most consumer loans are fully amortizing: each payment is the same, but early payments are mostly interest and later payments are mostly principal. The chart above shows that crossover. Enter the APR from your offer to compare lenders on equal terms.</p>
+      <h2>How to use the loan calculator</h2>
+      <ol>
+        <li><b>Enter the loan amount.</b> Use what you will actually borrow, after any down payment or trade-in.</li>
+        <li><b>Enter the APR and the term.</b> Take the APR from your loan offer. Enter the term in years; for months, use a fraction (18 months = 1.5).</li>
+        <li><b>Add an extra payment if you like.</b> Any amount you could add each month shows how much interest it saves and how much sooner the loan ends.</li>
+        <li><b>Pick the first payment month</b> to turn "60 payments" into a real payoff date.</li>
+        <li><b>Explore the results.</b> Switch the schedule between yearly and monthly, export it as CSV, or copy a link that reopens the same numbers.</li>
+      </ol>
+
+      <h2>Worked example: $25,000 at 7.9% for 5 years</h2>
+      <p>These are the calculator's default inputs, so the numbers below match what you see above.</p>
+      <ul>
+        <li><b>Monthly payment:</b> $505.71.</li>
+        <li><b>Total interest over 60 payments:</b> $5,342.93.</li>
+        <li><b>First payment:</b> $164.58 goes to interest and $341.13 to principal.</li>
+        <li><b>Last payment:</b> $506.04, of which only $3.31 is interest. The final payment is adjusted by a few cents so the balance lands exactly on zero.</li>
+      </ul>
+      <p>Year one costs $1,823.49 in interest. Year five costs just $251.92. Same payment, very different split.</p>
+      <p><b>Add $100 a month</b> and the loan is paid off in 49 months instead of 60. Total interest falls to $4,268.80, a saving of $1,074.13.</p>
+      <p><b>Change the term</b> and the two numbers move in opposite directions. Over 3 years the payment is $782.26 and interest totals $3,161.20. Over 6 years the payment drops to $437.11, but interest rises to $6,472.08.</p>
+
       <!-- @include ad-content -->
+
+      <h2>How loan payments are calculated</h2>
+      <p>Most car, personal and student loans are fully amortizing: every payment is the same size, and the last one clears the loan. Each month you are charged interest on the balance you still owe (the APR divided by 12). Whatever is left of your payment reduces the balance.</p>
+      <p>Early on the balance is large, so interest takes a big bite. As the balance shrinks, more of each payment goes to principal. The chart shows that crossover.</p>
+      <p>The math follows the convention US lenders use on statements: the payment is rounded to the cent once, each month's interest is rounded on the remaining balance, and the final payment absorbs any leftover cents. Your lender's figures can still differ slightly, for example if interest accrues daily or your first payment period is longer than a month.</p>
+
+      <h2>Comparing loan offers</h2>
+      <p>Compare offers by APR rather than the headline interest rate. APR includes most lender fees, so two loans with the same rate can have different APRs. Then look at total interest, not only the payment: at the same rate, a longer term always looks cheaper per month and always costs more overall.</p>
+
       <h2>Frequently asked questions</h2>
       <div class="faq">
-        <details><summary>Does paying extra really save money?</summary><p>Yes, as long as your loan has no prepayment penalty. Extra payments reduce principal immediately, which lowers every future interest charge.</p></details>
-        <details><summary>Can I use months instead of years?</summary><p>Enter a fraction: 6 months = 0.5, 18 months = 1.5.</p></details>
+        <details><summary>Does paying extra really save money?</summary><p>Yes, as long as your loan has no prepayment penalty. Extra payments reduce principal right away, which lowers every future interest charge. Ask your lender to apply the extra to principal rather than to next month's payment.</p></details>
+        <details><summary>Can I use months instead of years?</summary><p>Enter a fraction of a year: 6 months = 0.5, 18 months = 1.5, 30 months = 2.5.</p></details>
+        <details><summary>Why is my lender's payment slightly different?</summary><p>Lenders may charge interest daily, include fees in the loan, or have a longer first period. A difference of a few cents or dollars is normal; your loan agreement is the final word.</p></details>
+        <details><summary>Can I use it for a mortgage?</summary><p>It handles the principal and interest of any fixed-rate loan. For property tax, insurance and PMI, use the <a href="/mortgage-calculator/">mortgage calculator</a>.</p></details>
+        <details><summary>Is my data private?</summary><p>Yes. Calculations run in your browser. Your inputs are kept in the page link only so you can bookmark or share a scenario.</p></details>
         <details><summary>Is this financial advice?</summary><p>No. These are estimates; your lender's disclosures are authoritative.</p></details>
       </div>
+      <p class="status"><b>Not financial advice.</b> Results are estimates for planning only.</p>
       <!-- @include affiliate-finance -->
     </article>
   </main>
