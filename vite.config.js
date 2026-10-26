@@ -86,9 +86,14 @@ export default defineConfig({
       injectRegister: 'script-defer',
       manifest: {
         name: SITE.name, short_name: SITE.name,
-        description: 'Private, browser-based image and PDF tools. Files never leave your device.',
+        description: 'Free private PDF, image and money tools that run in your browser: compress files, find forgotten subscriptions, plan debt payoff. Nothing is uploaded.',
         theme_color: '#14110f', background_color: '#14110f', display: 'standalone',
-        icons: [{ src: 'icon.svg', sizes: 'any', type: 'image/svg+xml' }],
+        icons: [
+          { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+          { src: 'icon.svg', sizes: 'any', type: 'image/svg+xml' },
+        ],
       },
       workbox: {
         // HTML/JS/CSS precached; large wasm codecs cached on first use -> tools work offline.
