@@ -34,11 +34,38 @@
     <!-- @include ad-below-tool -->
 
     <article class="content narrow">
-      <h2>Why "no upload" matters</h2>
-      <p>Most free online tools work by uploading your file to a company's servers, processing it there, and sending it back. That means your contracts, IDs, tax forms and family photos sit — at least briefly — on someone else's computer. PrivyForge takes a different approach: the processing code is downloaded to your browser and runs on your own device using WebAssembly. Your files are never transmitted.</p>
+      <h2>Private online tools that work on your device</h2>
+      <p>Most free online tools work by uploading your file to a company's servers, processing it there, and sending it back. That means your contracts, IDs, tax forms and family photos sit — at least briefly — on someone else's computer. PrivyForge takes a different approach: the processing code is downloaded to your browser and runs on your own device, using JavaScript and WebAssembly builds of well-known open-source libraries. Your files are never transmitted.</p>
       <p><b>You can check this yourself:</b> load any tool, switch off your Wi-Fi, and use it. It still works.</p>
+
+      <h2>How it works</h2>
+      <ol>
+        <li><b>Open a tool.</b> The page downloads the code it needs, once. Your browser caches it, so the next visit is faster and works offline.</li>
+        <li><b>Add your file or numbers.</b> Drop files on the box, click to choose them, or paste. Calculators update as you type.</li>
+        <li><b>Download the result.</b> It's created in your browser's memory and saved straight to your device.</li>
+      </ol>
+
+      <h2>What you can do here</h2>
+      <ul>
+        <li><b><a href="/pdf-tools/">PDF tools</a>:</b> merge several PDFs into one, split out or reorder pages, and compress large PDFs for email and upload portals.</li>
+        <li><b><a href="/image-tools/">Image tools</a>:</b> compress JPG, PNG, WebP and AVIF images, convert between formats, and resize to a maximum width or height — in batches, downloaded as a ZIP.</li>
+        <li><b><a href="/money-tools/">Money tools</a>:</b> mortgage, loan, refinance and rent-vs-buy calculators, a debt payoff planner, and a subscription finder that reads a bank CSV on your device.</li>
+        <li><b>Utilities:</b> a <a href="/qr-code-generator/">QR code generator</a> whose codes never expire, and a <a href="/file-hash-checker/">file hash checker</a> to verify downloads.</li>
+      </ul>
+
+      <h2>A quick example</h2>
+      <p>Say a job portal wants a single PDF under 2 MB, and you have a scanned cover letter, a résumé and a references page. Drop all three into <a href="/merge-pdf/">Merge PDF</a>, drag them into order and download one file. If it's over the limit, open <a href="/compress-pdf/">Compress PDF</a> and choose "Recommended", or "Smallest" for strict caps. Neither step sends the documents anywhere.</p>
+
       <h2>Free without the catches</h2>
-      <p>Because we don't pay for servers to process your files, we don't need to ration them. There are no daily task limits, file-count caps or watermarks. PrivyForge is supported by unobtrusive ads and a few clearly labeled affiliate recommendations.</p>
+      <p>Because we don't pay for servers to process your files, we don't need to ration them. There are no daily task limits, file-count caps or watermarks. PrivyForge is supported by unobtrusive ads and a few clearly labeled affiliate recommendations. Read more <a href="/about/">about how the site works</a>.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Is PrivyForge really free?</summary><p>Yes. Every tool is free to use with no sign-up, no daily limits and no watermarks.</p></details>
+        <details><summary>Are my files uploaded?</summary><p>No. Files are read into your browser's memory and processed on your device. The only things downloaded from our site are the pages and the tool code.</p></details>
+        <details><summary>Does it work on my phone?</summary><p>Yes, in any current mobile browser. Very large files are limited by your phone's memory, so a laptop is faster for big batches.</p></details>
+        <details><summary>Is there a size limit?</summary><p>Most tools have no fixed cap; the practical limit is your device's memory and processor. The file hash checker accepts files up to 2 GB.</p></details>
+      </div>
     </article>
   </main>
   <!-- @include footer -->
