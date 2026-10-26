@@ -3,7 +3,7 @@ from playwright.async_api import async_playwright
 import cv2
 from pypdf import PdfReader
 
-BASE = 'http://localhost:4173'
+BASE = os.environ.get('BASE', 'http://localhost:4173')
 FX = os.path.join(os.path.dirname(__file__), 'fx')
 OUT = os.path.join(os.path.dirname(__file__), 'out'); os.makedirs(OUT, exist_ok=True)
 results = []
