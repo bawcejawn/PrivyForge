@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { findTargetSize, PDF_LADDER, MB, settingLabel } from '../src/js/lib/size-search.js';
-import { layoutImage, renderSize, sniffImage, jpegOrientation, orientedDraw, PAGE_SIZES } from '../src/js/lib/pdf-layout.js';
+import { layoutImage, renderSize, sniffImage, jpegOrientation, stripOrientation, orientedDraw, PAGE_SIZES } from '../src/js/lib/pdf-layout.js';
 
 // Fake encoder: size grows with pixels (dpi²) and quality, like JPEG roughly does.
 const model = (k) => (s) => (s.lossless ? k.lossless : Math.round(k.perPixel * s.dpi * s.dpi * (0.2 + s.quality)));
@@ -111,6 +111,12 @@ test('image sniffing and EXIF orientation', () => {
     assert.equal(jpegOrientation(jpegWithOrientation(o, false)), o);
   }
   assert.equal(jpegOrientation(new Uint8Array([0xff, 0xd8, 0xff, 0xd9])), 1);
+  for (const le of [true, false]) {
+    const src = jpegWithOrientation(6, le), out = stripOrientation(src);
+    assert.equal(jpegOrientation(out), 1);
+    assert.equal(jpegOrientation(src), 6, 'input untouched');
+    assert.equal(out.reduce((n, v, i) => n + (v !== src[i]), 0), 1); // only the tag value changes
+  }
   assert.equal(jpegOrientation(jpegWithOrientation(6).slice(0, 20)), 1); // truncated → safe default
 });
 

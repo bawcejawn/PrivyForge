@@ -64,34 +64,50 @@ export function sniffImage(b) {
 }
 
 /** EXIF orientation (1–8) of a JPEG, or 1 when absent/unreadable. */
-export function jpegOrientation(b) {
-  if (sniffImage(b) !== 'jpeg') return 1;
+export const jpegOrientation = (b) => findOrientation(b).value;
+
+/**
+ * Copy of a JPEG with its EXIF orientation tag set to 1 ("as stored"). Used after we rotate the
+ * image on the PDF page ourselves: some PDF renderers (e.g. pdf.js in Chrome) decode embedded JPEGs
+ * with the browser, which applies the EXIF rotation a second time. Only 2 bytes change.
+ */
+export function stripOrientation(b) {
+  const { offset, le } = findOrientation(b);
+  if (offset < 0) return b;
+  const out = b.slice();
+  out[offset] = le ? 1 : 0; out[offset + 1] = le ? 0 : 1;
+  return out;
+}
+
+function findOrientation(b) {
+  const none = { value: 1, offset: -1, le: false };
+  if (sniffImage(b) !== 'jpeg') return none;
   let p = 2;
   while (p + 4 <= b.length) {
-    if (b[p] !== 0xff) return 1;
+    if (b[p] !== 0xff) return none;
     const marker = b[p + 1];
-    if (marker === 0xd9 || marker === 0xda) return 1; // end of image / start of scan: no EXIF
+    if (marker === 0xd9 || marker === 0xda) return none; // end of image / start of scan: no EXIF
     const len = (b[p + 2] << 8) | b[p + 3];
     if (marker === 0xe1 && b[p + 4] === 0x45 && b[p + 5] === 0x78 && b[p + 6] === 0x69 && b[p + 7] === 0x66) {
       const t = p + 10; // TIFF header
-      if (t + 8 > b.length) return 1;
+      if (t + 8 > b.length) return none;
       const le = b[t] === 0x49;
       const u16 = (o) => (le ? b[o] | (b[o + 1] << 8) : (b[o] << 8) | b[o + 1]);
       const u32 = (o) => (le ? (b[o] | (b[o + 1] << 8) | (b[o + 2] << 16)) + b[o + 3] * 2 ** 24
                              : b[o] * 2 ** 24 + ((b[o + 1] << 16) | (b[o + 2] << 8) | b[o + 3]));
       const ifd = t + u32(t + 4);
-      if (ifd + 2 > b.length) return 1;
+      if (ifd + 2 > b.length) return none;
       const n = u16(ifd);
       for (let i = 0; i < n; i++) {
         const e = ifd + 2 + i * 12;
-        if (e + 12 > b.length) return 1;
-        if (u16(e) === 0x0112) { const v = u16(e + 8); return v >= 1 && v <= 8 ? v : 1; }
+        if (e + 12 > b.length) return none;
+        if (u16(e) === 0x0112) { const v = u16(e + 8); return v >= 1 && v <= 8 ? { value: v, offset: e + 8, le } : none; }
       }
-      return 1;
+      return none;
     }
     p += 2 + len;
   }
-  return 1;
+  return none;
 }
 
 /**

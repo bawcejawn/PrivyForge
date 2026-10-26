@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>JPG to PDF Converter — Free, No Upload | PrivyForge</title>
+  <meta name="description" content="Turn JPG, PNG and WebP images into one PDF in your browser. Reorder pages, pick A4, Letter or fit-to-image. Photos are never uploaded. Free." />
+  <link rel="canonical" href="{{SITE_URL}}/image-to-pdf/" />
+  <meta property="og:title" content="Images to PDF — Free, Private, No Upload" />
+  <meta property="og:description" content="Combine JPG, PNG and WebP images into one PDF without sending them to a server." />
+  <meta property="og:url" content="{{SITE_URL}}/image-to-pdf/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Image to PDF","url":"{{SITE_URL}}/image-to-pdf/","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Image to PDF","item":"{{SITE_URL}}/image-to-pdf/"}]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Are my photos uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The PDF is built in your browser with pdf-lib. Your images never leave your device."}},
+      {"@type":"Question","name":"Does converting JPG to PDF reduce quality?","acceptedAnswer":{"@type":"Answer","text":"No. JPEG photos are placed in the PDF byte-for-byte, without re-compressing them, and PNGs are stored losslessly."}}
+    ]}
+  ]}
+  </script>
+</head>
+<body data-tool="image-to-pdf">
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/pdf-tools/">PDF tools</a> › Image to PDF</nav>
+    <section class="hero">
+      <h1>Convert JPG, PNG and WebP images to PDF</h1>
+      <p class="lede">Put photos, scans and screenshots into one PDF, one image per page, in the order you choose, without uploading them anywhere.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Image to PDF tool">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose images to convert">
+        <strong>Drop images here or click to choose</strong>
+        <small>JPG, PNG, WebP (also GIF, BMP, AVIF if your browser opens them) · drag rows to reorder (or Alt + ↑/↓)</small>
+        <input type="file" />
+      </div>
+      <ul class="files" id="files"></ul>
+      <div class="controls">
+        <label class="field">Page size
+          <select id="pagesize">
+            <option value="fit" selected>Fit to image</option>
+            <option value="a4">A4 (210 × 297 mm)</option>
+            <option value="letter">US Letter (8.5 × 11 in)</option>
+          </select>
+        </label>
+        <label class="field">Margin
+          <select id="margin">
+            <option value="none" selected>None</option>
+            <option value="small">Small (¼ in / 6 mm)</option>
+            <option value="medium">Medium (½ in / 13 mm)</option>
+            <option value="large">Large (1 in / 25 mm)</option>
+          </select>
+        </label>
+        <span class="field"><span>Orientation</span><span class="hint">Automatic: wide images get landscape pages</span></span>
+      </div>
+      <div class="row-actions">
+        <button class="btn" id="run" disabled>Create PDF &amp; download</button>
+        <span class="status" id="status" role="status"></span>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to turn images into a PDF</h2>
+      <ol>
+        <li><b>Add your images.</b> Drop them on the box, click to choose them, or paste a screenshot with Ctrl/Cmd + V. You can add more at any time.</li>
+        <li><b>Put them in order.</b> Drag rows up or down, or focus a row and press Alt + ↑/↓. The top image becomes page 1.</li>
+        <li><b>Choose a page size.</b> <i>Fit to image</i> makes each page exactly the shape of its picture. <i>A4</i> and <i>US Letter</i> give you printable paper pages with the image scaled to fit and centred.</li>
+        <li><b>Pick a margin</b> if you want white space around each image, which helps when printing.</li>
+        <li><b>Click "Create PDF &amp; download".</b> You get one PDF with one image per page.</li>
+      </ol>
+
+      <h2>What the page-size options do</h2>
+      <p><b>Fit to image</b> sizes each page at 96 pixels per inch, the standard screen size, plus any margin you choose. Screenshots and scans look exactly as they do on screen, with no white bars. Camera photos make large pages, which is normal: PDF readers zoom to fit, and the page dimensions don't change the file size.</p>
+      <p><b>A4 and US Letter</b> are for documents you will print or submit to an office. Each page turns to landscape when its image is wider than it is tall, and portrait otherwise. The image is shrunk to fit inside the margins, never cropped or stretched.</p>
+
+      <h2>Worked example</h2>
+      <p>Say you add a 4000 × 3000 pixel phone photo and choose US Letter with a medium (½ inch) margin. The photo is wider than tall, so the page becomes landscape: 11 × 8.5 inches. Removing ½ inch on every side leaves a 10 × 7.5 inch area. The photo has the same 4:3 shape, so it fills that area exactly. 4000 pixels across 10 inches is <b>400 pixels per inch</b>, well above the roughly 300 that print shops ask for. That photo will print sharply.</p>
+      <p>With A4 and the same margin, the usable area is 10.69 × 7.27 inches. The photo is limited by height, so it prints at 9.69 × 7.27 inches, about 413 pixels per inch, with a little extra white space left and right.</p>
+      <p>With <i>Fit to image</i> and no margin, the same photo makes a 41.7 × 31.3 inch page. It looks normal on screen; only the page's nominal size is large.</p>
+
+      <h2>Quality: what happens to each format</h2>
+      <ul>
+        <li><b>JPG/JPEG</b> photos are placed in the PDF as they are, with no re-compression and no quality loss. If your phone saved the photo sideways with an EXIF "rotate" tag, the tool rotates it on the page so it shows upright, without re-encoding it. Mirrored JPEGs, which are rare, are redrawn first.</li>
+        <li><b>PNG</b> images are stored losslessly, and transparent areas stay transparent, so they show white on a normal page.</li>
+        <li><b>WebP</b> and other formats can't go into a PDF directly, so they are drawn in your browser and saved as high-quality JPEG (quality 92) on a white background. Very large images are scaled down to 16 megapixels to stay within mobile browser limits.</li>
+      </ul>
+      <p>The PDF is roughly the size of your images added together. To make it smaller for email, run it through <a href="/compress-pdf/">Compress PDF</a> or shrink the photos first with <a href="/compress-image/">Compress Image</a>.</p>
+
+      <!-- @include ad-content -->
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Are my photos uploaded?</summary><p>No. The PDF is assembled in your browser with pdf-lib. You can switch off Wi-Fi after the page loads and it keeps working.</p></details>
+        <details><summary>Does converting JPG to PDF reduce quality?</summary><p>No. JPEG data is copied into the PDF unchanged, and PNGs are stored losslessly. Only formats a PDF can't hold, such as WebP, are converted, at high JPEG quality.</p></details>
+        <details><summary>Why is my iPhone photo (HEIC) not accepted?</summary><p>HEIC isn't one of the formats this page accepts, because most browsers can't open it. When you choose photos through the file picker on an iPhone, it usually hands the browser a JPEG copy. On a computer, export the photo as JPEG first, or set your iPhone's Settings › Camera › Formats to "Most Compatible" so new photos are saved as JPEG.</p></details>
+        <details><summary>Can I put several images on one page?</summary><p>Not yet. Each image becomes its own page. To combine finished PDFs, use <a href="/merge-pdf/">Merge PDF</a>.</p></details>
+        <details><summary>Is there a limit on how many images I can add?</summary><p>No fixed limit. The only limit is your device's memory, because every image is held in memory while the PDF is built.</p></details>
+      </div>
+      <!-- @related -->
+      <!-- @include affiliate-pdf -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/image-to-pdf.js"></script>
+</body>
+</html>
