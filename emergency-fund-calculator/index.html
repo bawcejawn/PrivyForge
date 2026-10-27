@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Emergency Fund Calculator — How Much &amp; How Long | PrivyForge</title>
+  <meta name="description" content="Work out how big your emergency fund should be, how many months your savings cover now, and how long it will take to reach your goal. Private." />
+  <link rel="canonical" href="{{SITE_URL}}/emergency-fund-calculator/" />
+  <meta property="og:title" content="Emergency Fund Calculator: Your Target and Time to Get There" />
+  <meta property="og:description" content="How much you need, how many months you're covered today, and a month-by-month path to the goal." />
+  <meta property="og:url" content="{{SITE_URL}}/emergency-fund-calculator/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Emergency Fund Calculator","url":"{{SITE_URL}}/emergency-fund-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Emergency Fund Calculator","item":"{{SITE_URL}}/emergency-fund-calculator/"}]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Emergency Fund Calculator</nav>
+    <section class="hero">
+      <h1>Emergency fund calculator</h1>
+      <p class="lede">Find out how much to keep for emergencies, how many months your savings cover today, and how long it will take to reach your target.</p>
+      <ul class="pills"><li class="pill">🔒 Your numbers never leave your device</li><li class="pill">✓ No sign-up</li><li class="pill neutral">Month-by-month plan, with or without interest</li></ul>
+    </section>
+
+    <section class="tool grid-2" aria-label="Emergency fund calculator">
+      <form class="form-stack" id="calc" onsubmit="return false">
+        <label class="field">Essential monthly expenses ($)<input name="expenses" inputmode="decimal" value="3000" /></label>
+        <label class="field check"><input type="checkbox" name="itemize" /> Add them up for me</label>
+        <fieldset class="calc-sub" id="breakdown" hidden>
+          <legend>Essential expenses per month</legend>
+          <div class="inline">
+            <label class="field">Housing ($)<input name="housing" inputmode="decimal" value="1500" /></label>
+            <label class="field">Utilities ($)<input name="utilities" inputmode="decimal" value="200" /></label>
+          </div>
+          <div class="inline">
+            <label class="field">Groceries ($)<input name="food" inputmode="decimal" value="500" /></label>
+            <label class="field">Insurance ($)<input name="insurance" inputmode="decimal" value="250" /></label>
+          </div>
+          <div class="inline">
+            <label class="field">Transport ($)<input name="transport" inputmode="decimal" value="300" /></label>
+            <label class="field">Minimum debt payments ($)<input name="debt" inputmode="decimal" value="150" /></label>
+          </div>
+          <label class="field">Other essentials ($)<input name="other" inputmode="decimal" value="100" /></label>
+        </fieldset>
+        <div class="inline">
+          <label class="field">Saved so far ($)<input name="saved" inputmode="decimal" value="4000" /></label>
+          <label class="field">I can save each month ($)<input name="monthly" inputmode="decimal" value="400" /></label>
+        </div>
+        <div class="inline">
+          <label class="field">Target
+            <select name="target"><option value="3">3 months</option><option value="6" selected>6 months</option><option value="custom">Custom</option></select>
+          </label>
+          <label class="field" id="f-custom" hidden>Months of expenses<input name="custom" inputmode="decimal" value="9" /></label>
+        </div>
+        <p class="calc-note">Common guidance is 3 to 6 months of essential expenses — toward the high end, or more, if your income is irregular or your household relies on one paycheck.</p>
+        <label class="field">Savings APY (%) — optional<input name="apy" inputmode="decimal" value="" placeholder="0" /></label>
+        <p class="calc-note">Deposits are made at the end of each month. Interest, if any, is added monthly and rounded to the cent.</p>
+      </form>
+      <div>
+        <div class="summary" id="verdict" style="margin-top:0" aria-live="polite"></div>
+        <div class="kpis" id="kpis" style="margin-top:12px"></div>
+        <div class="offer" id="offer" hidden></div>
+        <div class="chart-wrap">
+          <canvas id="chart" role="img" aria-label="Emergency fund balance by month versus the target"></canvas>
+          <div class="legend"><span><i style="background:var(--ok)"></i>Your emergency fund</span><span><i class="dash" style="color:var(--ember)"></i>Target</span></div>
+        </div>
+        <h3 class="calc-h3">Month by month</h3>
+        <div class="table-scroll"><table class="etable" id="table"></table></div>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to use the emergency fund calculator</h2>
+      <ol>
+        <li><b>Enter your essential monthly expenses</b> — what you'd have to keep paying if your income stopped: housing, utilities, groceries, insurance, transport and minimum debt payments. Tick "Add them up for me" to enter them one by one. If you've filled in the <a href="/budget-calculator/">budget calculator</a>, your Needs total is a good number to use.</li>
+        <li><b>Enter what you've saved</b> for emergencies so far, and how much you can add each month.</li>
+        <li><b>Choose a target</b>: 3 months, 6 months, or a custom number.</li>
+        <li><b>Optionally add your savings account's APY</b> to include interest. Leave it blank to see the plan on deposits alone.</li>
+      </ol>
+      <p>The result shows the target amount, how many months your current savings would cover, the gap, and how long it takes to close it. The chart and table show your balance month by month. Your inputs are saved in the page link, so you can bookmark it or save it on <a href="/my/">My PrivyForge</a>.</p>
+
+      <h2>How big should an emergency fund be?</h2>
+      <p>Common guidance is to keep <b>3 to 6 months of essential expenses</b> somewhere safe and easy to reach. It's based on essential spending, not income, because in an emergency you'd cut the extras. Many people aim higher — 6 months or more — when their income is irregular (freelance, commission, seasonal work), when one paycheck supports the whole household, or when their job would take a long time to replace. A smaller first goal, like one month of expenses, is a sensible milestone on the way.</p>
+
+      <h2>Worked example</h2>
+      <p>Say your essential expenses are <b>$3,000 a month</b> and you're aiming for <b>6 months</b>. Your target is $3,000 × 6 = <b>$18,000</b>.</p>
+      <ul>
+        <li>You have <b>$4,000</b> saved, which covers <b>1.3 months</b> of expenses. The gap is <b>$14,000</b>.</li>
+        <li>Saving <b>$400 a month</b> with no interest, you close the gap in $14,000 ÷ $400 = <b>35 months</b> (2 yr 11 mo).</li>
+        <li>Put the money in an account paying <b>4% APY</b> and it takes <b>33 months</b> (2 yr 9 mo): you deposit $13,200 and earn <b>$1,170.95</b> of interest, finishing at $18,370.95.</li>
+      </ul>
+      <p>If 6 months feels far away, switch the target to 3 months: $9,000, a $5,000 gap, and <b>13 months</b> at $400 a month without interest.</p>
+
+      <!-- @include ad-content -->
+
+      <h2>How the calculator works</h2>
+      <p>The target is your essential monthly expenses times the number of months. "Months covered" is your current savings divided by monthly expenses, rounded down to one decimal so it never overstates your cushion. Each month, interest (if you entered an APY) is added at the monthly equivalent of that yield — the same method as the <a href="/compound-interest-calculator/">compound interest calculator</a> — rounded to the cent, and then your monthly deposit is added. The plan ends in the first month the balance reaches the target. Savings rates are variable, so treat the interest figure as an estimate.</p>
+      <p>Where to keep it matters too: an emergency fund needs to be available quickly and shouldn't swing in value, which is why many people use a savings account rather than investments.</p>
+
+      <p class="status"><b>Not financial advice.</b> The 3-to-6-month range is common guidance, not a personal recommendation; your situation may call for more or less.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Should I count rent and debt payments?</summary><p>Yes. Count anything you'd still have to pay if your income stopped: rent or mortgage, utilities, groceries, insurance, transport and the minimum payments on your debts. Leave out things you'd cut, such as eating out or extra debt payments.</p></details>
+        <details><summary>3 months or 6 months?</summary><p>Common guidance is 3 to 6 months. The steadier your income and the more earners in your household, the closer to 3 you might go; irregular income, a single paycheck or a job that's hard to replace are reasons to aim for 6 or more. Use "Custom" for any other number.</p></details>
+        <details><summary>Should I build an emergency fund before paying off debt?</summary><p>Many people do both: build a small starter cushion first so a surprise bill doesn't go on a credit card, then split extra money between the fund and high-interest debt. The <a href="/budget-calculator/">budget calculator</a> helps you see how much you can put toward each.</p></details>
+        <details><summary>Does the interest make much difference?</summary><p>Some, over a long build-up. In the example above, 4% APY shortens the plan from 35 to 33 months. The amount you can save each month matters much more.</p></details>
+        <details><summary>Is my data private?</summary><p>Yes. The calculation runs in your browser and nothing you type is sent anywhere. Your inputs are kept only in the page link.</p></details>
+        <details><summary>Is this financial advice?</summary><p>No. It's a calculator based on common guidance. Check account terms and current rates with your bank, and talk to a qualified professional about your situation.</p></details>
+      </div>
+      <!-- @related -->
+      <!-- @include affiliate-savings -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/emergency-fund.js"></script>
+</body>
+</html>
