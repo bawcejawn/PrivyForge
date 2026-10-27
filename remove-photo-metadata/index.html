@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Remove Location &amp; EXIF Data from Photos — No Upload</title>
+  <meta name="description" content="Remove GPS location, EXIF and other metadata from photos before you share them. Free, lossless for JPG, PNG and WebP, and nothing is uploaded." />
+  <link rel="canonical" href="{{SITE_URL}}/remove-photo-metadata/" />
+  <meta property="og:title" content="Remove Photo Location &amp; Metadata — Private, No Upload" />
+  <meta property="og:description" content="See what your photos reveal (GPS location, date, camera serial) and strip it in your browser before you share." />
+  <meta property="og:url" content="{{SITE_URL}}/remove-photo-metadata/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type": "WebApplication", "name": "PrivyForge Remove Photo Location & Metadata", "url": "{{SITE_URL}}/remove-photo-metadata/", "applicationCategory": "MultimediaApplication", "operatingSystem": "Any modern browser (runs in your browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "featureList": ["Shows GPS location, date taken, camera and serial numbers found in a photo", "Removes EXIF, XMP, IPTC, comments and PNG text data", "Lossless for JPG, PNG and WebP: image data is not re-encoded", "Keeps orientation and colour profile", "HEIC photos converted to a clean JPG", "Batch ZIP download", "No upload: works on your device"]},
+    {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "{{SITE_URL}}/"}, {"@type": "ListItem", "position": 2, "name": "Remove Photo Metadata", "item": "{{SITE_URL}}/remove-photo-metadata/"}]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Remove Photo Metadata</nav>
+    <section class="hero">
+      <h1>Remove location and metadata from photos</h1>
+      <p class="lede">See what your photos give away, like where they were taken and which camera took them, and strip it before you post or send them. Your photos never leave your device.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Photo metadata remover">
+      <p class="notice" id="heic-decoder" hidden>HEIC photos are converted to JPG. This browser has no built-in HEIC decoder, so the first HEIC photo loads PrivyForge’s own (about 0.8 MB to download, once). It runs on your device: your photos still aren’t uploaded.</p>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose photos to remove metadata from">
+        <strong>Drop photos here or click to choose</strong>
+        <small>JPG, PNG, WebP · HEIC is converted to JPG · any number · nothing uploaded</small>
+        <input type="file" />
+      </div>
+      <ul class="mcards" id="files" aria-live="polite"></ul>
+      <div class="summary" id="summary" hidden></div>
+      <div class="row-actions">
+        <button class="btn" id="zip" hidden disabled>Download all (ZIP)</button>
+        <button class="btn ghost" id="clear" disabled>Clear</button>
+        <span class="status">Removes everything except orientation and colour profile. JPG, PNG and WebP are not re-compressed.</span>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to remove metadata from a photo</h2>
+      <ol>
+        <li><b>Add your photos.</b> Drop them on the box above or click it to choose. You can add as many as you like, in JPG, PNG, WebP or HEIC.</li>
+        <li><b>Check what was found.</b> Each photo gets a card listing what it contained. Location is highlighted, because it is the item most people don’t realise they’re sharing.</li>
+        <li><b>Download the clean copy.</b> Click Download on each card, or “Download all (ZIP)” when you have several. Your original files are not changed.</li>
+        <li><b>Share the clean copy</b>, not the original.</li>
+      </ol>
+
+      <h2>What is photo metadata?</h2>
+      <p>Besides the picture itself, a photo file carries a block of text and numbers describing it. Most of it follows a standard called EXIF, which cameras and phones fill in automatically when you take a picture. Editing apps add their own blocks (XMP and IPTC), and some formats have free-text fields where any program can write notes. None of this is visible when you look at the photo, but anyone who has the file can read it with the right app, and many photo viewers show it in an “Info” panel.</p>
+
+      <h2>What a typical phone photo can contain</h2>
+      <p>What is recorded depends on the device and its settings, so a given photo may have all of these or none. Common items are:</p>
+      <ul>
+        <li><b>GPS location</b>, often precise enough to identify a house, plus altitude. Phones usually record it when the camera app has location permission.</li>
+        <li><b>Date and time</b> the photo was taken, sometimes with your time-zone offset.</li>
+        <li><b>Device details:</b> camera make and model, lens, and the software or OS version.</li>
+        <li><b>Serial numbers</b> of the camera body or lens on many dedicated cameras, which can link photos to the same device.</li>
+        <li><b>A thumbnail</b>: a small preview copy of the photo. Some editors don’t update it, so it can still show the uncropped original.</li>
+        <li><b>Names and notes:</b> author, copyright, captions, keywords and comments added by you or by an app.</li>
+        <li><b>Extra data:</b> some phones attach depth maps, HDR data or a short motion clip to the file.</li>
+      </ul>
+      <p>When you share photos, some websites and apps strip metadata and some don’t, and what they do can change over time or differ between uploading a photo and sending it as a file. Email attachments, cloud-storage share links and files copied to a USB stick keep the file exactly as it is. Removing the metadata yourself is the only way to be sure.</p>
+
+      <!-- @include ad-content -->
+
+      <h2>What this tool removes and keeps</h2>
+      <p>It removes everything above: EXIF (including GPS, dates, camera and serial numbers, maker notes and thumbnails), XMP, IPTC, comments, PNG text and time chunks, embedded extra images, and any data stuck on after the end of the image.</p>
+      <p>It keeps two things, on purpose:</p>
+      <ul>
+        <li><b>Orientation.</b> Phones often save a portrait photo sideways with a note saying “rotate 90°”. If that note were removed, the photo would show up sideways. So when a photo isn’t stored upright, the clean copy gets a tiny EXIF block holding only the rotation and nothing else.</li>
+        <li><b>The colour profile</b>, which tells screens how to show the colours. Without it, photos from newer phones can look duller than they should.</li>
+      </ul>
+      <p>For JPG, PNG and WebP the image data is copied byte for byte: nothing is decoded or re-compressed, so quality is identical and the file only gets smaller by the size of the metadata. HEIC photos (the iPhone default) work differently: they are converted to a new JPG at high quality, which doesn’t carry any of the original metadata, with the rotation applied to the pixels.</p>
+      <p>The tool doesn’t touch what is <em>in</em> the picture. A street sign, a house number or a reflection can still reveal a location, so look at the photo itself too.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Does this reduce quality?</summary><p>No, not for JPG, PNG or WebP. The image data is copied exactly; only the metadata blocks around it are removed. HEIC photos are the exception: they are converted to a new JPG at high quality (92), which is a re-encode.</p></details>
+        <details><summary>Are my photos uploaded?</summary><p>No. The photos are read and cleaned inside your browser, and the clean copies are saved straight back to your device. The page keeps working with your Wi-Fi turned off once it has loaded.</p></details>
+        <details><summary>Why is the clean photo not rotated wrongly?</summary><p>Because the orientation setting is kept. If the original says “rotate 90°”, the clean copy carries a tiny EXIF block containing only that instruction, with no location, dates or device details.</p></details>
+        <details><summary>How do I stop my phone recording location in the first place?</summary><p>On iPhone, go to Settings → Privacy & Security → Location Services → Camera and choose Never. On Android, open the Camera app’s settings and turn off location tags (the wording varies by phone). Photos you already took keep their location until you remove it.</p></details>
+        <details><summary>Why doesn’t it show anything for some photos?</summary><p>Screenshots, images downloaded from websites and photos that were already cleaned often have no metadata. The card then says the file was already clean, and you can still download it.</p></details>
+      </div>
+      <!-- @related -->
+
+      <!-- @include affiliate-image -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/remove-metadata.js"></script>
+</body>
+</html>
