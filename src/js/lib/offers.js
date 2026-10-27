@@ -66,6 +66,29 @@ export function pickOffer(tool, r, affiliates = {}) {
       'Compare high-yield savings');
   }
 
+  if (tool === 'emergency') {
+    // Emergency fund: only once there's a gap to fill or money already set aside.
+    if (!(r.gap > 0) && !(r.saved > 0)) return null;
+    return make('HIGH_YIELD_SAVINGS', r.gap > 0 ? `Building a ${usd(r.target)} cushion?` : `Your ${usd(r.saved)} emergency fund`,
+      'Emergency money needs to be easy to reach. A high-yield savings account keeps it available while it earns interest — compare the current APY, minimums and withdrawal rules.',
+      'Compare high-yield savings');
+  }
+
+  if (tool === 'budget') {
+    // 50/30/20 budget: overspending -> cut bills; money left over or being saved -> earn on it.
+    if (!(r.income > 0)) return null;
+    if (r.leftover < 0) {
+      return make('BILL_NEGOTIATION', `You're ${usd(-r.leftover)} a month over`,
+        'A bill-cutting service can negotiate bills like phone and internet and cancel subscriptions you no longer use.',
+        'See bill-cutting services');
+    }
+    const toSave = (r.savings > 0 ? r.savings : 0) + (r.leftover > 0 ? r.leftover : 0);
+    if (!(toSave > 0)) return null;
+    return make('HIGH_YIELD_SAVINGS', `Put ${usd(toSave)} a month to work`,
+      'Money you save or have left over can earn interest in a high-yield savings account. Rates change, so check the current APY and any minimums.',
+      'Compare high-yield savings');
+  }
+
   if (tool === 'subscriptions') {
     if (!r.found?.length) return null;
     if (r.saving > 0) {

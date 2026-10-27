@@ -1,0 +1,32 @@
+/* Budget (50/30/20) and emergency fund calculators. */
+.ratio3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.sample-note { margin: 0; padding: 10px 12px; border-radius: 10px; background: var(--ember-soft); color: var(--ink); font-size: .86rem; }
+.sample-note[hidden] { display: none; }
+.linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--ember); text-decoration: underline; cursor: pointer; }
+.bgroup { display: grid; gap: 8px; padding: 12px; border: 1px solid var(--line); border-radius: 10px; margin: 0; min-width: 0; }
+.bgroup legend { padding: 0 6px; font-weight: 650; color: var(--ink); }
+.bgroup legend .gsum { font-family: var(--mono); font-weight: 600; color: var(--ink-2); margin-left: 6px; }
+.bgroup .add { justify-self: start; }
+.bline { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 88px) auto; gap: 6px; align-items: center; }
+#calc .bline input { font: inherit; font-size: .95rem; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; }
+#calc .bline .bamt { font-family: var(--mono); text-align: right; }
+
+.bbars { display: grid; gap: 12px; }
+.bbar-head { display: flex; justify-content: space-between; font-size: .88rem; color: var(--ink-2); margin-bottom: 4px; }
+.bbar-head b { color: var(--ink); font-family: var(--mono); }
+.bbar-track { position: relative; height: 14px; border-radius: 7px; background: var(--surface-2); border: 1px solid var(--line); }
+.bbar-track i { position: absolute; inset: 0 auto 0 0; border-radius: 7px; background: var(--ember); transition: width .15s; }
+.bbar.wants .bbar-track i { background: var(--warn); }
+.bbar.savings .bbar-track i { background: var(--ok); }
+.bbar-track s { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; background: var(--ink); border-radius: 1px; }
+.legend .tick-key { width: 2px !important; height: 12px !important; background: var(--ink); }
+.bnotes { margin: 12px 0 0; padding-left: 1.2em; display: grid; gap: 4px; font-size: .92rem; }
+#ef-link { margin-top: 12px; }
+/* Phones: drop the columns the rest of the page already shows (share is in the bars, the date is
+   in the summary) and let cells wrap, so the tables fit 390px without sideways scrolling. */
+@media (max-width: 520px) {
+  #table.btable, #table.etable { font-size: .8rem; }
+  #table.btable th, #table.btable td, #table.etable th, #table.etable td { padding: 6px 5px; white-space: normal; }
+  #table.btable th:nth-child(3), #table.btable td:nth-child(3) { display: none; }
+  #table.etable th:nth-child(2), #table.etable td:nth-child(2) { display: none; }
+}
