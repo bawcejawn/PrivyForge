@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Organize PDF — Rotate, Reorder &amp; Delete Pages | PrivyForge</title>
+  <meta name="description" content="Rotate, reorder and delete PDF pages in one place, then save. Runs in your browser: the PDF is never uploaded and pages are not re-compressed. Free." />
+  <link rel="canonical" href="{{SITE_URL}}/organize-pdf/" />
+  <meta property="og:title" content="Organize PDF — Rotate, Reorder and Delete Pages Privately" />
+  <meta property="og:description" content="Fix sideways scans, put pages in order and drop blank ones without sending your PDF anywhere." />
+  <meta property="og:url" content="{{SITE_URL}}/organize-pdf/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Organize PDF","url":"{{SITE_URL}}/organize-pdf/","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Organize PDF","item":"{{SITE_URL}}/organize-pdf/"}]}
+  ]}
+  </script>
+</head>
+<body data-tool="organize-pdf">
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/pdf-tools/">PDF tools</a> › Organize PDF</nav>
+    <section class="hero">
+      <h1>Rotate, reorder and delete PDF pages</h1>
+      <p class="lede">Fix sideways scans, put pages in the right order and drop the ones you don't need, all in one place and all inside your browser.</p>
+      <!-- @include privacy-pills -->
+    </section>
+
+    <section class="tool" aria-label="Organize PDF tool">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a PDF to organize">
+        <strong>Drop a PDF here or click to choose</strong>
+        <small>One file to start · you can add more pages after</small>
+        <input type="file" />
+      </div>
+
+      <div id="editor" hidden>
+        <div class="org-bar" role="group" aria-label="All pages">
+          <button type="button" class="btn ghost sm" id="rot-left" aria-label="Rotate all pages left">↺ Rotate all</button>
+          <button type="button" class="btn ghost sm" id="rot-right" aria-label="Rotate all pages right">↻ Rotate all</button>
+          <form class="org-del-form" id="del-form">
+            <label for="del-range">Delete pages</label>
+            <input id="del-range" inputmode="numeric" autocomplete="off" placeholder="e.g. 3-5, 9" />
+            <button type="submit" class="btn ghost sm">Delete</button>
+          </form>
+          <button type="button" class="btn ghost sm" id="reset">Reset</button>
+          <button type="button" class="btn ghost sm" id="add">+ Add another PDF</button>
+          <input type="file" id="add-input" accept="application/pdf,.pdf" multiple hidden />
+          <span class="org-spacer"></span>
+          <button type="button" class="btn sm org-save" id="save">Save PDF</button>
+        </div>
+        <p class="org-info" id="info"></p>
+        <p class="status org-status" id="status" role="status"></p>
+        <p class="org-hint">Drag a page to move it, or focus it and press Alt + ← / →. Page numbers are the original ones, so "Delete pages" always means the numbers you see on the cards.</p>
+        <ul class="org-grid" id="grid" aria-label="Pages"></ul>
+        <div class="row-actions">
+          <button type="button" class="btn org-save" id="save2">Save PDF</button>
+          <button type="button" class="btn ghost" id="another">Choose a different PDF</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to organize a PDF</h2>
+      <ol>
+        <li><b>Open your PDF.</b> Drop it on the box or click to choose it. Every page appears as a small card, numbered as in the original. Long documents load quickly because thumbnails are drawn only as you scroll to them.</li>
+        <li><b>Rotate pages.</b> Use ↺ and ↻ on a card to turn that page a quarter turn left or right. Click twice to turn a page upside down the right way. "Rotate all" turns every page at once.</li>
+        <li><b>Put them in order.</b> Drag a card to where it belongs, or use the ‹ and › buttons on the card. With the keyboard, focus a card and press Alt + ← or Alt + →.</li>
+        <li><b>Delete pages.</b> Click ✕ on a card. The page is greyed out, not gone, so you can click Undo to keep it after all. To remove several at once, type them in <i>Delete pages</i>, for example <code>3-5, 9</code>, or <code>12-</code> for page 12 to the end.</li>
+        <li><b>Click "Save PDF".</b> You get <code>yourfile-organized.pdf</code>. Your original file is not changed.</li>
+      </ol>
+      <p>Need pages from a second file? Click <i>+ Add another PDF</i>. Its pages are added at the end, numbered after the first file's pages, and you can then move them anywhere.</p>
+
+      <h2>Worked example: fixing a scanned document</h2>
+      <p>You scanned a 10-page contract through a sheet feeder. Three things went wrong: pages 3 and 7 went in upside down, the cover sheet was fed in last so it ended up as page 9, and the scanner added a blank page 10 at the end.</p>
+      <ol>
+        <li>On the cards for pages 3 and 7, click ↻ twice each. They now show 180° and appear the right way up.</li>
+        <li>Drag card 9 to the front, before card 1 (or focus it and press Alt + ← eight times).</li>
+        <li>Click ✕ on card 10, or type <code>10</code> in <i>Delete pages</i>.</li>
+        <li>The summary reads <i>9 of 10 pages kept · 1 deleted · 2 rotated · reordered</i>. Click "Save PDF".</li>
+      </ol>
+      <p>The saved file has 9 pages in this order: 9, 1, 2, 3, 4, 5, 6, 7, 8. Pages 3 and 7 now open the right way up in any PDF reader, and the blank page is gone.</p>
+
+      <h2>What changes in your file (and what doesn't)</h2>
+      <p>Rotating a page doesn't redraw it. Every PDF page has a rotation setting that tells readers how to display it, and this tool only changes that number, to 0°, 90°, 180° or 270°. If a page was already stored with a rotation, your turn is added to it. Reordering and deleting simply change which pages go into the new file and in what order.</p>
+      <p>The pages themselves are copied exactly: text stays selectable and searchable, and images keep their original quality because nothing is re-rendered or re-compressed. Deleted pages are left out of the new file entirely, along with anything only they used.</p>
+      <p>Like <a href="/split-pdf/">Split PDF</a>, this builds a new document from your pages, so document-level extras such as bookmarks, fillable form fields and existing digital signatures may not carry over. The thumbnails are only previews; they are never used for the saved file.</p>
+
+      <!-- @include ad-content -->
+
+      <h2>Private by design</h2>
+      <p>The PDF is read, previewed and saved inside your browser with <a href="https://mozilla.github.io/pdf.js/" rel="noopener">pdf.js</a> and <a href="https://pdf-lib.js.org/" rel="noopener">pdf-lib</a>. Nothing is uploaded, there are no page or file limits, and once the page has loaded you can turn off Wi-Fi and it keeps working. To combine whole files in a set order, <a href="/merge-pdf/">Merge PDF</a> is quicker; to shrink the result, use <a href="/compress-pdf/">Compress PDF</a>.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Does rotating reduce quality?</summary><p>No. Rotating sets the page's rotation property; the page content isn't redrawn or re-compressed, so text and images are exactly as they were.</p></details>
+        <details><summary>Is my PDF uploaded?</summary><p>No. The file is opened, previewed and saved inside your browser. You can disconnect from the internet after the page loads and it still works.</p></details>
+        <details><summary>Can I undo a deleted page?</summary><p>Yes. Deleted pages stay on screen, greyed out, until you save. Click Undo on the card to keep the page, or Reset to go back to the original order, rotation and pages.</p></details>
+        <details><summary>How do I delete several pages at once?</summary><p>Type them in "Delete pages" using the numbers on the cards, separated by commas: <code>3-5, 9</code> deletes pages 3, 4, 5 and 9, and <code>12-</code> deletes page 12 to the end.</p></details>
+        <details><summary>Can I open a password-protected PDF?</summary><p>Not yet. Open it in your PDF reader, save a copy without the password, then organize that copy.</p></details>
+        <details><summary>Will it work on a very long PDF?</summary><p>Yes. Thumbnails are drawn only for the pages near your screen, so a document with hundreds of pages stays responsive. Saving takes longer on a slower device.</p></details>
+      </div>
+      <!-- @related -->
+      <!-- @include affiliate-pdf -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/organize-pdf.js"></script>
+</body>
+</html>

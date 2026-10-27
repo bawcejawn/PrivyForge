@@ -1,0 +1,43 @@
+/* Organize PDF. Built on main.css tokens. */
+[hidden] { display: none !important; }
+.org-bar { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; }
+.org-bar .btn { white-space: nowrap; }
+.org-del-form { display: flex; gap: 6px; align-items: center; flex: 1 1 260px; min-width: 0; }
+.org-del-form label { font-size: .88rem; color: var(--ink-2); white-space: nowrap; }
+.org-del-form input { flex: 1 1 90px; width: 6em; min-width: 0; font: inherit; font-size: .95rem; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+.org-spacer { flex: 1 1 0; }
+.org-info { margin: 12px 2px 0; font-size: .88rem; color: var(--ink-2); font-family: var(--mono); overflow-wrap: anywhere; }
+.org-status { display: block; min-height: 1.4em; margin: 6px 2px 0; }
+.org-hint { font-size: .82rem; color: var(--ink-2); margin: 4px 2px 0; }
+
+.org-grid { list-style: none; margin: 12px 0 0; padding: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px;
+  background: var(--surface-2); border-radius: 12px; }
+.org-card { position: relative; display: grid; gap: 4px; padding: 8px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); cursor: grab; outline-offset: 2px; }
+.org-card:focus-visible { outline: 3px solid var(--ember); }
+.org-card.dragging { opacity: .4; }
+.org-thumb { position: relative; aspect-ratio: 1; display: grid; place-items: center; overflow: hidden; border-radius: 6px; background: var(--bg); }
+.org-thumb canvas { display: block; max-width: 90%; max-height: 90%; width: auto; height: auto; background: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / .2); transform: rotate(var(--r, 0deg)); transition: transform .2s ease; }
+@media (prefers-reduced-motion: reduce) { .org-thumb canvas { transition: none; } }
+.org-gone { position: absolute; inset: 0; display: none; place-items: center; font: 700 .85rem var(--font); color: var(--ink);
+  background: repeating-linear-gradient(135deg, rgb(0 0 0 / .08) 0 8px, transparent 8px 16px); }
+.org-card.deleted { border-style: dashed; }
+.org-card.deleted canvas { opacity: .25; }
+.org-card.deleted .org-gone { display: grid; }
+.org-row { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+.org-no { flex: 1; text-align: center; font: 600 .85rem var(--mono); color: var(--ink); white-space: nowrap; }
+.org-btn { min-width: 32px; height: 32px; padding: 0 6px; font: inherit; font-size: 1.05rem; line-height: 1; color: var(--ink); background: var(--surface-2);
+  border: 1px solid transparent; border-radius: 7px; cursor: pointer; }
+.org-btn:hover:not(:disabled) { border-color: var(--line); background: var(--bg); }
+.org-btn:focus-visible { outline: 2px solid var(--ember); outline-offset: 1px; }
+.org-btn:disabled { opacity: .35; cursor: default; }
+.org-row .org-btn[data-act="left"], .org-row .org-btn[data-act="right"], .org-row .org-del { flex: 1; }
+.org-del[aria-pressed="true"] { background: var(--ember); color: var(--ember-ink); font-size: .78rem; font-weight: 700; }
+.org-card, .org-btn { -webkit-tap-highlight-color: transparent; }
+
+@media (max-width: 640px) {
+  .org-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 8px; gap: 8px; margin-left: -8px; margin-right: -8px; }
+  .org-bar .btn.sm { padding: 6px 10px; }
+  .org-spacer { display: none; }
+  .org-del-form { flex-basis: 100%; }
+}
