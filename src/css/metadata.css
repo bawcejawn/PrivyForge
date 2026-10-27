@@ -1,0 +1,28 @@
+/* Remove Photo Location & Metadata (/remove-photo-metadata/) */
+.mcards { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; }
+.mcard { border: 1px solid var(--line); border-radius: 12px; background: var(--bg); padding: 12px; min-width: 0; }
+.mcard-err { border-color: var(--err); }
+.mcard-head { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+.mthumb { width: 56px; height: 56px; border-radius: 8px; overflow: hidden; background: var(--surface-2); display: grid; place-items: center; font-size: .7rem; font-weight: 700; color: var(--ink-2); }
+.mthumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mcard .name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.msize { font-size: .85rem; color: var(--ink-2); font-family: var(--mono); overflow-wrap: anywhere; }
+.msize .save { color: var(--ok); font-weight: 700; }
+.mcard-body { margin-top: 10px; font-size: .92rem; line-height: 1.45; overflow-wrap: anywhere; }
+.mcard-body:empty { display: none; }
+.mcard-body p { margin: 0 0 6px; }
+.mfound-h { font-weight: 650; }
+.mfound { list-style: none; margin: 0 0 6px; padding: 0; display: grid; gap: 4px; }
+.mfound li { padding: 5px 10px; border-radius: 8px; background: var(--surface-2); }
+.mfound .mf-location { background: var(--ember-soft); border-left: 4px solid var(--warn); color: var(--ink); }
+.mfound .mf-location b { color: var(--warn); }
+.mfound .mf-personal b { color: var(--ink); }
+.mfound .mf-info { color: var(--ink-2); }
+.mf-why { color: var(--ink-2); }
+.mkept { color: var(--ok); font-size: .88rem; }
+@media (max-width: 520px) {
+  .mcard-head { grid-template-columns: 48px minmax(0, 1fr); }
+  .mthumb { width: 48px; height: 48px; }
+  .mcard-head .act { grid-column: 1 / -1; }
+  .mcard-head .act .btn { width: 100%; justify-content: center; }
+}
