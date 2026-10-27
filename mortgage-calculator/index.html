@@ -56,6 +56,30 @@
     <!-- @include ad-below-tool -->
 
     <article class="content narrow">
+      <h2>How to use the mortgage calculator</h2>
+      <ol>
+        <li><b>Enter the home price and your down payment.</b> Type the down payment in dollars or as a percentage; the other box updates to match.</li>
+        <li><b>Add the rate and term.</b> Use the rate from a lender quote if you have one. Most US mortgages are 30 or 15 years.</li>
+        <li><b>Fill in the costs lenders usually collect with your payment:</b> yearly property tax, yearly homeowners insurance, monthly HOA dues and, if you're putting down less than 20%, a PMI rate.</li>
+        <li><b>Optionally add extra principal</b> to see how much interest you'd save and how much sooner you'd be done.</li>
+        <li><b>Read the results:</b> the full monthly payment broken into parts, total interest, payoff date, a chart, and a year-by-year (or month-by-month) amortization schedule you can download as a CSV.</li>
+      </ol>
+
+      <h2>Worked example: 20% down vs 10% down</h2>
+      <p>Take a <b>$450,000 home</b> with a 30-year loan at <b>6.5%</b>, property tax of $5,400 a year ($450 a month) and insurance of $1,800 a year ($150 a month).</p>
+      <div class="table-scroll" style="max-height:none"><table class="debt-table">
+        <thead><tr><th></th><th>20% down ($90,000)</th><th>10% down ($45,000)</th></tr></thead>
+        <tbody>
+          <tr><td>Loan amount</td><td>$360,000</td><td>$405,000</td></tr>
+          <tr><td>Principal &amp; interest</td><td>$2,275.44</td><td>$2,559.88</td></tr>
+          <tr><td>Tax + insurance</td><td>$600.00</td><td>$600.00</td></tr>
+          <tr><td>PMI (example rate 0.5%/yr)</td><td>none</td><td>$168.75</td></tr>
+          <tr><td><b>Monthly payment</b></td><td><b>$2,875.44</b></td><td><b>$3,328.63</b></td></tr>
+        </tbody>
+      </table></div>
+      <p>The smaller down payment costs $453.19 more a month at first. PMI drops off once the balance reaches 78% of the original price ($351,000), which in this example happens after payment 109, about nine years in, if you make only the regular payments. PMI rates vary with your credit score and down payment, so use the rate from your lender's quote.</p>
+      <p>On the 20%-down loan, total interest over 30 years comes to $459,164.00. Adding $250 a month of extra principal saves $127,718.69 of that and pays the loan off about seven years early. See <a href="/blog/extra-mortgage-payments/">How Much Do Extra Mortgage Payments Really Save?</a> for more scenarios.</p>
+
       <h2>How this mortgage calculator works</h2>
       <p>Your monthly principal and interest (P&amp;I) uses the standard fixed-rate formula: <code>M = P × r / (1 − (1 + r)<sup>−n</sup>)</code>, where <i>P</i> is the loan amount, <i>r</i> is the monthly interest rate and <i>n</i> is the number of payments. Property tax, homeowners insurance and HOA dues are added on top, because most lenders collect taxes and insurance through escrow.</p>
       <h3>PMI</h3>
@@ -67,6 +91,8 @@
       <div class="faq">
         <details><summary>What's included in "monthly payment"?</summary><p>Principal and interest, plus your extra payment, property tax, insurance, HOA and PMI (if any). The KPI cards break each part out.</p></details>
         <details><summary>Is a 15-year or 30-year mortgage better?</summary><p>A 15-year loan has a higher monthly payment but typically a lower rate and far less total interest. A 30-year keeps payments lower and flexible. Try both terms above, or keep the 30-year and add an extra payment to see a middle path.</p></details>
+        <details><summary>How much of my income should go to the mortgage?</summary><p>A common lender guideline is the 28/36 rule: housing costs up to about 28% of gross monthly income, and all debt payments up to about 36%. Lenders' actual limits vary by loan type, and a payment that fits a guideline can still be tight for your budget. The <a href="/budget-calculator/">budget calculator</a> shows how it fits with everything else.</p></details>
+        <details><summary>What's the difference between the interest rate and the APR?</summary><p>The interest rate sets your monthly payment. The APR also folds in certain lender fees and points, so it's the better number for comparing loan offers. This calculator uses the interest rate.</p></details>
         <details><summary>Is my data saved or sent anywhere?</summary><p>No. All calculations run in your browser. Your numbers only appear in the page URL so you can bookmark or share a scenario.</p></details>
         <details><summary>Is this financial advice?</summary><p>No. These are estimates for planning. Your lender's Loan Estimate will show exact figures.</p></details>
       </div>
