@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head -->
+  <title>Budget Calculator (50/30/20 Rule) | PrivyForge</title>
+  <meta name="description" content="Split your take-home pay into needs, wants and savings and compare it with the 50/30/20 rule — or 60/20/20, 70/20/10. Private: runs in your browser." />
+  <link rel="canonical" href="{{SITE_URL}}/budget-calculator/" />
+  <meta property="og:title" content="Budget Calculator: Check Your Spending Against 50/30/20" />
+  <meta property="og:description" content="See where your money goes, how it compares with the 50/30/20 rule, and what's left over." />
+  <meta property="og:url" content="{{SITE_URL}}/budget-calculator/" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebApplication","name":"PrivyForge Budget Calculator (50/30/20)","url":"{{SITE_URL}}/budget-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Any (runs in your browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{SITE_URL}}/"},{"@type":"ListItem","position":2,"name":"Budget Calculator","item":"{{SITE_URL}}/budget-calculator/"}]}
+  ]}
+  </script>
+</head>
+<body>
+  <!-- @include header -->
+  <main class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Budget Calculator</nav>
+    <section class="hero">
+      <h1>Budget calculator (50/30/20)</h1>
+      <p class="lede">List what you spend each month and see how your take-home pay splits between needs, wants and savings — compared with the 50/30/20 rule or a split you choose.</p>
+      <ul class="pills"><li class="pill">🔒 Your numbers never leave your device</li><li class="pill">✓ No sign-up</li><li class="pill neutral">50/30/20, 60/20/20, 70/20/10 or your own</li></ul>
+    </section>
+
+    <section class="tool grid-2" aria-label="Budget calculator">
+      <form class="form-stack" id="calc" onsubmit="return false">
+        <label class="field">Monthly take-home pay ($)<input id="income" inputmode="decimal" autocomplete="off" /></label>
+        <fieldset class="calc-sub">
+          <legend>Guideline</legend>
+          <label class="field">Rule
+            <select id="preset"><option value="50/30/20">50/30/20</option><option value="60/20/20">60/20/20</option><option value="70/20/10">70/20/10</option><option value="custom">Custom</option></select>
+          </label>
+          <div class="ratio3">
+            <label class="field">Needs %<input id="r-needs" inputmode="decimal" /></label>
+            <label class="field">Wants %<input id="r-wants" inputmode="decimal" /></label>
+            <label class="field">Savings %<input id="r-savings" inputmode="decimal" /></label>
+          </div>
+        </fieldset>
+        <p class="sample-note" id="sample-note"><b>Sample numbers.</b> Replace them with your own, remove lines with ✕, or <button type="button" class="linkish" id="clear">clear all amounts</button>.</p>
+
+        <fieldset class="bgroup" data-group="needs">
+          <legend>Needs <b class="gsum"></b></legend>
+          <p class="calc-note">Bills you'd still have to pay if you cut back: housing, utilities, groceries, insurance, getting to work, minimum debt payments.</p>
+          <div class="lines"></div>
+          <button type="button" class="btn ghost sm add">+ Add a need</button>
+        </fieldset>
+        <fieldset class="bgroup" data-group="wants">
+          <legend>Wants <b class="gsum"></b></legend>
+          <p class="calc-note">Things you choose: eating out, streaming, shopping, hobbies. Not sure what you pay for? <a href="/subscription-finder/">Find forgotten subscriptions</a> in a bank CSV.</p>
+          <div class="lines"></div>
+          <button type="button" class="btn ghost sm add">+ Add a want</button>
+        </fieldset>
+        <fieldset class="bgroup" data-group="savings">
+          <legend>Savings &amp; debt <b class="gsum"></b></legend>
+          <p class="calc-note">Money set aside — savings, retirement, an emergency fund — and anything you pay on debt above the minimum.</p>
+          <div class="lines"></div>
+          <button type="button" class="btn ghost sm add">+ Add savings or debt</button>
+        </fieldset>
+      </form>
+      <div>
+        <div class="summary" id="verdict" style="margin-top:0" aria-live="polite"></div>
+        <div class="kpis" id="kpis" style="margin-top:12px"></div>
+        <h3 class="calc-h3">Your split vs the guideline</h3>
+        <div class="bbars" id="bars" role="img"></div>
+        <div class="legend"><span>Bar = your share of take-home pay</span><span><i class="tick-key"></i>Guideline</span></div>
+        <div class="table-scroll" style="max-height:none;margin-top:12px"><table class="compare-table btable" id="table"></table></div>
+        <ul class="bnotes" id="notes"></ul>
+        <div class="offer" id="offer" hidden></div>
+        <p class="calc-note" id="ef-link"></p>
+      </div>
+    </section>
+
+    <!-- @include ad-below-tool -->
+
+    <article class="content narrow">
+      <h2>How to use the budget calculator</h2>
+      <ol>
+        <li><b>Enter your monthly take-home pay</b> — what lands in your account after tax and payroll deductions. If you're paid every two weeks, multiply one paycheck by 26 and divide by 12.</li>
+        <li><b>Replace the sample lines</b> with your own amounts. Rename any line, remove it with ✕, or add more with the "+ Add" buttons. Use monthly amounts: divide a yearly bill by 12.</li>
+        <li><b>Pick a guideline.</b> 50/30/20 is the default. Switch to 60/20/20 or 70/20/10, or type your own percentages.</li>
+        <li><b>Read the result.</b> The bars show your share of take-home pay for each group, with a tick at the guideline. The notes spell out the gaps in dollars, and the top line shows what's left over or how much you're overspending.</li>
+      </ol>
+      <p>Everything you type is kept in the page's link, so you can bookmark it or save it as a scenario on <a href="/my/">My PrivyForge</a> and come back to it next month.</p>
+
+      <h2>What the 50/30/20 rule says</h2>
+      <p>The 50/30/20 rule is a simple way to split take-home pay into three buckets:</p>
+      <ul>
+        <li><b>50% for needs</b> — the things you must pay to live and work: rent or mortgage, utilities, groceries, insurance, transport and the minimum payments on your debts.</li>
+        <li><b>30% for wants</b> — everything you could cut without real hardship: restaurants, streaming and other subscriptions, travel, shopping beyond the basics.</li>
+        <li><b>20% for savings and debt</b> — building savings and paying down debt faster than the minimum.</li>
+      </ul>
+      <p>It's a rule of thumb, not a law. Where housing is expensive, needs can easily take more than half of take-home pay, which is why some people use <b>60/20/20</b> or <b>70/20/10</b> instead. The useful part is less the exact numbers and more the habit of checking where the money goes and deciding on purpose.</p>
+
+      <h2>Worked example</h2>
+      <p>The sample budget assumes <b>$5,000 a month</b> of take-home pay. Needs add up to <b>$2,950</b> (rent $1,600, utilities $180, groceries $450, insurance $220, transport $350, minimum debt payments $150). Wants are <b>$635</b> (dining out $300, subscriptions $85, shopping $250). Savings and extra debt payments are <b>$600</b>.</p>
+      <p>Against 50/30/20 the calculator reports:</p>
+      <ul>
+        <li>Needs are <b>59%</b> of take-home; the guideline is 50%. That's $450 a month over.</li>
+        <li>Wants are <b>12.7%</b>; the guideline is 30% — $865 under.</li>
+        <li>Savings &amp; debt are <b>12%</b>; the guideline is 20% — $400 under.</li>
+        <li><b>$815 a month</b> isn't assigned to anything. Sending it to savings would bring Savings &amp; debt to <b>28.3%</b>.</li>
+      </ul>
+      <p>Switch the guideline to 60/20/20 and needs are now $50 <i>under</i> the guideline, which may be a fairer target in a high-rent city. Now raise rent to $2,200, dining out to $500 and shopping to $600: needs jump to 71%, wants to 23.7%, and the calculator warns that you're spending <b>$335 a month more than you take home</b>.</p>
+
+      <!-- @include ad-content -->
+
+      <h2>Needs or wants? Some judgement calls</h2>
+      <p>Groceries are a need; the premium brand might be a want. A car payment you can't get out of is a need; the upgrade you're considering is a want. Minimum payments on debt are needs, because missing them has real consequences — anything above the minimum counts as savings and debt, because it's a choice that improves your future. When you're unsure, ask: would I still pay this if I lost my job tomorrow? If yes, it's probably a need.</p>
+      <p>The calculator adds amounts to the cent and shows percentages to one decimal place. Once your needs are known, the <a href="/emergency-fund-calculator/">emergency fund calculator</a> can use them to size a safety cushion, and the <a href="/compound-interest-calculator/">compound interest calculator</a> shows what your monthly savings could grow to.</p>
+
+      <p class="status"><b>Not financial advice.</b> The 50/30/20 split is a common rule of thumb, not a personal recommendation; your situation may call for different numbers.</p>
+
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Should I use take-home pay or gross salary?</summary><p>Take-home pay — the amount that actually reaches your bank account after tax and payroll deductions. The 50/30/20 rule is usually described in terms of after-tax income. If you have retirement contributions taken from your paycheck, you can add them back as a savings line and to your take-home pay so they count.</p></details>
+        <details><summary>What if my needs are well over 50%?</summary><p>That's common where rent is high. Try the 60/20/20 or 70/20/10 guideline, look for the biggest need you can realistically lower, and check the wants column for money to move. The point is to see the trade-offs clearly, not to hit a number exactly.</p></details>
+        <details><summary>Where do debt payments go?</summary><p>Minimum payments are needs. Anything you pay above the minimum goes under savings and debt, because it's money you're choosing to put toward your future.</p></details>
+        <details><summary>Is my budget stored anywhere?</summary><p>Only in this page's link in your browser, so you can bookmark it. Nothing you type is sent to a server. If you save it as a scenario, it's kept in your browser's local storage on this device.</p></details>
+        <details><summary>Is this financial advice?</summary><p>No. It's a calculator that compares your numbers with a common rule of thumb. For advice about your situation, talk to a qualified professional.</p></details>
+      </div>
+      <!-- @related -->
+      <!-- @include affiliate-savings -->
+    </article>
+  </main>
+  <!-- @include footer -->
+  <script type="module" src="/src/js/budget.js"></script>
+</body>
+</html>
