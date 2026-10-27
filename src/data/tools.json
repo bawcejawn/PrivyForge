@@ -78,6 +78,24 @@
     "featured": false
   },
   {
+    "slug": "remove-photo-metadata",
+    "href": "/remove-photo-metadata/",
+    "title": "Remove Photo Metadata",
+    "blurb": "Strip GPS location and camera data before you share.",
+    "category": "Image",
+    "keywords": [
+      "remove exif data",
+      "remove location from photo",
+      "remove metadata from photo",
+      "exif remover",
+      "gps",
+      "strip metadata",
+      "photo privacy"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
     "slug": "compress-image-to-100kb",
     "href": "/compress-image-to-100kb/",
     "title": "Compress Image to 100 KB",
@@ -161,6 +179,22 @@
       "split",
       "extract pages",
       "separate"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
+    "slug": "organize-pdf",
+    "href": "/organize-pdf/",
+    "title": "Organize PDF",
+    "blurb": "Rotate, reorder and delete pages in one place.",
+    "category": "PDF",
+    "keywords": [
+      "rotate pdf",
+      "reorder pdf pages",
+      "delete pages from pdf",
+      "organize pdf",
+      "rearrange pdf"
     ],
     "enabled": true,
     "featured": false
@@ -433,6 +467,37 @@
       "savings calculator",
       "apy",
       "high yield savings",
+      "savings goal"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
+    "slug": "budget-calculator",
+    "href": "/budget-calculator/",
+    "title": "Budget Calculator (50/30/20)",
+    "blurb": "See where your money goes with the 50/30/20 rule.",
+    "category": "Save money",
+    "keywords": [
+      "budget",
+      "50/30/20",
+      "budget calculator",
+      "needs wants savings",
+      "monthly budget"
+    ],
+    "enabled": true,
+    "featured": false
+  },
+  {
+    "slug": "emergency-fund-calculator",
+    "href": "/emergency-fund-calculator/",
+    "title": "Emergency Fund Calculator",
+    "blurb": "How much you need and how long it will take.",
+    "category": "Save money",
+    "keywords": [
+      "emergency fund",
+      "rainy day fund",
+      "3 to 6 months",
       "savings goal"
     ],
     "enabled": true,
