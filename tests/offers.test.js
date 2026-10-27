@@ -63,3 +63,23 @@ test('car: auto-loan offer only with a financed amount and rate', () => {
   assert.equal(o.key, 'AUTO_LOAN'); assert.match(o.body, /\$4,630/);
   assert.equal(pickOffer('car', { financed: 25000, apr: 6.9, totalInterest: 4630.2 }, {}), null);
 });
+
+test('emergency: high-yield savings when there is a gap or money already saved', () => {
+  assert.equal(pickOffer('emergency', { target: 0, saved: 0, gap: 0 }, ALL), null);
+  assert.equal(pickOffer('emergency', null, ALL), null);
+  const g = pickOffer('emergency', { target: 18000, saved: 4000, gap: 14000 }, ALL);
+  assert.equal(g.key, 'HIGH_YIELD_SAVINGS'); assert.match(g.title, /\$18,000 cushion/);
+  const f = pickOffer('emergency', { target: 12000, saved: 15000, gap: 0 }, ALL);
+  assert.equal(f.key, 'HIGH_YIELD_SAVINGS'); assert.match(f.title, /\$15,000 emergency fund/);
+  assert.equal(pickOffer('emergency', { target: 18000, saved: 4000, gap: 14000 }, {}), null);
+});
+
+test('budget: bill-cutting when overspent, savings when money is saved or left over', () => {
+  assert.equal(pickOffer('budget', { income: 0, leftover: -500, savings: 0 }, ALL), null);
+  const over = pickOffer('budget', { income: 3000, leftover: -200.5, savings: 100 }, ALL);
+  assert.equal(over.key, 'BILL_NEGOTIATION'); assert.match(over.title, /\$201 a month over/);
+  const s = pickOffer('budget', { income: 5000, leftover: 815, savings: 600 }, ALL);
+  assert.equal(s.key, 'HIGH_YIELD_SAVINGS'); assert.match(s.title, /\$1,415 a month/);
+  assert.equal(pickOffer('budget', { income: 5000, leftover: 0, savings: 0 }, ALL), null);
+  assert.equal(pickOffer('budget', { income: 3000, leftover: -10, savings: 0 }, { HIGH_YIELD_SAVINGS: ALL.HIGH_YIELD_SAVINGS }), null);
+});
